@@ -4,24 +4,17 @@ let menu;
 let template;
 let mainWindow = null;
 
-crashReporter.start();
-
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')();
 }
 
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
-});
-
-
-app.on('ready', () => {
+function createWindow() {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728
   });
+  mainWindow.maximize();
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);
 
@@ -237,4 +230,20 @@ app.on('ready', () => {
     menu = Menu.buildFromTemplate(template);
     mainWindow.setMenu(menu);
   }
+}
+
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit();
 });
+
+app.on('activate', () => {
+  // On OS X it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  if (mainWindow === null) {
+    createWindow();
+  }
+});
+
+
+app.on('ready', createWindow);

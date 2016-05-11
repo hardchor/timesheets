@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import counter from './counter';
+import job from './job';
 
 const rootReducer = combineReducers({
-  counter,
-  routing
+  routing,
+  job,
 });
 
 export default rootReducer;
