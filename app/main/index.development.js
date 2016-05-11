@@ -16,7 +16,7 @@ function createWindow() {
   });
   mainWindow.maximize();
 
-  mainWindow.loadURL(`file://${__dirname}/app/app.html`);
+  mainWindow.loadURL(`file://${__dirname}/../renderer/app.html`);
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();

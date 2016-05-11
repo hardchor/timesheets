@@ -6,7 +6,7 @@ export default {
 
   devtool: 'source-map',
 
-  entry: './main.development',
+  entry: './app/main/index.development',
 
   output: {
     path: __dirname,
