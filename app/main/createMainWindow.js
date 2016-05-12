@@ -1,19 +1,19 @@
-import { app, BrowserWindow, Menu, crashReporter, shell } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 
-let menu;
-let template;
-let mainWindow = null;
 
-if (process.env.NODE_ENV === 'development') {
-  require('electron-debug')();
-}
+export default function createWindow(store) {
+  let menu;
+  let template;
 
-function createWindow() {
-  mainWindow = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728
   });
+
+  // set main redux store
+  mainWindow.initialState = store.getState();
+
   mainWindow.maximize();
 
   mainWindow.loadURL(`file://${__dirname}/../renderer/app.html`);
@@ -21,10 +21,6 @@ function createWindow() {
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
     mainWindow.focus();
-  });
-
-  mainWindow.on('closed', () => {
-    mainWindow = null;
   });
 
   if (process.env.NODE_ENV === 'development') {
@@ -230,20 +226,6 @@ function createWindow() {
     menu = Menu.buildFromTemplate(template);
     mainWindow.setMenu(menu);
   }
+
+  return mainWindow;
 }
-
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
-});
-
-app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
-
-
-app.on('ready', createWindow);
