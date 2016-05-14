@@ -24,8 +24,8 @@ export default function github(state = initialState, action) {
 
       return {
         ...state,
-        repos: action.payload.map(repo => ({
-          fullName: repo.full_name,
+        repos: action.payload.map(({ full_name }) => ({
+          fullName: full_name,
         })),
       };
 
