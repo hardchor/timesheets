@@ -12,6 +12,7 @@ const aliases = {
 };
 
 const triggerAlias = store => next => action => {
+  // TODO: store.dispatch() instead to not skip any middleware
   if (
     action.meta &&
     action.meta.trigger
