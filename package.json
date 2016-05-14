@@ -110,6 +110,7 @@
     "react-router": "^2.2.4",
     "react-router-redux": "^4.0.2",
     "redux": "^3.4.0",
+    "redux-form": "^5.2.3",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.0.1",
     "source-map-support": "^0.4.0"

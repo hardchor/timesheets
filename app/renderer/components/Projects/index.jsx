@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import AddProjectForm from './AddProjectForm';
 
 function Projects({ addProject, project }) {
   function renderProject(data) {
@@ -11,10 +12,16 @@ function Projects({ addProject, project }) {
     );
   }
 
+  function onSubmit(data) {
+    addProject(data.name);
+  }
+
   return (
     <div>
       <Link to="/">back</Link>
       <h1>Projects</h1>
+
+      <AddProjectForm onSubmit={onSubmit} />
 
       <table>
         <thead>
@@ -34,7 +41,7 @@ function Projects({ addProject, project }) {
 
 Projects.propTypes = {
   addProject: PropTypes.func.isRequired,
-  project: PropTypes.object.isRequired
+  project: PropTypes.object.isRequired,
 };
 
 export default Projects;

@@ -13,7 +13,7 @@ import DevTools from '../../renderer/containers/DevTools';
 
 export default function configureStore(initialState, scope = 'main') {
   const logger = createLogger({
-    level: scope === 'main' ? 'console' : 'info',
+    level: scope === 'main' ? undefined : 'info',
     collapsed: true,
   });
   const router = routerMiddleware(hashHistory);
@@ -21,7 +21,7 @@ export default function configureStore(initialState, scope = 'main') {
   let middleware = [
     thunk,
     promise,
-    logger,
+    // logger,
   ];
 
   if (scope === 'renderer') {
@@ -29,7 +29,7 @@ export default function configureStore(initialState, scope = 'main') {
       forwardToMain,
       router,
       ...middleware,
-      // logger,
+      logger,
     ];
   }
   if (scope === 'main') {
