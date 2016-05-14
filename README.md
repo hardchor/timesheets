@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/hardchor/timesheets.png?label=ready&title=Ready)](https://waffle.io/hardchor/timesheets)
 # electron-react-boilerplate
 
 [![NPM version][npm-image]][npm-url]
