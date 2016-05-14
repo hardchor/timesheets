@@ -1,12 +1,40 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import config from '../../../config';
+import RepositoryList from './RepositoryList';
 
-function Github({ requestAuthenticateGithub, github }) {
+function Github({ requestAuthenticateGithub, requestGetGithubRepos, github }) {
+  const grantedScopes = new Set(github.scope);
+  const requiredScopes = config.github.scopes;
+  const diff = requiredScopes.filter(item => !grantedScopes.has(item));
+
+  const additionalScopesRequired = !!diff.length;
+  const authRequired = !github.accessToken;
+
   return (
     <div>
       <Link to="/">back</Link>
       <h1>Github</h1>
-      <button onClick={requestAuthenticateGithub}>Connect</button>
+
+      {additionalScopesRequired &&
+        <div>
+          <p>Additional permissions required</p>
+          <button onClick={requestAuthenticateGithub}>Grant</button>
+        </div>
+      }
+
+      {authRequired &&
+        <div>
+          <p>Log in with Github</p>
+          <button onClick={requestAuthenticateGithub}>Connect</button>
+        </div>
+      }
+
+      {!authRequired && !additionalScopesRequired &&
+        <div>
+          <RepositoryList requestGetGithubRepos={requestGetGithubRepos} github={github} />
+        </div>
+      }
     </div>
   );
 }

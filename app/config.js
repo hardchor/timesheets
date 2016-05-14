@@ -10,7 +10,10 @@ const config = {
   github: {
     clientId: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    scopes: ['user:email', 'notifications'] // Scopes limit access for OAuth tokens.
+    // Scopes limit access for OAuth tokens.
+    scopes: [
+      'repo',
+    ],
   }
 };
 

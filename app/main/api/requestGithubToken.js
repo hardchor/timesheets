@@ -6,7 +6,7 @@ import { status, text } from '../../shared/helpers/fetch';
 
 const { clientId, clientSecret } = config.github;
 
-export default async function requestGithubToken(code) {
+export default function requestGithubToken(code) {
   const form = new FormData();
   form.append('client_id', clientId);
   form.append('client_secret', clientSecret);
