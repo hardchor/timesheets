@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-// import { Link } from 'react-router';
+import { Link } from 'react-router';
 // import styles from './Jobs.css';
 
 function Jobs({ startJob, pauseJob, stopJob, job }) {
@@ -22,6 +22,7 @@ function Jobs({ startJob, pauseJob, stopJob, job }) {
 
   return (
     <div>
+      <Link to="/">back</Link>
       <h1>Jobs</h1>
       <a onClick={() => startJob()}>Start</a>
 

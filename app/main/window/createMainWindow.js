@@ -1,5 +1,7 @@
 import { app, BrowserWindow, Menu } from 'electron';
+import path from 'path';
 
+const mainHtml = path.join(__dirname, '../../renderer/app.html');
 
 export default function createWindow(store) {
   let menu;
@@ -16,7 +18,7 @@ export default function createWindow(store) {
 
   mainWindow.maximize();
 
-  mainWindow.loadURL(`file://${__dirname}/../renderer/app.html`);
+  mainWindow.loadURL(`file://${mainHtml}`);
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();

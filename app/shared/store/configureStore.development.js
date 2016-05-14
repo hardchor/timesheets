@@ -1,23 +1,26 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistState } from 'redux-devtools';
 import thunk from 'redux-thunk';
+import promise from 'redux-promise';
 import createLogger from 'redux-logger';
 import { hashHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 import getRootReducer from '../reducers';
 import forwardToMain from './middleware/forwardToMain';
 import forwardToRenderer from './middleware/forwardToRenderer';
+import triggerAlias from './middleware/triggerAlias';
 import DevTools from '../../renderer/containers/DevTools';
 
 export default function configureStore(initialState, scope = 'main') {
   const logger = createLogger({
-    level: 'info',
+    level: scope === 'main' ? 'console' : 'info',
     collapsed: true,
   });
   const router = routerMiddleware(hashHistory);
 
   let middleware = [
     thunk,
+    promise,
     logger,
   ];
 
@@ -26,10 +29,12 @@ export default function configureStore(initialState, scope = 'main') {
       forwardToMain,
       router,
       ...middleware,
+      // logger,
     ];
   }
   if (scope === 'main') {
     middleware = [
+      triggerAlias,
       ...middleware,
       forwardToRenderer,
     ];

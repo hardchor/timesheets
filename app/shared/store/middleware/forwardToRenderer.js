@@ -1,7 +1,7 @@
-import { ipcMain, BrowserWindow } from 'electron';
+import { BrowserWindow } from 'electron';
 
 const forwardToRenderer = store => next => action => {
-  // remove scope to avoid endless-loop
+  // change scope to avoid endless-loop
   const rendererAction = Object.assign({}, action, {
     meta: {
       scope: 'renderer'
@@ -13,7 +13,6 @@ const forwardToRenderer = store => next => action => {
     webContents.send('redux-action', rendererAction);
   });
 
-  // ipcMain.send('redux-action', rendererAction);
   return next(action);
 };
 

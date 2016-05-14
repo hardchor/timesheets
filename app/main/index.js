@@ -1,7 +1,7 @@
 import '../shared/promisify';
 import { app, ipcMain } from 'electron';
 import jsonStorage from 'electron-json-storage';
-import createMainWindow from './createMainWindow';
+import createMainWindow from './window/createMainWindow';
 import configureStore from '../shared/store/configureStore';
 
 let mainWindow = null;

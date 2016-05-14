@@ -96,9 +96,12 @@
   "dependencies": {
     "bluebird": "^3.3.5",
     "css-modules-require-hook": "^4.0.0",
+    "dotenv": "^2.0.0",
     "electron-debug": "^0.6.0",
     "electron-json-storage": "^2.0.0",
     "font-awesome": "^4.6.1",
+    "form-data": "^1.0.0-rc4",
+    "isomorphic-fetch": "^2.2.1",
     "moment": "^2.13.0",
     "postcss": "^5.0.19",
     "react": "^15.0.1",
@@ -107,6 +110,7 @@
     "react-router": "^2.2.4",
     "react-router-redux": "^4.0.2",
     "redux": "^3.4.0",
+    "redux-promise": "^0.5.3",
     "redux-thunk": "^2.0.1",
     "source-map-support": "^0.4.0"
   },
