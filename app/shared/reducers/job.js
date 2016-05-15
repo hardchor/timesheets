@@ -15,6 +15,7 @@ export default function job(state = initialState, action) {
           ...state.jobs,
           {
             id: state.autoIncrementId,
+            projectId: action.payload.projectId,
             startAt: action.payload.time,
             status: 'running',
           },
