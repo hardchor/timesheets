@@ -9,10 +9,18 @@ const initialState = {
 export default function job(state = initialState, action) {
   switch (action.type) {
     case START_JOB:
+      const jobs = state.jobs.map(job => {
+        if (job.status === 'running') {
+          job.status = 'stopped';
+          job.endAt = action.payload.time;
+        }
+        return job;
+      });
+
       return {
         ...state,
         jobs: [
-          ...state.jobs,
+          ...jobs,
           {
             id: state.autoIncrementId,
             startAt: action.payload.time,
