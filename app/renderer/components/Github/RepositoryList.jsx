@@ -15,12 +15,18 @@ class RepositoryList extends Component {
     return (
       <div>
         <h1>Repos</h1>
-        {this.props.github.repos.map(repo => (
-          <li key={repo.fullName}>
-            <button onClick={() => this.props.trackGithubRepo(repo.id)}>Track</button>
-            {repo.fullName}
-          </li>
-        ))}
+          <table>
+            <tbody>
+              {this.props.github.repos.map(repo => (
+                <tr key={repo.fullName}>
+                  <td>{repo.fullName}</td>
+                  <td>
+                    <button onClick={() => this.props.trackGithubRepo(repo.id)}>Track</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
       </div>
     );
   }

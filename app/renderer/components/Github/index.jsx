@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import config from '../../../config';
 import RepositoryList from './RepositoryList';
+import TrackedRepositoryList from './TrackedRepositoryList';
 
 function Github({ requestAuthenticateGithub, requestGetGithubRepos, trackGithubRepo, github }) {
   const grantedScopes = new Set(github.scope);
@@ -32,6 +33,9 @@ function Github({ requestAuthenticateGithub, requestGetGithubRepos, trackGithubR
 
       {!authRequired && !additionalScopesRequired &&
         <div>
+          <TrackedRepositoryList
+            github={github}
+          />
           <RepositoryList
             requestGetGithubRepos={requestGetGithubRepos}
             trackGithubRepo={trackGithubRepo}

@@ -29,7 +29,7 @@ export default function configureStore(initialState, scope = 'main') {
       forwardToMain,
       router,
       ...middleware,
-      logger,
+      // logger,
     ];
   }
   if (scope === 'main') {
