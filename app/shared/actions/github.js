@@ -25,6 +25,7 @@ export function authenticateGithub() {
 export const REQUEST_GET_GITHUB_REPOS = 'REQUEST_GET_GITHUB_REPOS';
 export const GET_GITHUB_REPOS = 'GET_GITHUB_REPOS';
 export const TRACK_GITHUB_REPO = 'TRACK_GITHUB_REPO';
+export const UNTRACK_GITHUB_REPO = 'UNTRACK_GITHUB_REPO';
 
 export function requestGetGithubRepos(accessToken) {
   return {
@@ -44,6 +45,14 @@ export function getGithubRepos(accessToken) {
 export function trackGithubRepo(id) {
   return {
     type: TRACK_GITHUB_REPO,
+    payload: {
+      id,
+    },
+  };
+}
+export function untrackGithubRepo(id) {
+  return {
+    type: UNTRACK_GITHUB_REPO,
     payload: {
       id,
     },

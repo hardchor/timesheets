@@ -1,9 +1,13 @@
 /* eslint-disable no-param-reassign */
-import { AUTHENTICATE_GITHUB, GET_GITHUB_REPOS, TRACK_GITHUB_REPO } from '../actions/github';
+import {
+  AUTHENTICATE_GITHUB,
+  GET_GITHUB_REPOS,
+  TRACK_GITHUB_REPO,
+  UNTRACK_GITHUB_REPO,
+} from '../actions/github';
 
 const initialState = {
   repos: [],
-  trackedRepos: [],
 };
 
 function mapRepo({ id, full_name }) {
@@ -64,20 +68,32 @@ export default function github(state = initialState, action) {
     }
 
     case TRACK_GITHUB_REPO: {
-      // check if already tracked
-      const trackedRepos = state.trackedRepos || [];
-      const tracked = trackedRepos.filter(repo => repo.id === payload.id);
+      const repos = state.repos.map(repo => {
+        if (repo.id === action.payload.id) {
+          repo.tracked = true;
+        }
 
-      if (tracked.length) return state;
+        return repo;
+      });
 
       return {
         ...state,
-        trackedRepos: [
-          ...trackedRepos,
-          {
-            id: payload.id,
-          },
-        ],
+        repos,
+      };
+    }
+
+    case UNTRACK_GITHUB_REPO: {
+      const repos = state.repos.map(repo => {
+        if (repo.id === action.payload.id) {
+          repo.tracked = false;
+        }
+
+        return repo;
+      });
+
+      return {
+        ...state,
+        repos,
       };
     }
 

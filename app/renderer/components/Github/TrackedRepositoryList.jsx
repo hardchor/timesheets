@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
 
-function TrackedRepositoryList({ github }) {
-  function renderRepo(trackedRepo) {
-    const repo = github.repos.reduce(
-      (previous, current) => (current.id === trackedRepo.id ? current : previous)
-    );
+function TrackedRepositoryList({ untrackGithubRepo, github }) {
+  const trackedRepos = github.repos.filter(repo => repo.tracked);
 
+  function renderRepo(trackedRepo) {
     return (
       <tr key={trackedRepo.id}>
-        {repo && <td>{repo.fullName}</td>}
-        {!repo && <td>`Repo with id ${trackedRepo.id} not found`</td>}
+        <td>{trackedRepo.fullName}</td>
+        <td>
+          <button onClick={() => untrackGithubRepo(trackedRepo.id)}>Untrack</button>
+        </td>
       </tr>
     );
   }
@@ -19,7 +19,7 @@ function TrackedRepositoryList({ github }) {
       <h1>Tracked Repos</h1>
       <table>
         <tbody>
-          {github.trackedRepos.map(renderRepo)}
+          {trackedRepos.map(renderRepo)}
         </tbody>
       </table>
     </div>
@@ -27,6 +27,7 @@ function TrackedRepositoryList({ github }) {
 }
 
 TrackedRepositoryList.propTypes = {
+  untrackGithubRepo: PropTypes.func.isRequired,
   github: PropTypes.object.isRequired,
 };
 

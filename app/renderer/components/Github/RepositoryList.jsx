@@ -12,12 +12,14 @@ class RepositoryList extends Component {
   }
 
   render() {
+    const untrackedRepos = this.props.github.repos.filter(repo => !repo.tracked);
+
     return (
       <div>
         <h1>Repos</h1>
           <table>
             <tbody>
-              {this.props.github.repos.map(repo => (
+              {untrackedRepos.map(repo => (
                 <tr key={repo.fullName}>
                   <td>{repo.fullName}</td>
                   <td>
