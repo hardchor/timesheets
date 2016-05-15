@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
-import { ADD_PROJECT } from '../actions/project';
+import { ADD_PROJECT, REMOVE_PROJECT } from '../actions/project';
 
 const initialState = {
   autoIncrementId: 0,
-  projects: []
+  projects: [],
 };
 
 export default function job(state = initialState, action) {
@@ -20,6 +20,15 @@ export default function job(state = initialState, action) {
         ],
         autoIncrementId: state.autoIncrementId + 1,
       };
+
+    case REMOVE_PROJECT: {
+      const projects = state.projects.filter(({ id }) => id !== action.payload.id);
+
+      return {
+        ...state,
+        projects,
+      };
+    }
 
     default:
       return state;

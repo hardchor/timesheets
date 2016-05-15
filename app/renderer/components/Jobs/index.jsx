@@ -17,7 +17,7 @@ function Jobs({ startJob, stopJob, job }) {
         <td>{duration}</td>
         <td>{data.status}</td>
         <td>
-          <a onClick={() => stopJob(data.id)}>End</a>
+          {data.status === 'running' && <a onClick={() => stopJob(data.id)}>End</a>}
         </td>
       </tr>
     );
