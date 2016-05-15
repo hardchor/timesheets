@@ -4,6 +4,9 @@ import jsonStorage from 'electron-json-storage';
 import createMainWindow from './window/createMainWindow';
 import configureStore from '../shared/store/configureStore';
 
+// we have to do this to allow remote-loading of the current state :()
+global.state = {};
+
 let mainWindow = null;
 
 if (process.env.NODE_ENV === 'development') {
@@ -18,13 +21,14 @@ function doCreateMainWindow(store) {
 }
 
 async function start() {
-  const state = await jsonStorage.getAsync('state');
-  const store = configureStore(state, 'main');
+  global.state = await jsonStorage.getAsync('state');
+  const store = configureStore(global.state, 'main');
 
   store.subscribe(async () => {
+    global.state = store.getState();
     // persist store changes
-    // TODO: should this be blocking / wait?
-    await jsonStorage.setAsync('state', store.getState());
+    // TODO: should this be blocking / wait? _.throttle?
+    await jsonStorage.setAsync('state', global.state);
   });
 
   ipcMain.on('redux-action', (event, payload) => {
@@ -39,11 +43,11 @@ async function start() {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (mainWindow === null) {
-      doCreateMainWindow(store);
+      doCreateMainWindow();
     }
   });
 
-  doCreateMainWindow(store);
+  doCreateMainWindow();
 }
 
 app.on('ready', start);

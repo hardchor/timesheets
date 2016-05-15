@@ -11,6 +11,7 @@ export default class Home extends Component {
           <h2>Home</h2>
           <ul>
             <li><Link to="/jobs">to Jobs</Link></li>
+            <li><Link to="/projects">to Projects</Link></li>
             <li><Link to="/github">to Github</Link></li>
           </ul>
         </div>

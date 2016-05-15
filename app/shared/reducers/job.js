@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
-import { START_JOB, PAUSE_JOB, STOP_JOB } from '../actions/job';
+import { START_JOB, STOP_JOB, REMOVE_JOB } from '../actions/job';
 
 const initialState = {
   autoIncrementId: 0,
-  jobs: []
+  jobs: [],
 };
 
 export default function job(state = initialState, action) {
@@ -22,9 +22,12 @@ export default function job(state = initialState, action) {
         autoIncrementId: state.autoIncrementId + 1,
       };
 
-    case PAUSE_JOB: {
+    case STOP_JOB: {
       const jobs = state.jobs.map(jobData => {
-        if (jobData.id === action.payload.id) jobData.status = 'paused';
+        if (jobData.id === action.payload.id) {
+          jobData.status = 'stopped';
+          jobData.endAt = action.payload.time;
+        }
         return jobData;
       });
 
@@ -34,14 +37,8 @@ export default function job(state = initialState, action) {
       };
     }
 
-    case STOP_JOB: {
-      const jobs = state.jobs.map(jobData => {
-        if (jobData.id === action.payload.id) {
-          jobData.status = 'stopped';
-          jobData.endAt = action.payload.time;
-        }
-        return jobData;
-      });
+    case REMOVE_JOB: {
+      const jobs = state.jobs.filter(({ id }) => id !== action.payload.id);
 
       return {
         ...state,

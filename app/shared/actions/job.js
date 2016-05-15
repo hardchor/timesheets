@@ -1,6 +1,6 @@
 export const START_JOB = 'START_JOB';
-export const PAUSE_JOB = 'PAUSE_JOB';
 export const STOP_JOB = 'STOP_JOB';
+export const REMOVE_JOB = 'REMOVE_JOB';
 
 
 export function startJob(time = new Date()) {
@@ -15,9 +15,9 @@ export function startJob(time = new Date()) {
   };
 }
 
-export function pauseJob(id, time = new Date()) {
+export function stopJob(id, time = new Date()) {
   return {
-    type: PAUSE_JOB,
+    type: STOP_JOB,
     payload: {
       id,
       time,
@@ -28,12 +28,11 @@ export function pauseJob(id, time = new Date()) {
   };
 }
 
-export function stopJob(id, time = new Date()) {
+export function removeJob(id) {
   return {
-    type: STOP_JOB,
+    type: REMOVE_JOB,
     payload: {
       id,
-      time,
     },
     meta: {
       scope: 'main',
