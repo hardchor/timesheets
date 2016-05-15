@@ -3,17 +3,20 @@ import moment from 'moment';
 import { Link } from 'react-router';
 // import styles from './Jobs.css';
 
-function Jobs({ startJob, pauseJob, stopJob, job }) {
+function Jobs({ startJob, stopJob, job }) {
   function renderJob(data) {
+    const startAt = data.startAt && moment(data.startAt);
+    const endAt = data.endAt && moment(data.endAt);
+    const duration = startAt && endAt && moment.duration(endAt.diff(startAt)).humanize();
+
     return (
       <tr key={data.id}>
         <td>{data.id}</td>
-        <td>{data.startAt && moment(data.startAt).calendar()}</td>
-        <td>{data.endAt && moment(data.endAt).calendar()}</td>
-        <td>{data.endAt && moment(data.endAt).calendar()}</td>
+        <td>{startAt && startAt.calendar()}</td>
+        <td>{endAt && endAt.calendar()}</td>
+        <td>{duration}</td>
         <td>{data.status}</td>
         <td>
-          <a onClick={() => pauseJob(data.id)}>Pause</a>
           <a onClick={() => stopJob(data.id)}>End</a>
         </td>
       </tr>
@@ -47,7 +50,6 @@ function Jobs({ startJob, pauseJob, stopJob, job }) {
 
 Jobs.propTypes = {
   startJob: PropTypes.func.isRequired,
-  pauseJob: PropTypes.func.isRequired,
   stopJob: PropTypes.func.isRequired,
   job: PropTypes.object.isRequired
 };
