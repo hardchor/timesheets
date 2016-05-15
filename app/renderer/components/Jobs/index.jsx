@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router';
 // import styles from './Jobs.css';
 
-function Jobs({ startJob, stopJob, job }) {
+function Jobs({ startJob, stopJob, removeJob, job }) {
   function renderJob(data) {
     const startAt = data.startAt && moment(data.startAt);
     const endAt = data.endAt && moment(data.endAt);
@@ -17,7 +17,8 @@ function Jobs({ startJob, stopJob, job }) {
         <td>{duration}</td>
         <td>{data.status}</td>
         <td>
-          {data.status === 'running' && <a onClick={() => stopJob(data.id)}>End</a>}
+          {data.status === 'running' && <button onClick={() => stopJob(data.id)}>End</button>}
+          <button onClick={() => removeJob(data.id)}>Remove</button>
         </td>
       </tr>
     );
@@ -51,7 +52,8 @@ function Jobs({ startJob, stopJob, job }) {
 Jobs.propTypes = {
   startJob: PropTypes.func.isRequired,
   stopJob: PropTypes.func.isRequired,
-  job: PropTypes.object.isRequired
+  removeJob: PropTypes.func.isRequired,
+  job: PropTypes.object.isRequired,
 };
 
 export default Jobs;

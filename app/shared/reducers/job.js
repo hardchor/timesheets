@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
-import { START_JOB, STOP_JOB } from '../actions/job';
+import { START_JOB, STOP_JOB, REMOVE_JOB } from '../actions/job';
 
 const initialState = {
   autoIncrementId: 0,
-  jobs: []
+  jobs: [],
 };
 
 export default function job(state = initialState, action) {
@@ -30,6 +30,15 @@ export default function job(state = initialState, action) {
         }
         return jobData;
       });
+
+      return {
+        ...state,
+        jobs,
+      };
+    }
+
+    case REMOVE_JOB: {
+      const jobs = state.jobs.filter(({ id }) => id !== action.payload.id);
 
       return {
         ...state,
