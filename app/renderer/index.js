@@ -9,7 +9,7 @@ import routes from './routes';
 import configureStore from '../shared/store/configureStore';
 import './app.global.css';
 
-const { initialState } = remote.getCurrentWindow();
+const initialState = remote.getGlobal('state');
 
 const store = configureStore(initialState, 'renderer');
 const history = syncHistoryWithStore(hashHistory, store);
