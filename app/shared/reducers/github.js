@@ -34,36 +34,22 @@ export default function github(state = initialState, action) {
     case GET_GITHUB_REPOS: {
       if (error) return state;
 
-      // update existing
-      const existingRepos = state.repos
-        .map(repo => {
-          const found = payload.reduce(
-            (previous, current) => (repo.id === current.id ? current : previous),
-            false
-          );
+      const repos = payload.map(repo => {
+        const found = state.repos.reduce(
+          (previous, current) => (repo.id === current.id ? current : previous),
+          {}
+        );
 
-          if (found) {
-            return {
-              ...repo,
-              ...mapRepo(found),
-            };
-          }
-          return undefined;
-        });
-
-      // add new
-      const newRepos = payload
-        .filter((repo) =>
-          !state.repos.reduce((previous, current) => (previous || repo.id === current.id), false)
-        )
-        .map(mapRepo);
+        return {
+          // update if already existing
+          ...found,
+          ...mapRepo(repo),
+        };
+      });
 
       return {
         ...state,
-        repos: [
-          ...existingRepos,
-          ...newRepos,
-        ],
+        repos,
       };
     }
 
