@@ -3,15 +3,18 @@ import moment from 'moment';
 import { Link } from 'react-router';
 // import styles from './Jobs.css';
 
-function Jobs({ startJob, stopJob, removeJob, job }) {
+function Jobs({ startJob, stopJob, removeJob, job, project }) {
   function renderJob(data) {
     const startAt = data.startAt && moment(data.startAt);
     const endAt = data.endAt && moment(data.endAt);
     const duration = startAt && endAt && moment.duration(endAt.diff(startAt)).humanize();
+    const projectName = data.projectId && project.projects.reduce((previous, nextProject) => {
+      return nextProject.id === data.projectId ? nextProject.name : previous;
+    }, '');
 
     return (
       <tr key={data.id}>
-        <td>{data.id}</td>
+        <td>{projectName}</td>
         <td>{startAt && startAt.calendar()}</td>
         <td>{endAt && endAt.calendar()}</td>
         <td>{duration}</td>
@@ -33,7 +36,7 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
       <table>
         <thead>
           <tr>
-            <th>id</th>
+            <th>project</th>
             <th>startAt</th>
             <th>endAt</th>
             <th>duration</th>
@@ -54,6 +57,7 @@ Jobs.propTypes = {
   stopJob: PropTypes.func.isRequired,
   removeJob: PropTypes.func.isRequired,
   job: PropTypes.object.isRequired,
+  project: PropTypes.object.isRequired,
 };
 
 export default Jobs;

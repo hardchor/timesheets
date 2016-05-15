@@ -2,7 +2,7 @@
 import { ADD_PROJECT, REMOVE_PROJECT } from '../actions/project';
 
 const initialState = {
-  autoIncrementId: 0,
+  autoIncrementId: 1,
   projects: [],
 };
 
