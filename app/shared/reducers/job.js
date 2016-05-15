@@ -2,7 +2,7 @@
 import { START_JOB, STOP_JOB, REMOVE_JOB } from '../actions/job';
 
 const initialState = {
-  autoIncrementId: 0,
+  autoIncrementId: 1,
   jobs: [],
 };
 
