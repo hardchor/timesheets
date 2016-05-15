@@ -6,12 +6,19 @@ const initialState = {
   trackedRepos: [],
 };
 
-export default function github(state = initialState, action) {
-  const { payload } = action;
+function mapRepo({ id, full_name }) {
+  return {
+    id,
+    fullName: full_name,
+  };
+}
 
-  switch (action.type) {
+export default function github(state = initialState, action) {
+  const { type, payload, error } = action;
+
+  switch (type) {
     case AUTHENTICATE_GITHUB:
-      if (action.error) return state;
+      if (error) return state;
 
       return {
         ...state,
@@ -20,21 +27,46 @@ export default function github(state = initialState, action) {
         scope: payload.scope.split(','),
       };
 
-    case GET_GITHUB_REPOS:
-      if (action.error) return state;
+    case GET_GITHUB_REPOS: {
+      if (error) return state;
+
+      // update existing
+      const existingRepos = state.repos
+        .map(repo => {
+          const found = payload.reduce(
+            (previous, current) => (repo.id === current.id ? current : previous),
+            false
+          );
+
+          if (found) {
+            return {
+              ...repo,
+              ...mapRepo(found),
+            };
+          }
+          return undefined;
+        });
+
+      // add new
+      const newRepos = payload
+        .filter((repo) =>
+          !state.repos.reduce((previous, current) => (previous || repo.id === current.id), false)
+        )
+        .map(mapRepo);
 
       return {
         ...state,
-        repos: action.payload.map(({ id, full_name }) => ({
-          id,
-          fullName: full_name,
-        })),
+        repos: [
+          ...existingRepos,
+          ...newRepos,
+        ],
       };
+    }
 
     case TRACK_GITHUB_REPO: {
       // check if already tracked
       const trackedRepos = state.trackedRepos || [];
-      const tracked = trackedRepos.filter(repo => repo.id === action.payload.id);
+      const tracked = trackedRepos.filter(repo => repo.id === payload.id);
 
       if (tracked.length) return state;
 
@@ -43,7 +75,7 @@ export default function github(state = initialState, action) {
         trackedRepos: [
           ...trackedRepos,
           {
-            id: action.payload.id,
+            id: payload.id,
           },
         ],
       };
