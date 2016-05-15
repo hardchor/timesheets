@@ -8,7 +8,6 @@ export function requestAuthenticateGithub() {
   return {
     type: REQUEST_AUTHENTICATE_GITHUB,
     meta: {
-      scope: 'main',
       trigger: AUTHENTICATE_GITHUB,
     },
   };
@@ -28,7 +27,6 @@ export function requestGetGithubRepos(accessToken) {
     type: REQUEST_GET_GITHUB_REPOS,
     payload: [accessToken],
     meta: {
-      scope: 'main',
       trigger: GET_GITHUB_REPOS,
     },
   };

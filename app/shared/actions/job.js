@@ -9,9 +9,6 @@ export function startJob(time = new Date()) {
     payload: {
       time,
     },
-    meta: {
-      scope: 'main',
-    },
   };
 }
 
@@ -22,9 +19,6 @@ export function stopJob(id, time = new Date()) {
       id,
       time,
     },
-    meta: {
-      scope: 'main',
-    },
   };
 }
 
@@ -33,9 +27,6 @@ export function removeJob(id) {
     type: REMOVE_JOB,
     payload: {
       id,
-    },
-    meta: {
-      scope: 'main',
     },
   };
 }

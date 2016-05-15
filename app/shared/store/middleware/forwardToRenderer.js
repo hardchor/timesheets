@@ -4,7 +4,7 @@ const forwardToRenderer = store => next => action => {
   // change scope to avoid endless-loop
   const rendererAction = Object.assign({}, action, {
     meta: {
-      scope: 'renderer'
+      scope: 'local',
     },
   });
 

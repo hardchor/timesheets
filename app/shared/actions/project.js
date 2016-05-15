@@ -8,9 +8,6 @@ export function addProject(name) {
     payload: {
       name,
     },
-    meta: {
-      scope: 'main',
-    },
   };
 }
 
@@ -19,9 +16,6 @@ export function removeProject(id) {
     type: REMOVE_PROJECT,
     payload: {
       id,
-    },
-    meta: {
-      scope: 'main',
     },
   };
 }
