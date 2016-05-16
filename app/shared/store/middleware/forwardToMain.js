@@ -2,9 +2,9 @@ import { ipcRenderer } from 'electron';
 
 const forwardToMain = store => next => action => {
   if (
-    action.meta &&
-    action.meta.scope &&
-    action.meta.scope === 'main'
+    !action.meta ||
+    !action.meta.scope ||
+    action.meta.scope !== 'local'
   ) {
     ipcRenderer.send('redux-action', action);
 

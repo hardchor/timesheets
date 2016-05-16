@@ -2,8 +2,15 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import config from '../../../config';
 import RepositoryList from './RepositoryList';
+import TrackedRepositoryList from './TrackedRepositoryList';
 
-function Github({ requestAuthenticateGithub, requestGetGithubRepos, github }) {
+function Github({
+  requestAuthenticateGithub,
+  requestGetGithubRepos,
+  trackGithubRepo,
+  untrackGithubRepo,
+  github,
+}) {
   const grantedScopes = new Set(github.scope);
   const requiredScopes = config.github.scopes;
   const diff = requiredScopes.filter(item => !grantedScopes.has(item));
@@ -32,7 +39,15 @@ function Github({ requestAuthenticateGithub, requestGetGithubRepos, github }) {
 
       {!authRequired && !additionalScopesRequired &&
         <div>
-          <RepositoryList requestGetGithubRepos={requestGetGithubRepos} github={github} />
+          <TrackedRepositoryList
+            untrackGithubRepo={untrackGithubRepo}
+            github={github}
+          />
+          <RepositoryList
+            requestGetGithubRepos={requestGetGithubRepos}
+            trackGithubRepo={trackGithubRepo}
+            github={github}
+          />
         </div>
       }
     </div>
@@ -41,6 +56,9 @@ function Github({ requestAuthenticateGithub, requestGetGithubRepos, github }) {
 
 Github.propTypes = {
   requestAuthenticateGithub: PropTypes.func.isRequired,
+  requestGetGithubRepos: PropTypes.func.isRequired,
+  trackGithubRepo: PropTypes.func.isRequired,
+  untrackGithubRepo: PropTypes.func.isRequired,
   github: PropTypes.object.isRequired,
 };
 
