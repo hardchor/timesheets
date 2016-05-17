@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import App from '../components/App';
 
-export default class App extends Component {
+export default class AppContainer extends Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
   };
@@ -8,7 +9,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        {this.props.children}
+        <App children={this.props.children} />
         {
           (() => {
             if (process.env.NODE_ENV !== 'production') {

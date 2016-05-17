@@ -1,1 +1,4 @@
 @import '~react-mdl/extra/material.css';
+@import './fonts/roboto.global.css';
+@import './fonts/material-icons.global.css';
+/*@import './dashboard.global.css';*/

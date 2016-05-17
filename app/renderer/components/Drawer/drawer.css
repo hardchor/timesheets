@@ -1,0 +1,60 @@
+.drawer {
+  border: none;
+}
+
+/* iOS Safari specific workaround */
+.drawer :global .mdl-menu__container {
+  z-index: -1;
+}
+.navigation {
+  z-index: -2;
+}
+/* END iOS Safari specific workaround */
+
+.drawer :global .mdl-menu .mdl-menu__item {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.navigation {
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.drawer .navigation {
+  z-index: -2;
+}
+
+.drawer .navigation .navigationLink {
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.56);
+  font-weight: 500;
+}
+.drawer .navigation .navigationLink:hover {
+  background-color: #00BCD4;
+  color: #37474F;
+}
+
+.drawer .navigation .navigationLink.active {
+  background-color: #00BCD4;
+  color: #37474F;
+}
+
+.navigation .navigationLink .navigationLinkIcon {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.56);
+  margin-right: 32px;
+}
