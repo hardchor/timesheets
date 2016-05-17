@@ -1,6 +1,7 @@
 import { ALIASED } from '.';
 import githubAuth from '../../main/window/githubAuth';
 import getRepos from '../../main/api/getRepos';
+import importProjects from '../../main/api/importProjects';
 
 export const aliases = {};
 
@@ -62,3 +63,24 @@ export function untrackGithubRepo(id) {
     },
   };
 }
+
+
+// Import projects
+export const IMPORT_GITHUB_PROJECTS = 'IMPORT_GITHUB_PROJECTS';
+
+export function requestImportGithubProjects(accessToken, repoFullName) {
+  return {
+    type: ALIASED,
+    payload: [accessToken, repoFullName],
+    meta: {
+      trigger: IMPORT_GITHUB_PROJECTS,
+    },
+  };
+}
+export function importGithubProjects(accessToken, repoFullName) {
+  return {
+    type: IMPORT_GITHUB_PROJECTS,
+    payload: importProjects(accessToken, repoFullName),
+  };
+}
+aliases[IMPORT_GITHUB_PROJECTS] = importGithubProjects;

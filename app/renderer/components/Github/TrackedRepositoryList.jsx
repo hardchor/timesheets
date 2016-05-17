@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-function TrackedRepositoryList({ untrackGithubRepo, github }) {
+function TrackedRepositoryList({ untrackGithubRepo, requestImportGithubProjects, github }) {
   const trackedRepos = github.repos.filter(repo => repo.tracked);
 
   function renderRepo(trackedRepo) {
@@ -8,7 +8,12 @@ function TrackedRepositoryList({ untrackGithubRepo, github }) {
       <tr key={trackedRepo.id}>
         <td>{trackedRepo.fullName}</td>
         <td>
-          <button onClick={() => untrackGithubRepo(trackedRepo.id)}>Untrack</button>
+          <button onClick={() => untrackGithubRepo(trackedRepo.id)}>
+            Untrack
+          </button>
+          <button onClick={() => requestImportGithubProjects(github.accessToken, trackedRepo.fullName)}>
+            Import
+          </button>
         </td>
       </tr>
     );

@@ -9,6 +9,7 @@ function Github({
   requestGetGithubRepos,
   trackGithubRepo,
   untrackGithubRepo,
+  requestImportGithubProjects,
   github,
 }) {
   const grantedScopes = new Set(github.scope);
@@ -44,6 +45,7 @@ function Github({
         <div>
           <TrackedRepositoryList
             untrackGithubRepo={untrackGithubRepo}
+            requestImportGithubProjects={requestImportGithubProjects}
             github={github}
           />
           <RepositoryList
@@ -62,6 +64,7 @@ Github.propTypes = {
   requestGetGithubRepos: PropTypes.func.isRequired,
   trackGithubRepo: PropTypes.func.isRequired,
   untrackGithubRepo: PropTypes.func.isRequired,
+  requestImportGithubProjects: PropTypes.func.isRequired,
   github: PropTypes.object.isRequired,
 };
 
