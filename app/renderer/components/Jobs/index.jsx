@@ -51,7 +51,7 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
           <TableHeader name="duration" cellFormatter={(dur) => dur && dur.humanize()}>
             Duration
           </TableHeader>
-          <TableHeader cellFormatter={actionFormatter} />
+          <TableHeader name="action" cellFormatter={actionFormatter} />
         </DataTable>
       </Cell>
     </Grid>
