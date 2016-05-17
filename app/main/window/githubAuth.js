@@ -34,7 +34,7 @@ export default function githubAuth() {
 
       if (code || error) {
         // Close the browser if code found or error
-        authWindow.destroy();
+        authWindow.close();
       }
 
       // If there is a code, proceed to get token from github
@@ -50,11 +50,11 @@ export default function githubAuth() {
     // Handle the response from GitHub
 
     authWindow.webContents.on('will-navigate', (event, newUrl) => {
-      handleCallback(newUrl);
+      setImmediate(() => handleCallback(newUrl));
     });
 
     authWindow.webContents.on('did-get-redirect-request', (event, oldUrl, newUrl) => {
-      handleCallback(newUrl);
+      setImmediate(() => handleCallback(newUrl));
     });
   });
 }

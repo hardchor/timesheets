@@ -15,25 +15,28 @@ function Github({
   const requiredScopes = config.github.scopes;
   const diff = requiredScopes.filter(item => !grantedScopes.has(item));
 
-  const additionalScopesRequired = !!diff.length;
   const authRequired = !github.accessToken;
+  const additionalScopesRequired = !!diff.length;
 
   return (
     <div>
       <Link to="/">back</Link>
       <h1>Github</h1>
 
-      {additionalScopesRequired &&
-        <div>
-          <p>Additional permissions required</p>
-          <button onClick={requestAuthenticateGithub}>Grant</button>
-        </div>
-      }
-
       {authRequired &&
         <div>
           <p>Log in with Github</p>
           <button onClick={requestAuthenticateGithub}>Connect</button>
+        </div>
+      }
+
+      {!authRequired && additionalScopesRequired &&
+        <div>
+          <p>
+            Additional permissions required:
+            <pre>{diff.join(', ')}</pre>
+          </p>
+          <button onClick={requestAuthenticateGithub}>Grant</button>
         </div>
       }
 
