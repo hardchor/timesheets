@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import Projects from '../components/Projects';
 import * as ProjectActions from '../../shared/actions/project';
 import * as JobActions from '../../shared/actions/job';
+import { push } from 'react-router-redux';
 
-function mapStateToProps(state) {
+function mapStateToProps({ project }) {
   return {
-    project: state.project,
+    project,
   };
 }
 
@@ -14,6 +15,7 @@ function mapDispatchToProps(dispatch) {
   return {
     ...bindActionCreators(ProjectActions, dispatch),
     ...bindActionCreators(JobActions, dispatch),
+    ...bindActionCreators({ navigate: push }, dispatch),
   };
 }
 

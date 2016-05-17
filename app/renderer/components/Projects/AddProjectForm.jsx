@@ -1,21 +1,23 @@
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
+import { Textfield } from 'react-mdl';
 
 const fields = ['name'];
 
-function AddProjectForm({ fields: { name }, handleSubmit }) {
+function AddProjectForm({ fields: { name }, handleSubmit, resetForm }) {
+  function onSubmit(...args) {
+    handleSubmit(...args);
+    resetForm();
+  }
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name</label>
-          <div>
-            <input type="text" placeholder="Name" {...name} />
-          </div>
-        </div>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
+      <form onSubmit={onSubmit}>
+        <Textfield
+          {...name}
+          floatingLabel
+          label="New Project"
+        />
       </form>
     </div>
   );
@@ -24,7 +26,7 @@ function AddProjectForm({ fields: { name }, handleSubmit }) {
 AddProjectForm.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  resetForm: PropTypes.func.isRequired,
 };
 
 export default reduxForm({

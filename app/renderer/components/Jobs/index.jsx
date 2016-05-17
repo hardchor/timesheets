@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import { Grid, Cell, DataTable, TableHeader, Button, Icon, IconButton } from 'react-mdl';
+import { Grid, Cell, DataTable, TableHeader, Button, Icon, IconButton, Tooltip } from 'react-mdl';
 
 function Jobs({ startJob, stopJob, removeJob, job }) {
   function statusFormatter(status) {
@@ -10,10 +10,16 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
   function actionFormatter(status, jobData) {
     if (jobData.status === 'running') {
       return (
-        <IconButton name="stop" raised accent ripple onClick={() => stopJob(jobData.id)} />
+        <Tooltip label="Stop recording">
+          <IconButton name="stop" raised accent ripple onClick={() => stopJob(jobData.id)} />
+        </Tooltip>
       );
     }
-    return <IconButton name="delete" raised ripple onClick={() => removeJob(jobData.id)} />;
+    return (
+      <Tooltip label="Remove job">
+        <IconButton name="delete" raised ripple onClick={() => removeJob(jobData.id)} />
+      </Tooltip>
+    );
   }
 
   const rows = job.jobs.map((project) => {
