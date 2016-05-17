@@ -100,7 +100,6 @@
     "dotenv": "^2.0.0",
     "electron-debug": "^0.6.0",
     "electron-json-storage": "^2.0.0",
-    "font-awesome": "^4.6.1",
     "form-data": "^1.0.0-rc4",
     "moment": "^2.13.0",
     "node-fetch": "^1.5.2",
