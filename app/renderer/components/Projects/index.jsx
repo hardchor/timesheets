@@ -12,10 +12,10 @@ function Projects({ addProject, removeProject, project, startJob }) {
     return (
       <div>
         <Tooltip label="Start recording">
-          <IconButton name="fiber_smart_record" raised ripple onClick={() => startJob(projectData.id)} />
+          <IconButton name="fiber_smart_record" raised ripple onClick={() => startJob(projectData.name)} />
         </Tooltip>
         <Tooltip label="Remove project">
-          <IconButton name="delete" raised ripple onClick={() => removeProject(projectData.id)} />
+          <IconButton name="delete" raised ripple onClick={() => removeProject(projectData.name)} />
         </Tooltip>
       </div>
     );
