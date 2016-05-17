@@ -8,8 +8,8 @@ function Jobs({ startJob, stopJob, removeJob, job, project }) {
     const startAt = data.startAt && moment(data.startAt);
     const endAt = data.endAt && moment(data.endAt);
     const duration = startAt && endAt && moment.duration(endAt.diff(startAt)).humanize();
-    const projectName = data.projectId && project.projects.reduce((previous, nextProject) => {
-      return nextProject.id === data.projectId ? nextProject.name : previous;
+    const projectName = data.projectName && project.projects.reduce((previous, nextProject) => {
+      return nextProject.name === data.projectName ? nextProject.name : previous;
     }, '');
 
     return (

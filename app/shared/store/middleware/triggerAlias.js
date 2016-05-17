@@ -1,23 +1,18 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
 import assert from 'assert';
-import {
-  AUTHENTICATE_GITHUB, authenticateGithub,
-  GET_GITHUB_REPOS, getGithubRepos,
-} from '../../actions/github';
+import { ALIASED } from '../../actions';
+import { aliases as githubAliases } from '../../actions/github';
 
 const aliases = {
-  [AUTHENTICATE_GITHUB]: authenticateGithub,
-  [GET_GITHUB_REPOS]: getGithubRepos,
+  ...githubAliases,
 };
 
 const triggerAlias = store => next => action => {
   // TODO: store.dispatch() instead to not skip any middleware
-  if (
-    action.meta &&
-    action.meta.trigger
-  ) {
-    assert(aliases[action.meta.trigger], `Trigger ${action.meta.trigger} not found`);
+  if (action.type === ALIASED) {
+    assert(action.meta && action.meta.trigger, 'No trigger defined');
+    assert(aliases[action.meta.trigger], `Trigger alias ${action.meta.trigger} not found`);
     const args = action.payload || [];
 
     // trigger alias

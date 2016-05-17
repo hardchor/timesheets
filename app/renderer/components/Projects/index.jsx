@@ -5,11 +5,10 @@ import AddProjectForm from './AddProjectForm';
 function Projects({ addProject, removeProject, project, startJob }) {
   function renderProject(data) {
     return (
-      <tr key={data.id}>
-        <td>{data.id}</td>
+      <tr key={data.name}>
         <td>{data.name}</td>
-        <td><button onClick={() => startJob(data.id)}>Start</button></td>
-        <td><button onClick={() => removeProject(data.id)}>Remove</button></td>
+        <td><button onClick={() => startJob(data.name)}>Start</button></td>
+        <td><button onClick={() => removeProject(data.name)}>Remove</button></td>
       </tr>
     );
   }
@@ -28,7 +27,6 @@ function Projects({ addProject, removeProject, project, startJob }) {
       <table>
         <thead>
           <tr>
-            <th>id</th>
             <th>name</th>
             <th>actions</th>
           </tr>

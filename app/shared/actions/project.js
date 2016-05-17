@@ -11,11 +11,9 @@ export function addProject(name) {
   };
 }
 
-export function removeProject(id) {
+export function removeProject(name) {
   return {
     type: REMOVE_PROJECT,
-    payload: {
-      id,
-    },
+    payload: name,
   };
 }

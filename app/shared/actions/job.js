@@ -3,11 +3,11 @@ export const STOP_JOB = 'STOP_JOB';
 export const REMOVE_JOB = 'REMOVE_JOB';
 
 
-export function startJob(projectId = null, time = new Date()) {
+export function startJob(projectName = null, time = new Date()) {
   return {
     type: START_JOB,
     payload: {
-      projectId,
+      projectName,
       time,
     },
   };
