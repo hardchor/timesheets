@@ -24,18 +24,18 @@ function Drawer() {
           Home
         </IndexLink>
         <Link to="/jobs" className={styles.navigationLink} activeClassName={styles.active}>
-          <i className={navigationLinkIconClassName} role="presentation">inbox</i>
+          <i className={navigationLinkIconClassName} role="presentation">timer</i>
           Jobs
         </Link>
         <Link to="/projects" className={styles.navigationLink} activeClassName={styles.active}>
-          <i className={navigationLinkIconClassName} role="presentation">inbox</i>
+          <i className={navigationLinkIconClassName} role="presentation">group_work</i>
           Projects
         </Link>
+        <Spacer />
         <Link to="/github" className={styles.navigationLink} activeClassName={styles.active}>
-          <i className={navigationLinkIconClassName} role="presentation">inbox</i>
+          <i className={navigationLinkIconClassName} role="presentation">code</i>
           Github
         </Link>
-        <Spacer />
       </Navigation>
     </MdlDrawer>
   );

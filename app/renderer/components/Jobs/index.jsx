@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
-// import styles from './Jobs.css';
+import { Grid, Cell } from 'react-mdl';
 
 function Jobs({ startJob, stopJob, removeJob, job, project }) {
   function renderJob(data) {
@@ -28,27 +28,29 @@ function Jobs({ startJob, stopJob, removeJob, job, project }) {
   }
 
   return (
-    <div>
-      <Link to="/">back</Link>
-      <h1>Jobs</h1>
-      <a onClick={() => startJob()}>Start</a>
+    <Grid>
+      <Cell col={6} tablet={12}>
+        <Link to="/">back</Link>
+        <h1>Jobs</h1>
+        <a onClick={() => startJob()}>Start</a>
 
-      <table>
-        <thead>
-          <tr>
-            <th>project</th>
-            <th>startAt</th>
-            <th>endAt</th>
-            <th>duration</th>
-            <th>status</th>
-            <th>actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {job.jobs.map(jobData => renderJob(jobData))}
-        </tbody>
-      </table>
-    </div>
+        <table>
+          <thead>
+            <tr>
+              <th>project</th>
+              <th>startAt</th>
+              <th>endAt</th>
+              <th>duration</th>
+              <th>status</th>
+              <th>actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {job.jobs.map(jobData => renderJob(jobData))}
+          </tbody>
+        </table>
+      </Cell>
+    </Grid>
   );
 }
 
