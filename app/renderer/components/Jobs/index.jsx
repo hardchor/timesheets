@@ -1,65 +1,71 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import { Link } from 'react-router';
-import { Grid, Cell } from 'react-mdl';
+import { Grid, Cell, DataTable, TableHeader, Button, Icon, IconButton } from 'react-mdl';
 
-function Jobs({ startJob, stopJob, removeJob, job, project }) {
-  function renderJob(data) {
-    const startAt = data.startAt && moment(data.startAt);
-    const endAt = data.endAt && moment(data.endAt);
-    const duration = startAt && endAt && moment.duration(endAt.diff(startAt)).humanize();
-    const projectName = data.projectName && project.projects.reduce((previous, nextProject) => {
-      return nextProject.name === data.projectName ? nextProject.name : previous;
-    }, '');
-
-    return (
-      <tr key={data.id}>
-        <td>{projectName}</td>
-        <td>{startAt && startAt.calendar()}</td>
-        <td>{endAt && endAt.calendar()}</td>
-        <td>{duration}</td>
-        <td>{data.status}</td>
-        <td>
-          {data.status === 'running' && <button onClick={() => stopJob(data.id)}>End</button>}
-          <button onClick={() => removeJob(data.id)}>Remove</button>
-        </td>
-      </tr>
-    );
+function Jobs({ startJob, stopJob, removeJob, job }) {
+  function statusFormatter(status) {
+    return status === 'stopped' ? <Icon className="mdl-color-text--green-400" name="done" /> : null;
   }
+
+  function actionFormatter(status, jobData) {
+    if (jobData.status === 'running') {
+      return (
+        <IconButton name="stop" raised accent ripple onClick={() => stopJob(jobData.id)} />
+      );
+    }
+    return <IconButton name="delete" raised ripple onClick={() => removeJob(jobData.id)} />;
+  }
+
+  const rows = job.jobs.map((project) => {
+    const startAt = project.startAt && moment(project.startAt);
+    const endAt = project.endAt && moment(project.endAt);
+    const duration = startAt && endAt && moment.duration(endAt.diff(startAt));
+
+    return {
+      ...project,
+      startAt,
+      endAt,
+      duration,
+    };
+  });
 
   return (
     <Grid>
       <Cell col={6} tablet={12}>
-        <Link to="/">back</Link>
         <h1>Jobs</h1>
-        <a onClick={() => startJob()}>Start</a>
+        <Button onClick={() => startJob()}>Start</Button>
 
-        <table>
-          <thead>
-            <tr>
-              <th>project</th>
-              <th>startAt</th>
-              <th>endAt</th>
-              <th>duration</th>
-              <th>status</th>
-              <th>actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {job.jobs.map(jobData => renderJob(jobData))}
-          </tbody>
-        </table>
+        <DataTable
+          shadow={0}
+          rows={rows}
+          rowKeyColumn="id"
+        >
+          <TableHeader name="status" cellFormatter={statusFormatter} />
+          <TableHeader name="projectName">Project</TableHeader>
+          <TableHeader name="startAt" cellFormatter={(date) => date && date.calendar()}>
+            Start
+          </TableHeader>
+          <TableHeader name="endAt" cellFormatter={(date) => date && date.calendar()}>
+            End
+          </TableHeader>
+          <TableHeader name="duration" cellFormatter={(dur) => dur && dur.humanize()}>
+            Duration
+          </TableHeader>
+          <TableHeader cellFormatter={actionFormatter} />
+        </DataTable>
       </Cell>
     </Grid>
   );
 }
+
+// {data.status === 'running' && <button onClick={() => stopJob(data.id)}>End</button>}
+// <button onClick={() => removeJob(data.id)}>Remove</button>
 
 Jobs.propTypes = {
   startJob: PropTypes.func.isRequired,
   stopJob: PropTypes.func.isRequired,
   removeJob: PropTypes.func.isRequired,
   job: PropTypes.object.isRequired,
-  project: PropTypes.object.isRequired,
 };
 
 export default Jobs;
