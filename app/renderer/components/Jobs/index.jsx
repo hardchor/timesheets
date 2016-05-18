@@ -1,6 +1,15 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import { Grid, Cell, DataTable, TableHeader, Button, Icon, IconButton, Tooltip } from 'react-mdl';
+import {
+  Grid,
+  Cell,
+  DataTable,
+  TableHeader,
+  FABButton,
+  Icon,
+  IconButton,
+  Tooltip,
+} from 'react-mdl';
 
 function Jobs({ startJob, stopJob, removeJob, job }) {
   function statusFormatter(status) {
@@ -39,7 +48,11 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
     <Grid>
       <Cell col={6} tablet={12}>
         <h1>Jobs</h1>
-        <Button onClick={() => startJob()}>Start</Button>
+        <Tooltip label="Start recording">
+          <FABButton colored ripple onClick={() => startJob()}>
+              <Icon name="fiber_manual_record" />
+          </FABButton>
+        </Tooltip>
 
         <DataTable
           shadow={0}

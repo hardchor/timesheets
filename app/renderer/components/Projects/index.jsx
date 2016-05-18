@@ -17,7 +17,7 @@ function Projects({ addProject, removeProject, project, startJob, navigate }) {
       <div>
         <Tooltip label="Start recording">
           <IconButton
-            name="fiber_smart_record"
+            name="fiber_manual_record"
             onClick={() => handleStartJob()}
             raised accent ripple
           />
