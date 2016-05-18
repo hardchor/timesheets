@@ -1,26 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import App from '../components/App';
+import * as JobActions from '../../shared/actions/job';
 
-export default class AppContainer extends Component {
-  static propTypes = {
-    children: PropTypes.element.isRequired,
-  };
-
-  render() {
-    return (
-      <div>
-        <App children={this.props.children} />
-        {
-          (() => {
-            if (process.env.NODE_ENV !== 'production') {
-              const DevTools = require('./DevTools'); // eslint-disable-line global-require
-              return <DevTools />;
-            }
-
-            return null;
-          })()
-        }
-      </div>
-    );
-  }
+function mapStateToProps({ job }) {
+  return { job };
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(JobActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

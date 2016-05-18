@@ -1,10 +1,14 @@
-import React from 'react';
-import { Drawer as MdlDrawer, Navigation, Spacer } from 'react-mdl';
+import React, { PropTypes } from 'react';
+import { Drawer as MdlDrawer, Navigation, Spacer, Badge, Icon } from 'react-mdl';
 import { Link, IndexLink } from 'react-router';
 import classnames from 'classnames';
 import styles from './drawer.css';
 
-function Drawer() {
+function Drawer({ job }) {
+  const activeJobsCount = job.jobs.reduce(
+    (previous, current) => (current.status === 'running' ? previous + 1 : previous),
+    0
+  );
   const drawerClassName = classnames(
     'mdl-color--blue-grey-900',
     'mdl-color-text--blue-grey-50',
@@ -24,7 +28,14 @@ function Drawer() {
           Home
         </IndexLink>
         <Link to="/jobs" className={styles.navigationLink} activeClassName={styles.active}>
-          <i className={navigationLinkIconClassName} role="presentation">timer</i>
+          {!!activeJobsCount &&
+            <Badge text={activeJobsCount} overlap>
+              <Icon name="timer" className={navigationLinkIconClassName} />
+            </Badge>
+          }
+          {!activeJobsCount &&
+            <i className={navigationLinkIconClassName} role="presentation">timer</i>
+          }
           Jobs
         </Link>
         <Link to="/projects" className={styles.navigationLink} activeClassName={styles.active}>
@@ -40,5 +51,9 @@ function Drawer() {
     </MdlDrawer>
   );
 }
+
+Drawer.propTypes = {
+  job: PropTypes.object.isRequired,
+};
 
 export default Drawer;
