@@ -9,7 +9,7 @@ import getRootReducer from '../reducers';
 import forwardToMain from './middleware/forwardToMain';
 import forwardToRenderer from './middleware/forwardToRenderer';
 import triggerAlias from './middleware/triggerAlias';
-import DevTools from '../../renderer/containers/DevTools';
+import DevTools from '../../renderer/components/DevTools';
 
 export default function configureStore(initialState, scope = 'main') {
   const logger = createLogger({

@@ -5,9 +5,10 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import routes from './routes';
+import 'react-mdl/extra/material.js';
 import configureStore from '../shared/store/configureStore';
-import './app.global.css';
+import './assets/css/app.global.css';
+import routes from './routes';
 
 const initialState = remote.getGlobal('state');
 

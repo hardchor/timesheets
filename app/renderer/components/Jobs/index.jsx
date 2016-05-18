@@ -1,63 +1,94 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
-import { Link } from 'react-router';
-// import styles from './Jobs.css';
+import {
+  Grid,
+  Cell,
+  DataTable,
+  TableHeader,
+  FABButton,
+  Icon,
+  IconButton,
+  Tooltip,
+} from 'react-mdl';
+import styles from './jobs.css';
 
-function Jobs({ startJob, stopJob, removeJob, job, project }) {
-  function renderJob(data) {
-    const startAt = data.startAt && moment(data.startAt);
-    const endAt = data.endAt && moment(data.endAt);
-    const duration = startAt && endAt && moment.duration(endAt.diff(startAt)).humanize();
-    const projectName = data.projectName && project.projects.reduce((previous, nextProject) => {
-      return nextProject.name === data.projectName ? nextProject.name : previous;
-    }, '');
+function Jobs({ startJob, stopJob, removeJob, job }) {
+  function statusFormatter(status) {
+    return status === 'stopped' ? <Icon className="mdl-color-text--green-500" name="done" /> : null;
+  }
 
+  function actionFormatter(status, jobData) {
+    if (jobData.status === 'running') {
+      return (
+        <Tooltip label="Stop recording">
+          <IconButton name="stop" raised accent ripple onClick={() => stopJob(jobData.id)} />
+        </Tooltip>
+      );
+    }
     return (
-      <tr key={data.id}>
-        <td>{projectName}</td>
-        <td>{startAt && startAt.calendar()}</td>
-        <td>{endAt && endAt.calendar()}</td>
-        <td>{duration}</td>
-        <td>{data.status}</td>
-        <td>
-          {data.status === 'running' && <button onClick={() => stopJob(data.id)}>End</button>}
-          <button onClick={() => removeJob(data.id)}>Remove</button>
-        </td>
-      </tr>
+      <Tooltip label="Remove job">
+        <IconButton name="delete" raised ripple onClick={() => removeJob(jobData.id)} />
+      </Tooltip>
     );
   }
 
-  return (
-    <div>
-      <Link to="/">back</Link>
-      <h1>Jobs</h1>
-      <a onClick={() => startJob()}>Start</a>
+  const rows = job.jobs.map((project) => {
+    const startAt = project.startAt && moment(project.startAt);
+    const endAt = project.endAt && moment(project.endAt);
+    const duration = startAt && endAt && moment.duration(endAt.diff(startAt));
 
-      <table>
-        <thead>
-          <tr>
-            <th>project</th>
-            <th>startAt</th>
-            <th>endAt</th>
-            <th>duration</th>
-            <th>status</th>
-            <th>actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {job.jobs.map(jobData => renderJob(jobData))}
-        </tbody>
-      </table>
-    </div>
+    return {
+      ...project,
+      startAt,
+      endAt,
+      duration,
+    };
+  });
+
+  return (
+    <Grid>
+      <Cell col={12}>
+        <h1>Jobs</h1>
+
+        <div className={styles.fab}>
+          <Tooltip label="Start recording" position="left">
+            <FABButton onClick={() => startJob()} colored ripple>
+              <Icon name="fiber_manual_record" />
+            </FABButton>
+          </Tooltip>
+        </div>
+
+        <DataTable
+          shadow={0}
+          rows={rows}
+          rowKeyColumn="id"
+        >
+          <TableHeader name="status" cellFormatter={statusFormatter} />
+          <TableHeader name="projectName">Project</TableHeader>
+          <TableHeader name="startAt" cellFormatter={(date) => date && date.calendar()}>
+            Start
+          </TableHeader>
+          <TableHeader name="endAt" cellFormatter={(date) => date && date.calendar()}>
+            End
+          </TableHeader>
+          <TableHeader name="duration" cellFormatter={(dur) => dur && dur.humanize()}>
+            Duration
+          </TableHeader>
+          <TableHeader name="action" cellFormatter={actionFormatter} />
+        </DataTable>
+      </Cell>
+    </Grid>
   );
 }
+
+// {data.status === 'running' && <button onClick={() => stopJob(data.id)}>End</button>}
+// <button onClick={() => removeJob(data.id)}>Remove</button>
 
 Jobs.propTypes = {
   startJob: PropTypes.func.isRequired,
   stopJob: PropTypes.func.isRequired,
   removeJob: PropTypes.func.isRequired,
   job: PropTypes.object.isRequired,
-  project: PropTypes.object.isRequired,
 };
 
 export default Jobs;
