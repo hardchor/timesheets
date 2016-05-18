@@ -51,9 +51,9 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
         <h1>Jobs</h1>
 
         <div className={styles.fab}>
-          <Tooltip label="Start recording">
+          <Tooltip label="Start recording" position="left">
             <FABButton onClick={() => startJob()} colored ripple>
-                <Icon name="fiber_manual_record" />
+              <Icon name="fiber_manual_record" />
             </FABButton>
           </Tooltip>
         </div>
