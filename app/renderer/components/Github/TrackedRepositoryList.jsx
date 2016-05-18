@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { DataTable, TableHeader, IconButton, Tooltip } from 'react-mdl';
+import styles from './github.css';
 
 function TrackedRepositoryList({ untrackGithubRepo, requestImportGithubProjects, github }) {
   const trackedRepos = github.repos.filter(repo => repo.tracked);
@@ -10,15 +11,17 @@ function TrackedRepositoryList({ untrackGithubRepo, requestImportGithubProjects,
       <div>
         <Tooltip label="Import projects">
           <IconButton
-            name="sync"
             onClick={() => requestImportGithubProjects(accessToken, fullName)}
+            name="sync"
+            className={styles.actionButton}
             raised ripple accent
           />
         </Tooltip>
         <Tooltip label="Untrack repo">
           <IconButton
-            name="remove"
             onClick={() => untrackGithubRepo(id)}
+            name="remove"
+            className={styles.actionButton}
             raised ripple colored
           />
         </Tooltip>

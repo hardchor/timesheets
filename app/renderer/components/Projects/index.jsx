@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Grid, Cell, DataTable, TableHeader, IconButton, Tooltip } from 'react-mdl';
 import AddProjectForm from './AddProjectForm';
+import styles from './projects.css';
 
 function Projects({ addProject, removeProject, project, startJob, navigate }) {
   function onSubmit(data) {
@@ -17,13 +18,19 @@ function Projects({ addProject, removeProject, project, startJob, navigate }) {
       <div>
         <Tooltip label="Start recording">
           <IconButton
-            name="fiber_manual_record"
             onClick={() => handleStartJob()}
+            name="fiber_manual_record"
+            className={styles.actionButton}
             raised accent ripple
           />
         </Tooltip>
         <Tooltip label="Remove project">
-          <IconButton name="delete" raised ripple onClick={() => removeProject(projectData.name)} />
+          <IconButton
+            onClick={() => removeProject(projectData.name)}
+            name="delete"
+            className={styles.actionButton}
+            raised ripple
+          />
         </Tooltip>
       </div>
     );
@@ -31,7 +38,7 @@ function Projects({ addProject, removeProject, project, startJob, navigate }) {
 
   return (
     <Grid>
-      <Cell col={6} tablet={12}>
+      <Cell col={12}>
         <h1>Projects</h1>
 
         <AddProjectForm onSubmit={onSubmit} />

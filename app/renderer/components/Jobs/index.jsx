@@ -10,10 +10,11 @@ import {
   IconButton,
   Tooltip,
 } from 'react-mdl';
+import styles from './jobs.css';
 
 function Jobs({ startJob, stopJob, removeJob, job }) {
   function statusFormatter(status) {
-    return status === 'stopped' ? <Icon className="mdl-color-text--green-400" name="done" /> : null;
+    return status === 'stopped' ? <Icon className="mdl-color-text--green-500" name="done" /> : null;
   }
 
   function actionFormatter(status, jobData) {
@@ -46,13 +47,16 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
 
   return (
     <Grid>
-      <Cell col={6} tablet={12}>
+      <Cell col={12}>
         <h1>Jobs</h1>
-        <Tooltip label="Start recording">
-          <FABButton colored ripple onClick={() => startJob()}>
-              <Icon name="fiber_manual_record" />
-          </FABButton>
-        </Tooltip>
+
+        <div className={styles.fab}>
+          <Tooltip label="Start recording">
+            <FABButton onClick={() => startJob()} colored ripple>
+                <Icon name="fiber_manual_record" />
+            </FABButton>
+          </Tooltip>
+        </div>
 
         <DataTable
           shadow={0}

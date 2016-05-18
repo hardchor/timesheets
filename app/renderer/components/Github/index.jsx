@@ -21,7 +21,7 @@ function Github({
 
   return (
     <Grid>
-      <Cell col={6} tablet={12}>
+      <Cell col={12}>
         <h1>Github</h1>
 
         {authRequired &&
