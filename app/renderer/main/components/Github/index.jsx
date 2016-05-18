@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Grid, Cell, Button } from 'react-mdl';
-import config from '../../../config';
+import config from '../../../../config';
 import RepositoryList from './RepositoryList';
 import TrackedRepositoryList from './TrackedRepositoryList';
 

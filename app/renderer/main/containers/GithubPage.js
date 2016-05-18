@@ -1,11 +1,11 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Github from '../components/Github';
-import * as GithubActions from '../../shared/actions/github';
+import * as GithubActions from '../../../shared/actions/github';
 
 function mapStateToProps(state) {
   return {
-    github: state.github
+    github: state.github,
   };
 }
 

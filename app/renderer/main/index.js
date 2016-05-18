@@ -6,8 +6,8 @@ import { Provider } from 'react-redux';
 import { Router, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import 'react-mdl/extra/material.js';
-import configureStore from '../shared/store/configureStore';
-import './assets/css/app.global.css';
+import configureStore from '../../shared/store/configureStore';
+import '../assets/css/app.global.css';
 import routes from './routes';
 
 const initialState = remote.getGlobal('state');
