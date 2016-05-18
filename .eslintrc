@@ -7,9 +7,10 @@
     "node": true
   },
   "rules": {
-    "react/jsx-no-bind": 0,
+    "import/no-unresolved": [2, { ignore: ['electron'] }]
   },
   "plugins": [
+    "import",
     "react"
   ]
 }

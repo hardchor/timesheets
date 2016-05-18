@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, Menu, shell } from 'electron';
 import path from 'path';
 
 const mainHtml = path.join(__dirname, '../../renderer/app.html');
@@ -94,7 +94,7 @@ export default function createWindow() {
         label: 'Reload',
         accelerator: 'Command+R',
         click() {
-          mainWindow.restart();
+          mainWindow.webContents.reload();
         },
       }, {
         label: 'Toggle Full Screen',
@@ -177,7 +177,7 @@ export default function createWindow() {
         label: '&Reload',
         accelerator: 'Ctrl+R',
         click() {
-          mainWindow.restart();
+          mainWindow.webContents.reload();
         },
       }, {
         label: 'Toggle &Full Screen',
