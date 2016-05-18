@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Grid, Cell, Button } from 'react-mdl';
 import config from '../../../config';
 import RepositoryList from './RepositoryList';
 import TrackedRepositoryList from './TrackedRepositoryList';
@@ -20,42 +20,43 @@ function Github({
   const additionalScopesRequired = !!diff.length;
 
   return (
-    <div>
-      <Link to="/">back</Link>
-      <h1>Github</h1>
+    <Grid>
+      <Cell col={6} tablet={12}>
+        <h1>Github</h1>
 
-      {authRequired &&
-        <div>
-          <p>Log in with Github</p>
-          <button onClick={requestAuthenticateGithub}>Connect</button>
-        </div>
-      }
+        {authRequired &&
+          <div>
+            <p>Log in with Github</p>
+            <Button onClick={requestAuthenticateGithub} raised accent ripple>Connect</Button>
+          </div>
+        }
 
-      {!authRequired && additionalScopesRequired &&
-        <div>
-          <p>
-            Additional permissions required:
-            <pre>{diff.join(', ')}</pre>
-          </p>
-          <button onClick={requestAuthenticateGithub}>Grant</button>
-        </div>
-      }
+        {!authRequired && additionalScopesRequired &&
+          <div>
+            <p>
+              Additional permissions required:
+              <pre>{diff.join(', ')}</pre>
+            </p>
+            <Button onClick={requestAuthenticateGithub} raised accent ripple>Grant</Button>
+          </div>
+        }
 
-      {!authRequired && !additionalScopesRequired &&
-        <div>
-          <TrackedRepositoryList
-            untrackGithubRepo={untrackGithubRepo}
-            requestImportGithubProjects={requestImportGithubProjects}
-            github={github}
-          />
-          <RepositoryList
-            requestGetGithubRepos={requestGetGithubRepos}
-            trackGithubRepo={trackGithubRepo}
-            github={github}
-          />
-        </div>
-      }
-    </div>
+        {!authRequired && !additionalScopesRequired &&
+          <div>
+            <TrackedRepositoryList
+              untrackGithubRepo={untrackGithubRepo}
+              requestImportGithubProjects={requestImportGithubProjects}
+              github={github}
+            />
+            <RepositoryList
+              requestGetGithubRepos={requestGetGithubRepos}
+              trackGithubRepo={trackGithubRepo}
+              github={github}
+            />
+          </div>
+        }
+      </Cell>
+    </Grid>
   );
 }
 
