@@ -4,7 +4,7 @@
  * @return {Object} response
  * @throws {Error} on non-200 status
  */
-export function status(response) {
+export default function status(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -13,12 +13,4 @@ export function status(response) {
   err.response = response;
 
   throw err;
-}
-
-export function json(response) {
-  return response.json();
-}
-
-export function text(response) {
-  return response.text();
 }
