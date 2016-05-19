@@ -12,10 +12,7 @@ function Home({ job, stopJob }) {
   return (
     <Grid>
       <Cell col={12}>
-        <h2>Menu Bar</h2>
-        <p>Any drinks?</p>
-
-        <ActiveJob activeJob={activeJob} stopJob={stopJob} />
+        {activeJob && <ActiveJob activeJob={activeJob} stopJob={stopJob} />}
       </Cell>
     </Grid>
   );

@@ -1,19 +1,28 @@
 import React, { PropTypes } from 'react';
-import { Button } from 'react-mdl';
+import { Button, List, ListItem, ListItemContent, ListItemAction } from 'react-mdl';
+import moment from 'moment';
+import style from './activeJobs.css';
 
 function ActiveJob({ activeJob, stopJob }) {
   return (
     <div>
-      <h3>Active job</h3>
-      <div>{activeJob.projectName}</div>
-      <div>{activeJob.startAt}</div>
-      <Button onClick={() => stopJob(activeJob.id)}>Stop</Button>
+      <List className={style.list}>
+        <ListItem>
+          <ListItemContent avatar="timer">
+            {activeJob.projectName}<br />
+            <small>{moment(activeJob.startAt).fromNow()}</small>
+          </ListItemContent>
+          <ListItemAction>
+            <Button onClick={() => stopJob(activeJob.id)} raised accent ripple>Stop</Button>
+          </ListItemAction>
+        </ListItem>
+      </List>
     </div>
-);
+  );
 }
 
 ActiveJob.propTypes = {
-  activeJob: PropTypes.object.isRequired,
+  activeJob: PropTypes.object,
   stopJob: PropTypes.func.isRequired,
 };
 
