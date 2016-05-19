@@ -1,13 +1,14 @@
 import { BrowserWindow } from 'electron';
 import path from 'path';
+import process from 'process';
+import Positioner from 'electron-positioner';
 
 const menuBarHtml = path.join(__dirname, '../../renderer/menubar/index.html');
 
-export default function createMenuBar() {
+export default function createMenuBar(trayBounds) {
   const menuBarWindow = new BrowserWindow({
-    useContentSize: true,
-    // width: 338,
-    // height: 600,
+    width: 338,
+    height: 600,
     frame: false,
     show: false,
   });
@@ -15,13 +16,15 @@ export default function createMenuBar() {
   menuBarWindow.loadURL(`file://${menuBarHtml}`);
 
   menuBarWindow.webContents.on('did-finish-load', () => {
+    // Default the window to the right if `trayPos` bounds are undefined or null.
+    const windowPosition = (process.platform === 'win32') ? 'trayBottomCenter' : 'trayCenter';
+    const positioner = new Positioner(menuBarWindow);
+    const { x, y } = positioner.calculate(windowPosition, trayBounds);
+
+    menuBarWindow.setPosition(x, y);
     menuBarWindow.show();
     menuBarWindow.focus();
   });
-
-  if (process.env.NODE_ENV === 'development') {
-    menuBarWindow.openDevTools();
-  }
 
   menuBarWindow.on('blur', () => {
     menuBarWindow.hide();

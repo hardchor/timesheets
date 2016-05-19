@@ -25,8 +25,8 @@ function doCreateMainWindow() {
   });
 }
 
-function doCreateMenuBarWindow() {
-  menuBarWindow = createMenuBarWindow();
+function doCreateMenuBarWindow(bounds) {
+  menuBarWindow = createMenuBarWindow(bounds);
 
   menuBarWindow.on('closed', () => {
     menuBarWindow = null;
@@ -68,8 +68,8 @@ async function start() {
     }
   });
 
-  appIcon.on('click', () => {
-    doCreateMenuBarWindow();
+  appIcon.on('click', (event, bounds) => {
+    doCreateMenuBarWindow(bounds);
   });
 
   // init
