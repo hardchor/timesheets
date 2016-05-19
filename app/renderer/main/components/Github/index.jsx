@@ -3,6 +3,7 @@ import { Grid, Cell, Button } from 'react-mdl';
 import config from '../../../../config';
 import RepositoryList from './RepositoryList';
 import TrackedRepositoryList from './TrackedRepositoryList';
+import GithubAuth from './GithubAuth';
 
 function Github({
   requestAuthenticateGithub,
@@ -25,20 +26,18 @@ function Github({
         <h1>Github</h1>
 
         {authRequired &&
-          <div>
-            <p>Log in with Github</p>
-            <Button onClick={requestAuthenticateGithub} raised accent ripple>Connect</Button>
-          </div>
+          <GithubAuth
+            requestAuthenticateGithub={requestAuthenticateGithub}
+            title={"Login to Github"}
+          />
         }
 
         {!authRequired && additionalScopesRequired &&
-          <div>
-            <p>
-              Additional permissions required:
-              <pre>{diff.join(', ')}</pre>
-            </p>
-            <Button onClick={requestAuthenticateGithub} raised accent ripple>Grant</Button>
-          </div>
+          <GithubAuth
+            requestAuthenticateGithub={requestAuthenticateGithub}
+            title={"Additional permissions required:"}
+            permissionsRequired={diff.join(', ')}
+          />
         }
 
         {!authRequired && !additionalScopesRequired &&
