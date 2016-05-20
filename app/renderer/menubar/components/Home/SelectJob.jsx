@@ -6,7 +6,7 @@ function SelectJob({ project, startJob }) {
   function renderItem(projectData) {
     return (
       <ListItem key={projectData.name}>
-        <ListItemContent avatar="group_work">
+        <ListItemContent avatar="work">
           {projectData.name}
         </ListItemContent>
         <ListItemAction>

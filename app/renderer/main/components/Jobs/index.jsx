@@ -81,9 +81,6 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
   );
 }
 
-// {data.status === 'running' && <button onClick={() => stopJob(data.id)}>End</button>}
-// <button onClick={() => removeJob(data.id)}>Remove</button>
-
 Jobs.propTypes = {
   startJob: PropTypes.func.isRequired,
   stopJob: PropTypes.func.isRequired,
