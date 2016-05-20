@@ -6,7 +6,7 @@ export default {
 
   devtool: 'source-map',
 
-  entry: './app/main/index',
+  entry: ['babel-polyfill', './app/main/index'],
 
   output: {
     path: __dirname,

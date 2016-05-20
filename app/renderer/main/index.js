@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import { ipcRenderer, remote } from 'electron';
 import React from 'react';
 import { render } from 'react-dom';
