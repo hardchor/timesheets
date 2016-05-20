@@ -1,3 +1,15 @@
 @import '~react-mdl/extra/material.css';
 @import './fonts/roboto.global.css';
 @import './fonts/material-icons.global.css';
+
+html {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+.mdl-layout__drawer .avatar {
+  margin-bottom: 16px;
+}

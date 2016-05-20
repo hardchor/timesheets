@@ -27,6 +27,10 @@ function Drawer({ job }) {
           <i className={navigationLinkIconClassName} role="presentation">home</i>
           Home
         </IndexLink>
+        <Link to="/projects" className={styles.navigationLink} activeClassName={styles.active}>
+          <i className={navigationLinkIconClassName} role="presentation">group_work</i>
+          Projects
+        </Link>
         <Link to="/jobs" className={styles.navigationLink} activeClassName={styles.active}>
           {!!activeJobsCount &&
             <Badge text={activeJobsCount} overlap>
@@ -37,10 +41,6 @@ function Drawer({ job }) {
             <i className={navigationLinkIconClassName} role="presentation">timer</i>
           }
           Jobs
-        </Link>
-        <Link to="/projects" className={styles.navigationLink} activeClassName={styles.active}>
-          <i className={navigationLinkIconClassName} role="presentation">group_work</i>
-          Projects
         </Link>
         <Spacer />
         <Link to="/github" className={styles.navigationLink} activeClassName={styles.active}>
