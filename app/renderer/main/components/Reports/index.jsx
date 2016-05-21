@@ -4,25 +4,33 @@ import moment from 'moment';
 import { Grid, Cell } from 'react-mdl';
 import GroupedReport from './GroupedReport';
 
+function groupDates(fromDate, toDate, groupBy) {
+  const groupedDates = [];
+  const currentDate = moment(fromDate).endOf(groupBy);
+  while (currentDate.isSameOrBefore(toDate)) {
+    const groupedFromDate = currentDate.clone().startOf(groupBy);
+    const groupedToDate = currentDate.clone().endOf(groupBy);
+    groupedDates.push({ groupedFromDate, groupedToDate });
+
+    currentDate.add(1, groupBy);
+  }
+
+  return groupedDates;
+}
+
 function Reports({ job }) {
   const groupDatesBy = 'day';
-  const fromDate = moment().subtract(7, 'days').startOf(groupDatesBy);
+  const fromDate = moment().startOf('week');
   const toDate = moment().endOf(groupDatesBy);
 
   // group by day
-  const groupedDates = [];
-  const currentDate = moment(fromDate).endOf(groupDatesBy);
-  do {
-    const groupedFromDate = currentDate.clone().startOf(groupDatesBy);
-    const groupedToDate = currentDate.clone().endOf(groupDatesBy);
-    groupedDates.push({ groupedFromDate, groupedToDate });
-
-    currentDate.add(1, groupDatesBy);
-  } while (currentDate.isBefore(toDate));
+  const groupedDates = groupDates(fromDate, toDate, groupDatesBy);
 
   // filter by time
   const jobs = job.jobs.filter(jobData => {
-    const endAt = jobData.endAt && moment(jobData.endAt);
+    if (!jobData.endAt) return false;
+
+    const endAt = moment(jobData.endAt);
     return endAt.isBetween(fromDate, toDate);
   });
 
