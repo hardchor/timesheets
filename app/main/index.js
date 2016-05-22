@@ -1,15 +1,16 @@
-import '../shared/promisify';
 import path from 'path';
 import { app, ipcMain, Tray } from 'electron';
+import pify from 'pify';
 import jsonStorage from 'electron-json-storage';
 import createMainWindow from './window/createMainWindow';
 import createMenuBarWindow from './window/createMenuBarWindow';
 import configureStore from '../shared/store/configureStore';
 
-const trayIcon = path.join(__dirname, '../renderer/assets/images/logo.png');
-
 // we have to do this to allow remote-loading of the current state :()
 global.state = {};
+
+const storage = pify(jsonStorage);
+const trayIcon = path.join(__dirname, '../renderer/assets/images/logo.png');
 
 let mainWindow = null;
 let menuBarWindow = null;
@@ -42,14 +43,14 @@ async function start() {
   const appIcon = new Tray(trayIcon);
   appIcon.setToolTip('Timesheets');
 
-  global.state = await jsonStorage.getAsync('state');
+  global.state = await storage.get('state');
   const store = configureStore(global.state, 'main');
 
   store.subscribe(async () => {
     global.state = store.getState();
     // persist store changes
     // TODO: should this be blocking / wait? _.throttle?
-    await jsonStorage.setAsync('state', global.state);
+    await storage.set('state', global.state);
   });
 
   ipcMain.on('redux-action', (event, payload) => {

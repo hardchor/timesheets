@@ -98,7 +98,6 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
-    "bluebird": "^3.3.5",
     "classnames": "^2.2.5",
     "css-modules-require-hook": "^4.0.0",
     "dotenv": "^2.0.0",
@@ -109,6 +108,7 @@
     "moment": "^2.13.0",
     "node-fetch": "^1.5.2",
     "parse-link-header": "^0.4.1",
+    "pify": "^2.3.0",
     "postcss": "^5.0.19",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
