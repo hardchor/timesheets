@@ -6,7 +6,7 @@ import GroupedReport from './GroupedReport';
 import ReportFilter from './ReportFilter';
 
 const initialState = {
-  groupDatesBy: 'week',
+  groupDatesBy: 'day',
   fromDate: moment().startOf('week'),
   toDate: moment().endOf('week'),
 };
