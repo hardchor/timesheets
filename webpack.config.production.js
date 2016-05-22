@@ -8,8 +8,14 @@ const config = {
   devtool: 'source-map',
 
   entry: {
-    main: ['babel-polyfill', './app/renderer/main/index'],
-    menubar: ['babel-polyfill', './app/renderer/menubar/index'],
+    main: [
+      'babel-polyfill',
+      './app/renderer/main/index',
+    ],
+    menubar: [
+      'babel-polyfill',
+      './app/renderer/menubar/index',
+    ],
   },
 
   output: {
