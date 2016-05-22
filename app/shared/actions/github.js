@@ -1,5 +1,5 @@
 import { ALIASED } from '.';
-import githubAuth from '../../main/window/githubAuth';
+import githubAuth from '../../main/api/requestGithubToken';
 import getRepos from '../../main/api/getRepos';
 import importProjects from '../../main/api/importProjects';
 
@@ -8,18 +8,19 @@ export const aliases = {};
 // Authenticate
 export const AUTHENTICATE_GITHUB = 'AUTHENTICATE_GITHUB';
 
-export function requestAuthenticateGithub() {
+export function requestAuthenticateGithub(username, password, twofa) {
   return {
     type: ALIASED,
+    payload: [username, password, twofa],
     meta: {
       trigger: AUTHENTICATE_GITHUB,
     },
   };
 }
-export function authenticateGithub() {
+export function authenticateGithub(username, password, twofa) {
   return {
     type: AUTHENTICATE_GITHUB,
-    payload: githubAuth(),
+    payload: githubAuth(username, password, twofa),
   };
 }
 aliases[AUTHENTICATE_GITHUB] = authenticateGithub;

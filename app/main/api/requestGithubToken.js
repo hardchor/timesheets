@@ -1,22 +1,27 @@
-import querystring from 'querystring';
 import fetch from 'node-fetch';
-import FormData from 'form-data';
 import config from '../../config';
-import { status, text } from '../../shared/helpers/fetch';
+import { status, text, json } from '../../shared/helpers/fetch';
 
-const { clientId, clientSecret } = config.github;
-
-export default function requestGithubToken(code) {
-  const form = new FormData();
-  form.append('client_id', clientId);
-  form.append('client_secret', clientSecret);
-  form.append('code', code);
-
-  return fetch('https://github.com/login/oauth/access_token', {
+export default function requestGithubToken(username, password, twofactor) {
+  const options = {
     method: 'POST',
-    body: form,
-  })
+    headers: {
+      Authorization: `Basic ${new Buffer(`${username}:${password}`).toString('base64')}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      scopes: config.github.scopes,
+      note: 'Timesheets App',
+    }),
+  };
+
+
+  if (twofactor) {
+    options.headers['X-GitHub-OTP'] = twofactor;
+  }
+
+  return fetch('https://api.github.com/authorizations', options)
   .then(status)
-  .then(text)
-  .then(response => querystring.parse(response));
+  .then(json);
 }

@@ -1,26 +1,55 @@
 import React, { PropTypes } from 'react';
-import { Button } from 'react-mdl';
+import { Textfield, Button } from 'react-mdl';
+import { reduxForm } from 'redux-form';
+
+const fields = ['username', 'password', 'twofa'];
 
 function GithubAuth({
-  requestAuthenticateGithub,
-  title,
-  permissionsRequired,
+  fields: { username, password, twofa },
+  handleSubmit,
+  resetForm,
+  github,
 }) {
+  function onSubmit(...args) {
+    handleSubmit(...args);
+    // resetForm();
+  }
+
   return (
     <div>
-      <p>{title}</p>
-      {permissionsRequired &&
-        <pre>{permissionsRequired}</pre>
+      <form onSubmit={onSubmit}>
+        <Textfield
+          {...username}
+          floatingLabel
+          label="Username"
+        />
+        <Textfield
+          {...password}
+          floatingLabel
+          type="password"
+          label="Password"
+        />
+        {github.twofa &&
+          <Textfield
+            {...twofa}
+            floatingLabel
+            label="Two factor auth code"
+          />
       }
-      <Button onClick={requestAuthenticateGithub} raised accent ripple>Connect</Button>
+        <Button raised accent ripple>Login</Button>
+      </form>
     </div>
   );
 }
 
 GithubAuth.propTypes = {
-  requestAuthenticateGithub: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  permissionsRequired: PropTypes.object,
+  handleSubmit: PropTypes.func.isRequired,
+  github: PropTypes.object.isRequired,
+  resetForm: PropTypes.func.isRequired,
+  fields: PropTypes.object.isRequired,
 };
 
-export default GithubAuth;
+export default reduxForm({
+  form: 'githubAuth',
+  fields,
+})(GithubAuth);
