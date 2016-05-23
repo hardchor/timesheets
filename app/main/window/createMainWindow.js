@@ -13,6 +13,16 @@ export default function createWindow() {
     height: 728,
   });
 
+  var handleRedirect = (e, url) => {
+    if (url != mainWindow.webContents.getURL()) {
+      e.preventDefault()
+      require('electron').shell.openExternal(url)
+    }
+  }
+
+  mainWindow.webContents.on('will-navigate', handleRedirect)
+  mainWindow.webContents.on('new-window', handleRedirect)
+
   mainWindow.maximize();
 
   mainWindow.loadURL(`file://${mainHtml}`);

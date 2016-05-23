@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Textfield, Button } from 'react-mdl';
 import { reduxForm } from 'redux-form';
+import { shell } from 'electron';
 
 const fields = ['username', 'password', 'twofa'];
 
@@ -47,10 +48,14 @@ function GithubAuth({
           />
         }
         <Button raised accent ripple>Login</Button>
-        {github.tokenExists &&
-          <div>link to token page</div>
-        }
       </form>
+      {github.tokenExists &&
+        <div>
+          <a href="https://github.com/settings/tokens">
+            Please make sure you don't already have an existing Personal access token
+          </a>
+        </div>
+      }
     </div>
   );
 }
