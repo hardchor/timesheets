@@ -22,21 +22,21 @@ export default function github(state = initialState, action) {
 
   switch (type) {
     case AUTHENTICATE_GITHUB:
-      if (payload.twofa) return {
-        ...state,
-        twofa: true,
-      }
-
-      if (payload.tokenExists) return {
-        ...state,
-        tokenExists: true,
-      }
-
-      if (error) return state;
+      if (error) {
+        return {
+          ...state,
+          error: true,
+          twofa: !!payload.twofa,
+          twofaFailed: !!state.twofa,
+          tokenExists: !!payload.tokenExists,
+        }
+      };
 
       return {
         ...state,
+        error: false,
         twofa: false,
+        twofaFailed: false,
         tokenExists: false,
         accessToken: payload.token,
         scope: payload.scopes,

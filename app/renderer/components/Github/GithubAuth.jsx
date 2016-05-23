@@ -15,6 +15,16 @@ function GithubAuth({
     // resetForm();
   }
 
+  if (github.error) {
+    if (github.twofaFailed) {
+      twofa.error = 'Incorrect two factor auth code';
+    } else if (github.tokenExists) {
+      username.error = 'Token already exists';
+    } else {
+      username.error = 'There has been a problem logging you in';
+    }
+  }
+
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -35,10 +45,10 @@ function GithubAuth({
             floatingLabel
             label="Two factor auth code"
           />
-      }
+        }
         <Button raised accent ripple>Login</Button>
         {github.tokenExists &&
-          <div>Please make sure you don't already have a token</div>
+          <div>link to token page</div>
         }
       </form>
     </div>
