@@ -37,6 +37,9 @@ function GithubAuth({
           />
       }
         <Button raised accent ripple>Login</Button>
+        {github.tokenExists &&
+          <div>Please make sure you don't already have a token</div>
+        }
       </form>
     </div>
   );

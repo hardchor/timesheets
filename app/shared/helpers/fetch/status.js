@@ -1,8 +1,10 @@
 function handleError(response) {
   const twofa = response.headers._headers['x-github-otp'];
+  const tokenExists = response.status === 422;
 
   const err = new Error(response.statusText);
   if (twofa) err.twofa = true;
+  if (tokenExists) err.tokenExists = true;
   err.response = response;
 
   throw err;

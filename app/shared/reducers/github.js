@@ -27,11 +27,17 @@ export default function github(state = initialState, action) {
         twofa: true,
       }
 
+      if (payload.tokenExists) return {
+        ...state,
+        tokenExists: true,
+      }
+
       if (error) return state;
 
       return {
         ...state,
         twofa: false,
+        tokenExists: false,
         accessToken: payload.token,
         scope: payload.scopes,
       };
