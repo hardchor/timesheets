@@ -3,7 +3,7 @@ import path from 'path';
 import process from 'process';
 import Positioner from 'electron-positioner';
 
-const menuBarHtml = path.join(__dirname, '../../renderer/menubar/index.html');
+const menuBarHtml = path.join(__dirname, '../renderer/assets/html/menubar.html');
 
 export default function createMenuBar(trayBounds) {
   const menuBarWindow = new BrowserWindow({

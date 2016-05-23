@@ -1,10 +1,11 @@
+import path from 'path';
 import webpack from 'webpack';
 import baseConfig from './webpack.config.base';
 
 export default {
   ...baseConfig,
 
-  devtool: 'source-map',
+  devtool: process.env.NODE_ENV === 'development' ? 'source-map' : false,
 
   entry: [
     'babel-polyfill',
@@ -12,8 +13,8 @@ export default {
   ],
 
   output: {
-    path: __dirname,
-    filename: './main.js',
+    path: path.resolve(__dirname, 'dist/main'),
+    filename: 'main.js',
   },
 
   plugins: [
@@ -23,7 +24,7 @@ export default {
       },
     }),
     new webpack.BannerPlugin(
-      'require("source-map-support").install();',
+      process.env.NODE_ENV === 'development' ? 'require("source-map-support").install();' : '',
       { raw: true, entryOnly: false }
     ),
     new webpack.DefinePlugin({

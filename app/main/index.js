@@ -2,8 +2,8 @@ import path from 'path';
 import { app, ipcMain, Tray } from 'electron';
 import pify from 'pify';
 import jsonStorage from 'electron-json-storage';
-import createMainWindow from './window/createMainWindow';
-import createMenuBarWindow from './window/createMenuBarWindow';
+import createMainWindow from './createMainWindow';
+import createMenuBarWindow from './createMenuBarWindow';
 import configureStore from '../shared/store/configureStore';
 
 // we have to do this to allow remote-loading of the current state :()

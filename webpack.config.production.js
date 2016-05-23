@@ -1,11 +1,10 @@
+import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
 const config = {
   ...baseConfig,
-
-  devtool: 'source-map',
 
   entry: {
     main: [
@@ -21,7 +20,9 @@ const config = {
   output: {
     ...baseConfig.output,
 
+    path: path.join(__dirname, 'dist', 'renderer'),
     publicPath: '../dist/',
+    filename: '[name]/[name].js',
   },
 
   module: {
