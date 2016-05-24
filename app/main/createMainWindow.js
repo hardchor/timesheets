@@ -31,9 +31,9 @@ export default function createWindow() {
   mainWindow.webContents.on('will-navigate', handleRedirect);
   mainWindow.webContents.on('new-window', handleRedirect);
 
-  // if (process.env.NODE_ENV === 'development') {
-  mainWindow.openDevTools();
-  // }
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.openDevTools();
+  }
 
   if (process.platform === 'darwin') {
     template = [{
