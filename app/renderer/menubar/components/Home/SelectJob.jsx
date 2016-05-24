@@ -4,10 +4,13 @@ import style from './selectJob.css';
 
 function SelectJob({ project, startJob }) {
   function renderItem(projectData) {
+    const [projectCode, projectName] = projectData.name.split('#');
+
     return (
       <ListItem key={projectData.name}>
         <ListItemContent avatar="work">
-          {projectData.name}
+          <strong>{projectCode || projectName}</strong><br />
+          {projectCode && projectName}
         </ListItemContent>
         <ListItemAction>
           <Button onClick={() => startJob(projectData.name)} raised accent ripple>Start</Button>

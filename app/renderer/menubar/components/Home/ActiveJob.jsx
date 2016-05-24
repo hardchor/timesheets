@@ -4,12 +4,15 @@ import moment from 'moment';
 import style from './activeJob.css';
 
 function ActiveJob({ activeJob, stopJob }) {
+  const [projectCode, projectName] = activeJob.projectName.split('#');
+
   return (
     <div>
       <List className={style.list}>
         <ListItem>
           <ListItemContent avatar="timer">
-            {activeJob.projectName}<br />
+            <strong>{projectCode || projectName}</strong><br />
+            {projectCode && projectName}<br />
             <small>{moment(activeJob.startAt).fromNow()}</small>
           </ListItemContent>
           <ListItemAction>
