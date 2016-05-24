@@ -22,13 +22,24 @@ export default function github(state = initialState, action) {
 
   switch (type) {
     case AUTHENTICATE_GITHUB:
-      if (error) return state;
+      if (error) {
+        return {
+          ...state,
+          error: true,
+          twofa: !!payload.twofa,
+          twofaFailed: !!state.twofa,
+          tokenExists: !!payload.tokenExists,
+        }
+      };
 
       return {
         ...state,
-        accessToken: payload.access_token,
-        tokenType: payload.token_type,
-        scope: payload.scope.split(','),
+        error: false,
+        twofa: false,
+        twofaFailed: false,
+        tokenExists: false,
+        accessToken: payload.token,
+        scope: payload.scopes,
       };
 
     case GET_GITHUB_REPOS: {

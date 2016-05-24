@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Grid, Cell, Button } from 'react-mdl';
-import config from '../../../../config';
+import { Grid, Cell } from 'react-mdl';
+import config from '../../../config';
 import RepositoryList from './RepositoryList';
 import TrackedRepositoryList from './TrackedRepositoryList';
+import GithubAuth from './GithubAuth';
 
 function Github({
   requestAuthenticateGithub,
@@ -25,21 +26,13 @@ function Github({
         <h1>Github</h1>
 
         {authRequired &&
-          <div>
-            <p>Log in with Github</p>
-            <Button onClick={requestAuthenticateGithub} raised accent ripple>Connect</Button>
-          </div>
+          <GithubAuth
+            onSubmit={({ username, password, twofa}) => requestAuthenticateGithub(username, password, twofa)}
+            github={github}
+          />
         }
 
-        {!authRequired && additionalScopesRequired &&
-          <div>
-            <p>
-              Additional permissions required:
-              <pre>{diff.join(', ')}</pre>
-            </p>
-            <Button onClick={requestAuthenticateGithub} raised accent ripple>Grant</Button>
-          </div>
-        }
+        {additionalScopesRequired && <div>Give me more permissions</div>}
 
         {!authRequired && !additionalScopesRequired &&
           <div>

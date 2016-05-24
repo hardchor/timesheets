@@ -13,6 +13,13 @@ export default function createWindow() {
     height: 728,
   });
 
+  function handleRedirect(e, url) {
+    if (url !== mainWindow.webContents.getURL()) {
+      e.preventDefault();
+      shell.openExternal(url);
+    }
+  }
+
   mainWindow.maximize();
 
   mainWindow.loadURL(`file://${mainHtml}`);
@@ -21,6 +28,8 @@ export default function createWindow() {
     mainWindow.show();
     mainWindow.focus();
   });
+  mainWindow.webContents.on('will-navigate', handleRedirect);
+  mainWindow.webContents.on('new-window', handleRedirect);
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();
