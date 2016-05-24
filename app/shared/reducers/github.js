@@ -29,8 +29,8 @@ export default function github(state = initialState, action) {
           twofa: !!payload.twofa,
           twofaFailed: !!state.twofa,
           tokenExists: !!payload.tokenExists,
-        }
-      };
+        };
+      }
 
       return {
         ...state,

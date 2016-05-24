@@ -49,7 +49,12 @@ export default function job(state = initialState, action) {
       let newState = { ...state };
       // go through each body, finding "Tracks #..."
       action.payload.forEach(issue => {
-        const identifiers = getProjectIdentifiers(issue.body);
+        const identifiers = [
+          // for issues
+          ...getProjectIdentifiers(issue.body),
+          // for milestones
+          ...getProjectIdentifiers(issue.description),
+        ];
         identifiers.forEach(identifier => {
           newState = addProject(identifier, newState);
         });

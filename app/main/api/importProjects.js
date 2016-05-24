@@ -1,14 +1,11 @@
-import fetchPaginated from '../../shared/helpers/fetchPaginated';
-import { iterator, status, json, jsonAggregator } from '../../shared/helpers/fetch';
+import { jsonAggregator } from '../../shared/helpers/fetch';
+import getIssues from './getIssues';
+import getMilestones from './getMilestones';
 
 export default function importProjects(accessToken, repoFullName) {
-  return fetchPaginated(`https://api.github.com/repos/${repoFullName}/issues?state=all`, {
-    method: 'GET',
-    headers: {
-      Authorization: `token ${accessToken}`,
-    },
-  })
-  .then(iterator(status))
-  .then(iterator(json))
+  return Promise.all([
+    getIssues(accessToken, repoFullName),
+    getMilestones(accessToken, repoFullName),
+  ])
   .then(jsonAggregator);
 }
