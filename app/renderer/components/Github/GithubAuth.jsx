@@ -1,19 +1,17 @@
+/* eslint-disable no-param-reassign */
 import React, { PropTypes } from 'react';
 import { Textfield, Button } from 'react-mdl';
 import { reduxForm } from 'redux-form';
-import { shell } from 'electron';
 
 const fields = ['username', 'password', 'twofa'];
 
 function GithubAuth({
   fields: { username, password, twofa },
   handleSubmit,
-  resetForm,
   github,
 }) {
   function onSubmit(...args) {
     handleSubmit(...args);
-    // resetForm();
   }
 
   if (github.error) {
