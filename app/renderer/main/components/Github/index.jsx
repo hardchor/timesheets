@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { PropTypes } from 'react';
 import { Grid, Cell } from 'react-mdl';
 import config from '../../../../config';
@@ -12,6 +13,7 @@ function Github({
   untrackGithubRepo,
   requestImportGithubProjects,
   github,
+  project,
 }) {
   const grantedScopes = new Set(github.scope);
   const requiredScopes = config.github.scopes;
@@ -27,10 +29,7 @@ function Github({
 
         {authRequired &&
           <GithubAuth
-            onSubmit={
-              ({ username, password, twofa }) =>
-                requestAuthenticateGithub(username, password, twofa)
-              }
+            onSubmit={({ username, password, twofa }) => requestAuthenticateGithub(username, password, twofa)}
             github={github}
           />
         }
@@ -43,6 +42,7 @@ function Github({
               untrackGithubRepo={untrackGithubRepo}
               requestImportGithubProjects={requestImportGithubProjects}
               github={github}
+              project={project}
             />
             <RepositoryList
               requestGetGithubRepos={requestGetGithubRepos}

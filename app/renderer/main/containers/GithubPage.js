@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import Github from '../components/Github';
 import * as GithubActions from '../../../shared/actions/github';
 
-function mapStateToProps(state) {
-  return {
-    github: state.github,
-  };
+function mapStateToProps({ github, project }) {
+  return { github, project };
 }
 
 function mapDispatchToProps(dispatch) {
