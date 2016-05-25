@@ -5,6 +5,7 @@ import HomePage from './containers/HomePage';
 import JobsPage from './containers/JobsPage';
 import ProjectsPage from './containers/ProjectsPage';
 import GithubPage from './containers/GithubPage';
+import ReportsPage from './containers/ReportsPage';
 
 
 export default (
@@ -13,5 +14,6 @@ export default (
     <Route path="/jobs" component={JobsPage} />
     <Route path="/projects" component={ProjectsPage} />
     <Route path="/github" component={GithubPage} />
+    <Route path="/reports" component={ReportsPage} />
   </Route>
 );

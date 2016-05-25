@@ -16,7 +16,6 @@ function Drawer({ job }) {
   );
   const navigationLinkIconClassName = classnames(
     'mdl-color-text--blue-grey-400',
-    'material-icons',
     styles.navigationLinkIcon
   );
 
@@ -24,11 +23,11 @@ function Drawer({ job }) {
     <MdlDrawer className={drawerClassName}>
       <Navigation className={classnames('mdl-color--blue-grey-800', styles.navigation)}>
         <IndexLink to="/" className={styles.navigationLink} activeClassName={styles.active}>
-          <i className={navigationLinkIconClassName} role="presentation">home</i>
+          <Icon name="home" className={navigationLinkIconClassName} />
           Home
         </IndexLink>
         <Link to="/projects" className={styles.navigationLink} activeClassName={styles.active}>
-          <i className={navigationLinkIconClassName} role="presentation">group_work</i>
+          <Icon name="work" className={navigationLinkIconClassName} />
           Projects
         </Link>
         <Link to="/jobs" className={styles.navigationLink} activeClassName={styles.active}>
@@ -38,13 +37,19 @@ function Drawer({ job }) {
             </Badge>
           }
           {!activeJobsCount &&
-            <i className={navigationLinkIconClassName} role="presentation">timer</i>
+            <Icon name="timer" className={navigationLinkIconClassName} />
           }
           Jobs
         </Link>
+        <Link to="/reports" className={styles.navigationLink} activeClassName={styles.active}>
+          <Icon name="timeline" className={navigationLinkIconClassName} />
+          Reports
+        </Link>
+
         <Spacer />
+
         <Link to="/github" className={styles.navigationLink} activeClassName={styles.active}>
-          <i className={navigationLinkIconClassName} role="presentation">code</i>
+          <Icon name="code" className={navigationLinkIconClassName} />
           Github
         </Link>
       </Navigation>

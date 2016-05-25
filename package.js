@@ -27,12 +27,12 @@ const DEFAULT_OPTS = {
     '^/test($|/)',
     '^/tools($|/)',
     '^/release($|/)',
-    '^/app/main/index.js'
+    '^/app/main/index.js',
   ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
   .concat(
     deps.filter(name => !electronCfg.externals.includes(name))
       .map(name => `/node_modules/${name}($|/)`)
-  )
+  ),
 };
 
 const icon = argv.icon || argv.i || 'app/app';
@@ -108,7 +108,7 @@ function pack(plat, arch, cb) {
         extension = '.ico';
       }
       return extension;
-    })()
+    })(),
   };
 
   const opts = Object.assign({}, DEFAULT_OPTS, iconObj, {
@@ -116,7 +116,7 @@ function pack(plat, arch, cb) {
     arch,
     prune: true,
     'app-version': pkg.version || DEFAULT_OPTS.version,
-    out: `release/${plat}-${arch}`
+    out: `release/${plat}-${arch}`,
   });
 
   packager(opts, cb);
