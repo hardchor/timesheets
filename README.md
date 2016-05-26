@@ -49,6 +49,16 @@ npm run build
 npm run pack
 ```
 
+### Release
+
+After you've bumped the version number in `app/package.json`, run:
+
+```bash
+GH_TOKEN=... npm run release
+```
+
+Then, head over to https://github.com/hardchor/timesheets/releases and publish.
+
 ---
 
 > Originally based on the fantastic [chentsulin/electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)
