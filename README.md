@@ -40,6 +40,16 @@ $ npm run dev
 
 *Note: requires a node version >= 4 and an npm version >= 2.*
 
+### Package and Release
+
+To package the app for local testing, run:
+
+```bash
+npm run build
+npm run pack
+```
+
+---
 
 > Originally based on the fantastic [chentsulin/electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)
 > MIT © [C. T. Lin](https://github.com/chentsulin)
