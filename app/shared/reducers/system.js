@@ -17,7 +17,6 @@ const initialState = {
 };
 
 export default function system(state = initialState, action) {
-  console.log('#####', action);
   switch (action.type) {
     case CHECKING_FOR_UPDATE: {
       return {

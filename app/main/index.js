@@ -76,7 +76,10 @@ async function start() {
 
   // init
   doCreateMainWindow();
-  osxAutoUpdater(store);
+
+  setTimeout(() => {
+    osxAutoUpdater(store);
+  }, 5000);
 }
 
 app.on('ready', start);

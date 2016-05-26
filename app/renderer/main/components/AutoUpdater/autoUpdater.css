@@ -1,0 +1,9 @@
+.snackbarIconContainer {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.snackbarIconText {
+  line-height: 28px;
+  margin-left: 15px;
+}
