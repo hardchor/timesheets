@@ -1,5 +1,5 @@
 {
-  "name": "timesheets",
+  "name": "Timesheets",
   "version": "0.0.1",
   "description": "A timesheet keeping app based on electron",
   "main": "main/index.js",

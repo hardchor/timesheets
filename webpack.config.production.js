@@ -22,7 +22,7 @@ const config = {
 
     path: path.join(__dirname, 'dist', 'renderer'),
     publicPath: '../dist/',
-    filename: '[name]/[name].js',
+    filename: '[name]/index.js',
   },
 
   module: {

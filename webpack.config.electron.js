@@ -14,7 +14,7 @@ export default {
 
   output: {
     path: path.resolve(__dirname, 'dist/main'),
-    filename: 'main.js',
+    filename: 'index.js',
   },
 
   plugins: [
