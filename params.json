@@ -1,0 +1,6 @@
+{
+  "name": "Timesheets",
+  "tagline": "Time tracking done right",
+  "body": "Timesheets is an app that makes time tracking incredibly easy.\r\n\r\n### Features\r\n\r\n* precise tracking down to the millisecond\r\n* flexible reporting\r\n* GitHub and [waffle.io](https://waffle.io/) integration\r\n* makes you pancakes in the morning\r\n\r\n\r\n### Authors and Contributors\r\n\r\nTimesheets is maintained by [Burkhard Reffeling](https://github.com/hardchor). Find me on twitter [@BurkhardR](https://twitter.com/BurkhardR).\r\n\r\n\r\n### Found an issue?\r\n\r\nHaving trouble with Timesheets? Read through the [README](https://github.com/hardchor/timesheets#readme), [file an issue](https://github.com/hardchor/timesheets/issues) or [open a pull request](https://github.com/hardchor/timesheets/pulls)!\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
