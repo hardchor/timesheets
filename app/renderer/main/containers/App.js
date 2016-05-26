@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import App from '../components/App';
 import * as JobActions from '../../../shared/actions/job';
 
-function mapStateToProps({ job }) {
-  return { job };
+function mapStateToProps({ job, system }) {
+  return { job, system };
 }
 
 function mapDispatchToProps(dispatch) {

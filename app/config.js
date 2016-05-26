@@ -14,7 +14,7 @@ const config = {
     scopes: [
       'repo',
     ],
-  }
+  },
 };
 
 export default config;

@@ -1,3 +1,4 @@
+import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import baseConfig from './webpack.config.base';
@@ -5,17 +6,23 @@ import baseConfig from './webpack.config.base';
 const config = {
   ...baseConfig,
 
-  devtool: 'source-map',
-
   entry: {
-    main: ['babel-polyfill', './app/renderer/main/index'],
-    menubar: ['babel-polyfill', './app/renderer/menubar/index'],
+    main: [
+      'babel-polyfill',
+      './app/renderer/main/index',
+    ],
+    menubar: [
+      'babel-polyfill',
+      './app/renderer/menubar/index',
+    ],
   },
 
   output: {
     ...baseConfig.output,
 
+    path: path.join(__dirname, 'dist', 'renderer'),
     publicPath: '../dist/',
+    filename: '[name]/index.js',
   },
 
   module: {
@@ -57,7 +64,7 @@ const config = {
         warnings: false,
       },
     }),
-    new ExtractTextPlugin('style.css', { allChunks: true }),
+    new ExtractTextPlugin('[name]/style.css', { allChunks: true }),
   ],
 
   target: 'electron-renderer',

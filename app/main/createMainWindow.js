@@ -1,7 +1,7 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
 import path from 'path';
 
-const mainHtml = path.join(__dirname, '../../renderer/main/index.html');
+const mainHtml = path.join(__dirname, '../renderer/assets/html/main.html');
 
 export default function createWindow() {
   let menu;

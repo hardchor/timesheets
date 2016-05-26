@@ -13,7 +13,7 @@ export default {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].js',
+    filename: '[name]/index.js',
     libraryTarget: 'commonjs2',
   },
   resolve: {

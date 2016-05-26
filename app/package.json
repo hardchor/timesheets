@@ -1,0 +1,45 @@
+{
+  "name": "Timesheets",
+  "version": "0.0.5",
+  "description": "A timesheet keeping app based on electron",
+  "main": "main/index.js",
+  "author": "Burkhard Reffeling",
+  "license": "MIT",
+  "homepage": "https://github.com/hardchor/timesheets#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hardchor/timesheets.git"
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.2.0",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.0.11",
+    "redux-logger": "^2.6.1",
+    "source-map-support": "^0.4.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "css-modules-require-hook": "^4.0.0",
+    "dotenv": "^2.0.0",
+    "electron-debug": "^0.6.0",
+    "electron-json-storage": "^2.0.0",
+    "electron-positioner": "^3.0.0",
+    "lodash": "^4.13.1",
+    "material-design-lite": "^1.1.3",
+    "moment": "^2.13.0",
+    "node-fetch": "^1.5.2",
+    "parse-link-header": "^0.4.1",
+    "pify": "^2.3.0",
+    "postcss": "^5.0.19",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "react-mdl": "^1.5.4",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.2.4",
+    "react-router-redux": "^4.0.2",
+    "redux": "^3.4.0",
+    "redux-form": "^5.2.3",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.0.1"
+  }
+}
