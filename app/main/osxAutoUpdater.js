@@ -34,16 +34,14 @@ export default function init(store) {
     store.dispatch(updateDownloaded(releaseNotes, releaseName, releaseDate, updateURL));
   });
   autoUpdater.addListener('error', (error) => {
-    console.error(error);
     store.dispatch(updateError(error));
   });
   autoUpdater.addListener('update-not-available', () => {
     store.dispatch(updateNotAvailable());
   });
 
-  console.log('#####');
   store.dispatch(checkingForUpdate());
 
-  autoUpdater.setFeedURL(`https://${UPDATE_SERVER_HOST}/update/${os.platform()}_${os.arch()}/v${version}`);
+  autoUpdater.setFeedURL(`https://${UPDATE_SERVER_HOST}/update/${os.platform()}_${os.arch()}/${version}`);
   autoUpdater.checkForUpdates();
 }
