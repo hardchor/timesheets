@@ -32,6 +32,17 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
     );
   }
 
+  function nameFormatter(name) {
+    const [projectCode, projectName] = name.split('#');
+
+    return (
+      <span>
+        <strong>{projectCode || projectName}</strong><br />
+        {projectCode && projectName}
+      </span>
+    );
+  }
+
   const rows = job.jobs.map((project) => {
     const startAt = project.startAt && moment(project.startAt);
     const endAt = project.endAt && moment(project.endAt);
@@ -64,7 +75,7 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
           rowKeyColumn="id"
         >
           <TableHeader name="status" cellFormatter={statusFormatter} />
-          <TableHeader name="projectName">Project</TableHeader>
+          <TableHeader name="projectName" cellFormatter={nameFormatter}>Project</TableHeader>
           <TableHeader name="startAt" cellFormatter={(date) => date && date.calendar()}>
             Start
           </TableHeader>

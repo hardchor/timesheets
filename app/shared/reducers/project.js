@@ -46,10 +46,25 @@ export default function job(state = initialState, action) {
     }
 
     case IMPORT_GITHUB_PROJECTS: {
-      let newState = { ...state };
+      if (action.error) {
+        return {
+          ...state,
+          importError: true,
+        };
+      }
+
+      let newState = {
+        ...state,
+        importError: false,
+      };
       // go through each body, finding "Tracks #..."
       action.payload.forEach(issue => {
-        const identifiers = getProjectIdentifiers(issue.body);
+        const identifiers = [
+          // for issues
+          ...getProjectIdentifiers(issue.body),
+          // for milestones
+          ...getProjectIdentifiers(issue.description),
+        ];
         identifiers.forEach(identifier => {
           newState = addProject(identifier, newState);
         });

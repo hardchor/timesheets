@@ -1,8 +1,13 @@
 import React, { PropTypes } from 'react';
-import { DataTable, TableHeader, IconButton, Tooltip } from 'react-mdl';
+import { DataTable, TableHeader, IconButton, Tooltip, Snackbar } from 'react-mdl';
 import styles from './github.css';
 
-function TrackedRepositoryList({ untrackGithubRepo, requestImportGithubProjects, github }) {
+function TrackedRepositoryList({
+  untrackGithubRepo,
+  requestImportGithubProjects,
+  github,
+  project,
+}) {
   const trackedRepos = github.repos.filter(repo => repo.tracked);
   const { accessToken } = github;
 
@@ -32,6 +37,7 @@ function TrackedRepositoryList({ untrackGithubRepo, requestImportGithubProjects,
   return (
     <div>
       <h3>Tracked Repos</h3>
+      <Snackbar active={project.importError} onTimeout={() => {}}>Error importing repo.</Snackbar>
       <DataTable
         shadow={0}
         rows={trackedRepos}
