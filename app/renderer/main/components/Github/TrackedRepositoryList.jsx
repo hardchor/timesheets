@@ -37,7 +37,7 @@ function TrackedRepositoryList({
   return (
     <div>
       <h3>Tracked Repos</h3>
-      <Snackbar active={project.importError} onTimeout={() => {}}>Error importing repo.</Snackbar>
+      <Snackbar active={!!project.importError} onTimeout={() => {}}>Error importing repo.</Snackbar>
       <DataTable
         shadow={0}
         rows={trackedRepos}
