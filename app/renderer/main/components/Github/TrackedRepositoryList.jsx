@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { DataTable, TableHeader, IconButton, Tooltip, Snackbar } from 'react-mdl';
+import { DataTable, TableHeader, IconButton, Tooltip, Snackbar, Icon } from 'react-mdl';
 import styles from './github.css';
 
 function TrackedRepositoryList({
@@ -8,8 +8,8 @@ function TrackedRepositoryList({
   github,
   project,
 }) {
-  const trackedRepos = github.repos.filter(repo => repo.tracked);
-  const { accessToken } = github;
+  const { accessToken, repos } = github;
+  const trackedRepos = repos.filter(repo => repo.tracked);
 
   function actionFormatter(action, { id, fullName }) {
     return (
@@ -37,18 +37,28 @@ function TrackedRepositoryList({
   return (
     <div>
       <h3>Tracked Repos</h3>
+
       <Snackbar active={!!project.importError} onTimeout={() => {}}>Error importing repo.</Snackbar>
-      <DataTable
-        shadow={0}
-        rows={trackedRepos}
-        rowKeyColumn="fullName"
-      >
-        <TableHeader name="fullName">Repo</TableHeader>
-        <TableHeader
-          name="action"
-          cellFormatter={(action, repoData) => actionFormatter(action, repoData)}
-        />
-      </DataTable>
+
+      {!!trackedRepos.length &&
+        <DataTable
+          shadow={0}
+          rows={trackedRepos}
+          rowKeyColumn="fullName"
+        >
+          <TableHeader name="fullName">Repo</TableHeader>
+          <TableHeader
+            name="action"
+            cellFormatter={(action, repoData) => actionFormatter(action, repoData)}
+          />
+        </DataTable>
+      }
+      {!trackedRepos.length &&
+        <div>
+          <span>None yet</span><br />
+          <Icon name="sentiment_dissatisfied" />
+        </div>
+      }
     </div>
   );
 }
@@ -57,6 +67,7 @@ TrackedRepositoryList.propTypes = {
   untrackGithubRepo: PropTypes.func.isRequired,
   requestImportGithubProjects: PropTypes.func.isRequired,
   github: PropTypes.object.isRequired,
+  project: PropTypes.object.isRequired,
 };
 
 export default TrackedRepositoryList;

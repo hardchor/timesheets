@@ -6,6 +6,7 @@ import RepositoryList from './RepositoryList';
 import TrackedRepositoryList from './TrackedRepositoryList';
 import GithubAuth from './GithubAuth';
 
+// TODO: link to unlink account (remove token via API + delete from state)
 function Github({
   requestAuthenticateGithub,
   requestGetGithubRepos,
@@ -38,16 +39,16 @@ function Github({
 
         {!authRequired && !additionalScopesRequired &&
           <div>
+            <RepositoryList
+              requestGetGithubRepos={requestGetGithubRepos}
+              trackGithubRepo={trackGithubRepo}
+              github={github}
+            />
             <TrackedRepositoryList
               untrackGithubRepo={untrackGithubRepo}
               requestImportGithubProjects={requestImportGithubProjects}
               github={github}
               project={project}
-            />
-            <RepositoryList
-              requestGetGithubRepos={requestGetGithubRepos}
-              trackGithubRepo={trackGithubRepo}
-              github={github}
             />
           </div>
         }
@@ -63,6 +64,7 @@ Github.propTypes = {
   untrackGithubRepo: PropTypes.func.isRequired,
   requestImportGithubProjects: PropTypes.func.isRequired,
   github: PropTypes.object.isRequired,
+  project: PropTypes.object.isRequired,
 };
 
 export default Github;
