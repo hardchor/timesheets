@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import Select from 'react-select';
+import VirtualizedSelect from 'react-virtualized-select';
 
 class RepositoryList extends Component {
   static propTypes = {
@@ -23,7 +23,7 @@ class RepositoryList extends Component {
     return (
       <div>
         <h3>Repos</h3>
-        <Select
+        <VirtualizedSelect
           name="repos"
           options={untrackedRepos}
           onChange={({ value }) => this.props.trackGithubRepo(value)}

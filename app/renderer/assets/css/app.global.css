@@ -1,5 +1,7 @@
 @import '~react-mdl/extra/material.css';
 @import '~react-select/dist/react-select.css';
+@import '~react-virtualized/styles.css';
+@import '~react-virtualized-select/styles.css';
 @import './fonts/roboto.global.css';
 @import './fonts/material-icons.global.css';
 
