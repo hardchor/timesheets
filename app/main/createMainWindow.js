@@ -7,32 +7,32 @@ export default function createWindow() {
   let menu;
   let template;
 
-  const mainWindow = new BrowserWindow({
+  const window = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728,
   });
 
   function handleRedirect(e, url) {
-    if (url !== mainWindow.webContents.getURL()) {
+    if (url !== window.webContents.getURL()) {
       e.preventDefault();
       shell.openExternal(url);
     }
   }
 
-  mainWindow.maximize();
+  window.maximize();
 
-  mainWindow.loadURL(`file://${mainHtml}`);
+  window.loadURL(`file://${mainHtml}`);
 
-  mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.show();
-    mainWindow.focus();
+  window.webContents.on('did-finish-load', () => {
+    window.show();
+    window.focus();
   });
-  mainWindow.webContents.on('will-navigate', handleRedirect);
-  mainWindow.webContents.on('new-window', handleRedirect);
+  window.webContents.on('will-navigate', handleRedirect);
+  window.webContents.on('new-window', handleRedirect);
 
   if (process.env.NODE_ENV === 'development') {
-    mainWindow.openDevTools();
+    window.openDevTools();
   }
 
   if (process.platform === 'darwin') {
@@ -103,25 +103,25 @@ export default function createWindow() {
         label: 'Reload',
         accelerator: 'Command+R',
         click() {
-          mainWindow.webContents.reload();
+          window.webContents.reload();
         },
       }, {
         label: 'Toggle Full Screen',
         accelerator: 'Ctrl+Command+F',
         click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+          window.setFullScreen(!window.isFullScreen());
         },
       }, {
         label: 'Toggle Developer Tools',
         accelerator: 'Alt+Command+I',
         click() {
-          mainWindow.toggleDevTools();
+          window.toggleDevTools();
         },
       }] : [{
         label: 'Toggle Full Screen',
         accelerator: 'Ctrl+Command+F',
         click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+          window.setFullScreen(!window.isFullScreen());
         },
       }],
     }, {
@@ -177,7 +177,7 @@ export default function createWindow() {
         label: '&Close',
         accelerator: 'Ctrl+W',
         click() {
-          mainWindow.close();
+          window.close();
         },
       }],
     }, {
@@ -186,25 +186,25 @@ export default function createWindow() {
         label: '&Reload',
         accelerator: 'Ctrl+R',
         click() {
-          mainWindow.webContents.reload();
+          window.webContents.reload();
         },
       }, {
         label: 'Toggle &Full Screen',
         accelerator: 'F11',
         click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+          window.setFullScreen(!window.isFullScreen());
         },
       }, {
         label: 'Toggle &Developer Tools',
         accelerator: 'Alt+Ctrl+I',
         click() {
-          mainWindow.toggleDevTools();
+          window.toggleDevTools();
         },
       }] : [{
         label: 'Toggle &Full Screen',
         accelerator: 'F11',
         click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+          window.setFullScreen(!window.isFullScreen());
         },
       }],
     }, {
@@ -232,8 +232,8 @@ export default function createWindow() {
       }],
     }];
     menu = Menu.buildFromTemplate(template);
-    mainWindow.setMenu(menu);
+    window.setMenu(menu);
   }
 
-  return mainWindow;
+  return window;
 }

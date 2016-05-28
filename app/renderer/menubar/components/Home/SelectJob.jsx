@@ -4,7 +4,7 @@ import style from './selectJob.css';
 
 function SelectJob({ project, startJob }) {
   function renderItem(projectData) {
-    const [projectCode, projectName] = projectData.name.split('#');
+    const [projectCode = '', projectName] = (projectData.name && projectData.name.split('#')) || [];
 
     return (
       <ListItem key={projectData.name}>
@@ -23,6 +23,7 @@ function SelectJob({ project, startJob }) {
     <div>
       <List className={style.list}>
         {project.projects.map(renderItem)}
+        {renderItem({ name: 'Unassigned' })}
       </List>
     </div>
   );

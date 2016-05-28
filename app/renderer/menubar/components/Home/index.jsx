@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Grid, Cell } from 'react-mdl';
 import ActiveJob from './ActiveJob';
 import SelectJob from './SelectJob';
+import NoProjects from './NoProjects';
 
 
 function Home({ job, startJob, stopJob, project }) {
@@ -14,6 +15,7 @@ function Home({ job, startJob, stopJob, project }) {
     <Grid>
       <Cell col={12}>
         {activeJob && <ActiveJob activeJob={activeJob} stopJob={stopJob} />}
+        {!activeJob && !project.projects.length && <NoProjects />}
         {!activeJob && <SelectJob project={project} startJob={startJob} />}
       </Cell>
     </Grid>
