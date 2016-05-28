@@ -52,6 +52,10 @@ function Drawer({ job }) {
           <Icon name="code" className={navigationLinkIconClassName} />
           Github
         </Link>
+        <Link to="/settings" className={styles.navigationLink} activeClassName={styles.active}>
+          <Icon name="settings" className={navigationLinkIconClassName} />
+          Settings
+        </Link>
       </Navigation>
     </MdlDrawer>
   );
