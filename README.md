@@ -1,6 +1,8 @@
 # Timesheets App
 
+[![Github All Releases](https://img.shields.io/github/downloads/hardchor/timesheets/total.svg?maxAge=86400)](https://burgiblog.com/timesheets/)
 [![Stories in Ready](https://badge.waffle.io/hardchor/timesheets.png?label=ready&title=Ready)](https://waffle.io/hardchor/timesheets)
+[![Badges](https://img.shields.io/badge/badges-3-orange.svg?style=flat&maxAge=86400)](https://burgiblog.com/timesheets/)
 
 ## Install
 

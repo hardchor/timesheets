@@ -16,7 +16,7 @@ function App({ children, system, job }) {
       {
         (() => {
           if (process.env.NODE_ENV !== 'production') {
-            const DevTools = require('../DevTools');
+            const DevTools = require('../DevTools'); // eslint-disable-line global-require
             return <DevTools />;
           }
 

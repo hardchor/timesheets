@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { DataTable, TableHeader, IconButton, Tooltip } from 'react-mdl';
+import VirtualizedSelect from 'react-virtualized-select';
 
 class RepositoryList extends Component {
   static propTypes = {
@@ -12,35 +12,22 @@ class RepositoryList extends Component {
     this.props.requestGetGithubRepos(this.props.github.accessToken);
   }
 
-  actionFormatter(action, repoData) {
-    return (
-      <Tooltip label="Track repo">
-        <IconButton
-          name="add"
-          onClick={() => this.props.trackGithubRepo(repoData.id)}
-          raised ripple colored
-        />
-      </Tooltip>
-    );
-  }
-
   render() {
-    const untrackedRepos = this.props.github.repos.filter(repo => !repo.tracked);
+    const untrackedRepos = this.props.github.repos
+      .filter(repo => !repo.tracked)
+      .map(({ id, fullName }) => ({
+        value: id,
+        label: fullName,
+      }));
 
     return (
       <div>
         <h3>Repos</h3>
-          <DataTable
-            shadow={0}
-            rows={untrackedRepos}
-            rowKeyColumn="fullName"
-          >
-            <TableHeader name="fullName">Repo</TableHeader>
-            <TableHeader
-              name="action"
-              cellFormatter={(action, repoData) => this.actionFormatter(action, repoData)}
-            />
-          </DataTable>
+        <VirtualizedSelect
+          name="repos"
+          options={untrackedRepos}
+          onChange={({ value }) => this.props.trackGithubRepo(value)}
+        />
       </div>
     );
   }
