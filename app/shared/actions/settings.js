@@ -1,9 +1,9 @@
-export const SET_POMODORO = 'SET_POMODORO';
+export const SET_POMODORO_ENABLED = 'SET_POMODORO_ENABLED';
 
 
-export function setPomodoro(flag) {
+export function setPomodoroEnabled(flag) {
   return {
-    type: SET_POMODORO,
+    type: SET_POMODORO_ENABLED,
     payload: flag,
   };
 }

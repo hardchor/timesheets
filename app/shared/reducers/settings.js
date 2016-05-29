@@ -1,18 +1,18 @@
 /* eslint-disable no-param-reassign */
 import {
-  SET_POMODORO,
+  SET_POMODORO_ENABLED,
 } from '../actions/settings';
 
 const initialState = {
-  pomodoro: false,
+  pomodoroEnabled: false,
 };
 
 export default function settings(state = initialState, action) {
   switch (action.type) {
-    case SET_POMODORO: {
+    case SET_POMODORO_ENABLED: {
       return {
         ...state,
-        pomodoro: action.payload,
+        pomodoroEnabled: action.payload,
       };
     }
 
