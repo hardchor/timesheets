@@ -2,9 +2,14 @@ import React, { PropTypes } from 'react';
 import { Grid, Cell } from 'react-mdl';
 import SettingsForm from './SettingsForm';
 
-function Settings({ settings, setPomodoroEnabled }) {
-  function handleSubmit({ pomodoroEnabled }) {
+function Settings({ settings, setPomodoroEnabled, setGithubEnabled }) {
+  /* eslint-disable react/prop-types */
+  function handleSubmit({
+    pomodoroEnabled,
+    githubEnabled,
+   }) {
     setPomodoroEnabled(pomodoroEnabled);
+    setGithubEnabled(githubEnabled);
   }
 
   return (

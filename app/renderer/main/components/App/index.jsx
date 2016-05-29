@@ -4,11 +4,11 @@ import AutoUpdater from '../AutoUpdater';
 import Header from '../Header';
 import Drawer from '../Drawer';
 
-function App({ children, system, job }) {
+function App({ children, system, job, settings }) {
   return (
     <Layout fixedDrawer fixedHeader>
       <Header />
-      <Drawer job={job} />
+      <Drawer job={job} settings={settings} />
       <Content component="main" className="mdl-color--grey-100">
         <AutoUpdater system={system} />
         {children}

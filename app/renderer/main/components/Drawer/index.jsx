@@ -4,7 +4,7 @@ import { Link, IndexLink } from 'react-router';
 import classnames from 'classnames';
 import styles from './drawer.css';
 
-function Drawer({ job }) {
+function Drawer({ job, settings }) {
   const activeJobsCount = job.jobs.reduce(
     (previous, current) => (current.status === 'running' ? previous + 1 : previous),
     0
@@ -48,10 +48,12 @@ function Drawer({ job }) {
 
         <Spacer />
 
-        <Link to="/github" className={styles.navigationLink} activeClassName={styles.active}>
-          <Icon name="code" className={navigationLinkIconClassName} />
-          Github
-        </Link>
+        {settings.githubEnabled &&
+          <Link to="/github" className={styles.navigationLink} activeClassName={styles.active}>
+            <Icon name="code" className={navigationLinkIconClassName} />
+            Github
+          </Link>
+        }
         <Link to="/settings" className={styles.navigationLink} activeClassName={styles.active}>
           <Icon name="settings" className={navigationLinkIconClassName} />
           Settings
