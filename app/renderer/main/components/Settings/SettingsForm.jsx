@@ -3,7 +3,10 @@ import { reduxForm } from 'redux-form';
 import { Grid, Cell, Switch } from 'react-mdl';
 
 // TODO: pre-populate, handle settings as one big object rather than individual settings
-function SettingsForm({ fields: { pomodoroEnabled, githubEnabled }, handleSubmit }) {
+function SettingsForm({
+  fields: { remindersEnabled, pomodoroEnabled, githubEnabled },
+  handleSubmit,
+}) {
   function handleChange() {
     setTimeout(handleSubmit, 0);
   }
@@ -12,6 +15,7 @@ function SettingsForm({ fields: { pomodoroEnabled, githubEnabled }, handleSubmit
     <form onSubmit={handleSubmit} onChange={handleChange}>
       <Grid>
         <Cell col={12}>
+          <Switch {...remindersEnabled}>Reminders</Switch>
           <Switch {...pomodoroEnabled}>Pomodoro timer</Switch>
           <Switch {...githubEnabled}>Github integration</Switch>
         </Cell>
@@ -27,5 +31,5 @@ SettingsForm.propTypes = {
 
 export default reduxForm({
   form: 'settingsForm',
-  fields: ['pomodoroEnabled', 'githubEnabled'],
+  fields: ['remindersEnabled', 'pomodoroEnabled', 'githubEnabled'],
 })(SettingsForm);
