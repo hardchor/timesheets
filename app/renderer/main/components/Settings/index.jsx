@@ -7,7 +7,7 @@ function Settings({ settings, setPomodoroEnabled, setGithubEnabled }) {
   function handleSubmit({
     pomodoroEnabled,
     githubEnabled,
-   }) {
+  }) {
     setPomodoroEnabled(pomodoroEnabled);
     setGithubEnabled(githubEnabled);
   }
@@ -16,7 +16,7 @@ function Settings({ settings, setPomodoroEnabled, setGithubEnabled }) {
     <Grid>
       <Cell col={12}>
         <h1>Settings</h1>
-        <SettingsForm settings={settings} onSubmit={handleSubmit} />
+        <SettingsForm settings={settings} onSubmit={handleSubmit} initialValues={settings} />
       </Cell>
     </Grid>
   );

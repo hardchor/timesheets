@@ -15,9 +15,38 @@ function SettingsForm({
     <form onSubmit={handleSubmit} onChange={handleChange}>
       <Grid>
         <Cell col={12}>
-          <Switch {...remindersEnabled}>Reminders</Switch>
-          <Switch {...pomodoroEnabled}>Pomodoro timer</Switch>
-          <Switch {...githubEnabled}>Github integration</Switch>
+          <Switch
+            {...remindersEnabled}
+            checked={
+              remindersEnabled.checked === undefined ?
+              remindersEnabled.initialValue :
+              remindersEnabled.checked
+            }
+          >
+            Reminders
+          </Switch>
+
+          <Switch
+            {...pomodoroEnabled}
+            checked={
+              pomodoroEnabled.checked === undefined ?
+              pomodoroEnabled.initialValue :
+              pomodoroEnabled.checked
+            }
+          >
+            Pomodoro timer
+          </Switch>
+
+          <Switch
+            {...githubEnabled}
+            checked={
+              githubEnabled.checked === undefined ?
+              githubEnabled.initialValue :
+              githubEnabled.checked
+            }
+          >
+            Github integration
+          </Switch>
         </Cell>
       </Grid>
     </form>
