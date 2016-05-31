@@ -44,7 +44,7 @@ async function start() {
   const appIcon = new Tray(trayIcon);
   appIcon.setToolTip('Timesheets');
 
-  global.state = await storage.get('state');
+  global.state = await storage.get('state').catch(err => console.log('Error getting state', err));
   const store = configureStore(global.state, 'main');
 
   store.subscribe(async () => {
@@ -82,4 +82,9 @@ async function start() {
   }, 5000);
 }
 
-app.on('ready', start);
+app.on('ready', () => {
+  start()
+  .catch((err) => {
+    console.log(err);
+  });
+});
