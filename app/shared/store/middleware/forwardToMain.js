@@ -1,8 +1,9 @@
 import { ipcRenderer } from 'electron';
 
-const forwardToMain = store => next => action => {
+const forwardToMain = store => next => action => { // eslint-disable-line no-unused-vars
   if (
-    action.type.substr(0, 2) !== '@@' && (
+    action.type.substr(0, 2) !== '@@' &&
+    action.type.substr(0, 10) !== 'redux-form' && (
       !action.meta ||
       !action.meta.scope ||
       action.meta.scope !== 'local'
@@ -14,7 +15,7 @@ const forwardToMain = store => next => action => {
     return;
   }
 
-  return next(action);
+  return next(action); // eslint-disable-line consistent-return
 };
 
 export default forwardToMain;

@@ -5,7 +5,7 @@ export const SET_GITHUB_ENABLED = 'SET_GITHUB_ENABLED';
 
 export function setRemindersEnabled(flag) {
   return {
-    type: SET_POMODORO_ENABLED,
+    type: SET_REMINDERS_ENABLED,
     payload: flag,
   };
 }

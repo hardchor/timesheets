@@ -2,12 +2,14 @@ import React, { PropTypes } from 'react';
 import { Grid, Cell } from 'react-mdl';
 import SettingsForm from './SettingsForm';
 
-function Settings({ settings, setPomodoroEnabled, setGithubEnabled }) {
+function Settings({ settings, setRemindersEnabled, setPomodoroEnabled, setGithubEnabled }) {
   /* eslint-disable react/prop-types */
   function handleSubmit({
+    remindersEnabled,
     pomodoroEnabled,
     githubEnabled,
   }) {
+    setRemindersEnabled(remindersEnabled);
     setPomodoroEnabled(pomodoroEnabled);
     setGithubEnabled(githubEnabled);
   }
@@ -24,7 +26,9 @@ function Settings({ settings, setPomodoroEnabled, setGithubEnabled }) {
 
 Settings.propTypes = {
   settings: PropTypes.object.isRequired,
+  setRemindersEnabled: PropTypes.func.isRequired,
   setPomodoroEnabled: PropTypes.func.isRequired,
+  setGithubEnabled: PropTypes.func.isRequired,
 };
 
 export default Settings;
