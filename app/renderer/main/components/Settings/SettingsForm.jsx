@@ -11,40 +11,23 @@ function SettingsForm({
     setTimeout(handleSubmit, 0);
   }
 
+  function isChecked(field) {
+    return field.checked === undefined ? field.initialValue : field.checked;
+  }
+
   return (
     <form onSubmit={handleSubmit} onChange={handleChange}>
       <Grid>
         <Cell col={12}>
-          <Switch
-            {...remindersEnabled}
-            checked={
-              remindersEnabled.checked === undefined ?
-              remindersEnabled.initialValue :
-              remindersEnabled.checked
-            }
-          >
+          <Switch {...remindersEnabled} checked={isChecked(remindersEnabled)}>
             Reminders
           </Switch>
 
-          <Switch
-            {...pomodoroEnabled}
-            checked={
-              pomodoroEnabled.checked === undefined ?
-              pomodoroEnabled.initialValue :
-              pomodoroEnabled.checked
-            }
-          >
+          <Switch {...pomodoroEnabled} checked={isChecked(pomodoroEnabled)}>
             Pomodoro timer
           </Switch>
 
-          <Switch
-            {...githubEnabled}
-            checked={
-              githubEnabled.checked === undefined ?
-              githubEnabled.initialValue :
-              githubEnabled.checked
-            }
-          >
+          <Switch {...githubEnabled} checked={isChecked(githubEnabled)}>
             Github integration
           </Switch>
         </Cell>
