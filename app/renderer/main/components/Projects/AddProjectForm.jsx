@@ -1,35 +1,30 @@
 import React, { PropTypes } from 'react';
-import { reduxForm } from 'redux-form';
-import { Textfield } from 'react-mdl';
+import { reduxForm, Field } from 'redux-form';
+import adapter, { TEXT } from '../../../shared/forms/adapter';
 
-const fields = ['name'];
-
-function AddProjectForm({ fields: { name }, handleSubmit, resetForm }) {
+function AddProjectForm({ handleSubmit, reset }) {
   function onSubmit(...args) {
     handleSubmit(...args);
-    resetForm();
+    // TODO: reset() broken until https://github.com/erikras/redux-form/commit/f5eeca13930a786d69fc5f535573c0d6d83f55b9 gets released
+    // reset();
   }
 
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <Textfield
-          {...name}
-          floatingLabel
-          label="New Project"
-        />
+        <Field name="name" label="New Project" component={TEXT} />
+        <button onClick={reset}>clear</button>
       </form>
     </div>
   );
 }
 
 AddProjectForm.propTypes = {
-  fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  resetForm: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
 };
 
 export default reduxForm({
   form: 'addProject',
-  fields,
+  adapter,
 })(AddProjectForm);

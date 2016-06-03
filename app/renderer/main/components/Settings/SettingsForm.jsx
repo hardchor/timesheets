@@ -1,16 +1,9 @@
 import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { Grid, Cell, Switch } from 'react-mdl';
+import { Grid, Cell } from 'react-mdl';
+import adapter, { TOGGLE } from '../../../shared/forms/adapter';
 
 // TODO: pre-populate, handle settings as one big object rather than individual settings
-function renderToggle(name) {
-  return props => (
-    <Switch {...props}>
-      {name}
-    </Switch>
-  );
-}
-
 function SettingsForm({ handleSubmit }) {
   function handleChange() {
     setTimeout(handleSubmit, 0);
@@ -24,18 +17,21 @@ function SettingsForm({ handleSubmit }) {
           <Field
             name="remindersEnabled"
             type="checkbox"
-            component={renderToggle('Reminders')}
+            label="Reminders"
+            component={TOGGLE}
           />
           <Field
             name="pomodoroEnabled"
             type="checkbox"
-            component={renderToggle('Pomodoro timer')}
+            label="Pomodoro timer"
+            component={TOGGLE}
           />
           */}
           <Field
             name="githubEnabled"
             type="checkbox"
-            component={renderToggle('Github integration')}
+            label="Github integration"
+            component={TOGGLE}
           />
         </Cell>
       </Grid>
@@ -49,4 +45,5 @@ SettingsForm.propTypes = {
 
 export default reduxForm({
   form: 'settingsForm',
+  adapter,
 })(SettingsForm);
