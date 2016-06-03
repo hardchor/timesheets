@@ -13,9 +13,9 @@ import {
 const UPDATE_SERVER_HOST = 'timesheets-app.herokuapp.com';
 
 export default function init(store) {
-  // if (process.env.NODE_ENV !== 'production') {
-  //   return;
-  // }
+  if (process.env.NODE_ENV !== 'production') {
+    return;
+  }
 
   if (os.platform() !== 'darwin') {
     return;

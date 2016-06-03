@@ -2,11 +2,13 @@ import { BrowserWindow } from 'electron';
 
 const forwardToRenderer = store => next => action => {
   // change scope to avoid endless-loop
-  const rendererAction = Object.assign({}, action, {
+  const rendererAction = {
+    ...action,
     meta: {
+      ...action.meta,
       scope: 'local',
     },
-  });
+  };
 
   const openWindows = BrowserWindow.getAllWindows();
   openWindows.forEach(({ webContents }) => {

@@ -1,51 +1,34 @@
 /* eslint-disable no-param-reassign */
 import React, { PropTypes } from 'react';
-import { Textfield, Button } from 'react-mdl';
-import { reduxForm } from 'redux-form';
+import { Button } from 'react-mdl';
+import { reduxForm, Field } from 'redux-form';
+import adapter, { TEXT, PASSWORD } from '../../../shared/forms/adapter';
 
-const fields = ['username', 'password', 'twofa'];
-
-function GithubAuth({
-  fields: { username, password, twofa },
-  handleSubmit,
-  github,
-}) {
+function GithubAuth({ handleSubmit, github }) {
   function onSubmit(...args) {
     handleSubmit(...args);
   }
 
+  const errors = {};
   if (github.error) {
     if (github.twofaFailed) {
-      twofa.error = 'Incorrect two factor auth code';
+      errors.twofa = 'Incorrect two factor auth code';
     } else if (github.tokenExists) {
-      username.error = 'Token already exists';
+      errors.username = 'Token already exists';
     } else {
-      username.error = 'There has been a problem logging you in';
+      errors.username = 'There has been a problem logging you in';
     }
   }
 
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <Textfield
-          {...username}
-          floatingLabel
-          label="Username"
-        />
-        <Textfield
-          {...password}
-          floatingLabel
-          type="password"
-          label="Password"
-        />
+        <Field name="username" label="Username" error={errors.username} component={TEXT} />
+        <Field name="password" label="Password" error={errors.password} component={PASSWORD} />
         {github.twofa &&
-          <Textfield
-            {...twofa}
-            floatingLabel
-            label="Two factor auth code"
-          />
+          <Field name="twofa" label="Two factor auth code" error={errors.twofa} component={TEXT} />
         }
-        <Button raised accent ripple>Login</Button>
+        <Button type="submit" raised accent ripple>Login</Button>
       </form>
       {github.tokenExists &&
         <div>
@@ -61,11 +44,9 @@ function GithubAuth({
 GithubAuth.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   github: PropTypes.object.isRequired,
-  resetForm: PropTypes.func.isRequired,
-  fields: PropTypes.object.isRequired,
 };
 
 export default reduxForm({
   form: 'githubAuth',
-  fields,
+  adapter,
 })(GithubAuth);
