@@ -1,14 +1,14 @@
 /* eslint-disable max-len */
 import os from 'os';
-import { app, autoUpdater } from 'electron';
-import pkg from '../package.json';
+import { autoUpdater } from 'electron';
+import pkg from '../../package.json';
 import {
   checkingForUpdate,
   updateAvailable,
   updateDownloaded,
   updateError,
   updateNotAvailable,
-} from '../shared/actions/system';
+} from '../../shared/actions/system';
 
 const UPDATE_SERVER_HOST = 'timesheets-app.herokuapp.com';
 
@@ -21,7 +21,6 @@ export default function init(store) {
     return;
   }
 
-  // const version = app.getVersion();
   const { version } = pkg;
 
   autoUpdater.addListener('checking-for-update', () => {

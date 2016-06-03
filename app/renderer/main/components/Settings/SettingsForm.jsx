@@ -51,7 +51,7 @@ function SettingsForm({ handleSubmit, settings }) {
               <Cell col={6}>
                 <Field
                   name="remindersWeekdays"
-                  label="To"
+                  label="Weekdays"
                   component={CHECKBOXES}
                   options={weekdayOptions}
                 />

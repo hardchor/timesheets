@@ -5,7 +5,8 @@ import jsonStorage from 'electron-json-storage';
 import createMainWindow from './createMainWindow';
 import createMenuBarWindow from './createMenuBarWindow';
 import configureStore from '../shared/store/configureStore';
-import osxAutoUpdater from './osxAutoUpdater';
+import osxAutoUpdater from './tasks/osxAutoUpdater';
+import reminder from './tasks/reminder';
 
 // we have to do this to allow remote-loading of the current state :()
 global.state = {};
@@ -80,6 +81,7 @@ async function start() {
   setTimeout(() => {
     osxAutoUpdater(store);
   }, 5000);
+  reminder(store);
 }
 
 app.on('ready', () => {
