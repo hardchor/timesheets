@@ -33,12 +33,23 @@ function GroupedReport({ groupedDates, groupedJobs }) {
     return accumulatedTime && duration.humanize();
   }
 
+  function nameFormatter(name) {
+    const [projectCode = 'Unassigned', projectName] = (name && name.split('#')) || [];
+
+    return (
+      <span>
+        <strong>{projectCode || projectName}</strong><br />
+        {projectCode && projectName}
+      </span>
+    );
+  }
+
   return (
     <DataTable
       shadow={0}
       rows={rows}
     >
-      <TableHeader name="projectName">Project</TableHeader>
+      <TableHeader name="projectName" cellFormatter={nameFormatter}>Project</TableHeader>
       {groupedDates.map(groupedDate => (
         <TableHeader
           key={groupedDate.groupedFromDate.toString()}

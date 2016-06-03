@@ -6,10 +6,9 @@ function NoProjects() {
   return (
     <div>
       <List className={style.list}>
-        <ListItem>
-          <ListItemContent>
-            <strong>No projects yet</strong><br />
-            Create a new project to get started<br />
+        <ListItem twoLine>
+          <ListItemContent subtitle="Create a new project to get started">
+            No projects yet
           </ListItemContent>
         </ListItem>
       </List>

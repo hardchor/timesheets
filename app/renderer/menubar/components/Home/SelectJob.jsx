@@ -7,10 +7,9 @@ function SelectJob({ project, startJob }) {
     const [projectCode = '', projectName] = (projectData.name && projectData.name.split('#')) || [];
 
     return (
-      <ListItem key={projectData.name}>
-        <ListItemContent avatar="work">
-          <strong>{projectCode || projectName}</strong><br />
-          {projectCode && projectName}
+      <ListItem key={projectData.name} twoLine={!!(projectCode && projectName)}>
+        <ListItemContent avatar="work" subtitle={projectCode && projectName}>
+          {projectCode || projectName}
         </ListItemContent>
         <ListItemAction>
           <Button onClick={() => startJob(projectData.name)} raised accent ripple>Start</Button>
