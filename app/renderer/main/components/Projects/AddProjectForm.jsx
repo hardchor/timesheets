@@ -13,7 +13,6 @@ function AddProjectForm({ handleSubmit, reset }) {
     <div>
       <form onSubmit={onSubmit}>
         <Field name="name" label="New Project" component={TEXT} />
-        <button onClick={reset}>clear</button>
       </form>
     </div>
   );

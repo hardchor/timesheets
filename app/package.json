@@ -1,6 +1,6 @@
 {
   "name": "Timesheets",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A timesheet keeping app based on electron",
   "main": "main/index.js",
   "author": "Burkhard Reffeling",
