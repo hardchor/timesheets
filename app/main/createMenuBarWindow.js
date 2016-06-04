@@ -6,12 +6,31 @@ import Positioner from 'electron-positioner';
 const menuBarHtml = path.join(__dirname, '../renderer/assets/html/menubar.html');
 
 let browserWindow = null;
+let cachedTrayBounds;
+
+function positionWindow() {
+  let windowPosition = 'topRight';
+  if (cachedTrayBounds) {
+    windowPosition = (process.platform === 'win32') ? 'trayBottomCenter' : 'trayCenter';
+  }
+  const positioner = new Positioner(browserWindow);
+  const { x, y } = positioner.calculate(windowPosition, cachedTrayBounds);
+
+  browserWindow.setPosition(x, y);
+}
+
+function showWindow() {
+  browserWindow.show();
+  browserWindow.focus();
+}
 
 export default function createMenuBar({ trayBounds, uri = '/' } = {}) {
+  if (trayBounds) cachedTrayBounds = trayBounds;
+
   if (browserWindow !== null) {
+    positionWindow();
     if (!browserWindow.webContents.isLoading()) {
-      browserWindow.show();
-      browserWindow.focus();
+      showWindow();
     }
     return browserWindow;
   }
@@ -30,16 +49,8 @@ export default function createMenuBar({ trayBounds, uri = '/' } = {}) {
   });
 
   browserWindow.webContents.on('did-finish-load', () => {
-    if (trayBounds) {
-      const windowPosition = (process.platform === 'win32') ? 'trayBottomCenter' : 'trayCenter';
-      const positioner = new Positioner(browserWindow);
-      const { x, y } = positioner.calculate(windowPosition, trayBounds);
-
-      browserWindow.setPosition(x, y);
-    }
-
-    browserWindow.show();
-    browserWindow.focus();
+    positionWindow();
+    showWindow();
   });
 
   browserWindow.on('blur', () => {

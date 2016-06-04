@@ -1,5 +1,6 @@
 import { scheduleJob } from 'node-schedule';
 import moment from 'moment';
+import createMenuBarWindow from '../createMenuBarWindow';
 
 function parseTime(time) {
   const [hours, minutes = 0, seconds = 0] = (time && time.split(':')) || [];
@@ -15,7 +16,7 @@ function parseTime(time) {
 
 export default function reminder(store) {
   // every 5 seconds
-  scheduleJob('*/5 * * * * *', () => {
+  scheduleJob('*/15 * * * * *', () => {
     const {
       settings: {
         remindersEnabled,
@@ -43,6 +44,7 @@ export default function reminder(store) {
         now.isBetween(fromTime, toTime) &&
         !!remindersWeekdays[now.isoWeekday()]
       ) {
+        createMenuBarWindow();
         console.log('##### DO SOMETHING YOU LAZY BUM');
       }
     }
