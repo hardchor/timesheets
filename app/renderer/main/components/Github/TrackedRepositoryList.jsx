@@ -55,8 +55,8 @@ function TrackedRepositoryList({
       }
       {!trackedRepos.length &&
         <div>
-          <span>None yet</span><br />
           <Icon name="sentiment_dissatisfied" />
+          <span>None yet. Get started by adding repos above!</span><br />
         </div>
       }
     </div>
