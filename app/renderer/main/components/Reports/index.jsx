@@ -28,7 +28,7 @@ function groupDates(fromDate, toDate, groupBy) {
 function groupJobsByDate(jobs, groupedDates) {
   return jobs.reduce(
     (previous, current) => {
-      const projectName = current.projectName || 'No project assigned';
+      const projectName = current.projectName || '';
       const endAt = current.endAt && moment(current.endAt);
 
       previous[projectName] = previous[projectName] || {};

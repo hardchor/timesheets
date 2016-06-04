@@ -3,43 +3,59 @@ import path from 'path';
 
 const mainHtml = path.join(__dirname, '../renderer/assets/html/main.html');
 
-export default function createWindow() {
+let browserWindow = null;
+
+function showWindow() {
+  browserWindow.maximize();
+  browserWindow.show();
+  browserWindow.focus();
+}
+
+export default function createWindow({ uri = '/' } = {}) {
+  if (browserWindow !== null) {
+    if (!browserWindow.webContents.isLoading()) {
+      showWindow();
+    }
+    return browserWindow;
+  }
+
   let menu;
   let template;
 
-  const window = new BrowserWindow({
+  browserWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728,
   });
 
   function handleRedirect(e, url) {
-    if (url !== window.webContents.getURL()) {
+    if (url !== browserWindow.webContents.getURL()) {
       e.preventDefault();
       shell.openExternal(url);
     }
   }
 
-  window.maximize();
+  browserWindow.loadURL(`file://${mainHtml}#${uri}`);
 
-  window.loadURL(`file://${mainHtml}`);
-
-  window.webContents.on('did-finish-load', () => {
-    window.show();
-    window.focus();
+  browserWindow.on('closed', () => {
+    browserWindow = null;
   });
-  window.webContents.on('will-navigate', handleRedirect);
-  window.webContents.on('new-window', handleRedirect);
+
+  browserWindow.webContents.on('did-finish-load', () => {
+    showWindow();
+  });
+  browserWindow.webContents.on('will-navigate', handleRedirect);
+  browserWindow.webContents.on('new-window', handleRedirect);
 
   if (process.env.NODE_ENV === 'development') {
-    window.openDevTools();
+    browserWindow.openDevTools();
   }
 
   if (process.platform === 'darwin') {
     template = [{
       label: 'Electron',
       submenu: [{
-        label: 'About ElectronReact',
+        label: 'About Timesheets',
         selector: 'orderFrontStandardAboutPanel:',
       }, {
         type: 'separator',
@@ -103,25 +119,25 @@ export default function createWindow() {
         label: 'Reload',
         accelerator: 'Command+R',
         click() {
-          window.webContents.reload();
+          browserWindow.webContents.reload();
         },
       }, {
         label: 'Toggle Full Screen',
         accelerator: 'Ctrl+Command+F',
         click() {
-          window.setFullScreen(!window.isFullScreen());
+          browserWindow.setFullScreen(!browserWindow.isFullScreen());
         },
       }, {
         label: 'Toggle Developer Tools',
         accelerator: 'Alt+Command+I',
         click() {
-          window.toggleDevTools();
+          browserWindow.toggleDevTools();
         },
       }] : [{
         label: 'Toggle Full Screen',
         accelerator: 'Ctrl+Command+F',
         click() {
-          window.setFullScreen(!window.isFullScreen());
+          browserWindow.setFullScreen(!browserWindow.isFullScreen());
         },
       }],
     }, {
@@ -145,22 +161,17 @@ export default function createWindow() {
       submenu: [{
         label: 'Learn More',
         click() {
-          shell.openExternal('http://electron.atom.io');
+          shell.openExternal('http://burgiblog.com/timesheets/');
         },
       }, {
         label: 'Documentation',
         click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
-        },
-      }, {
-        label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
+          shell.openExternal('https://github.com/hardchor/timesheets#readme');
         },
       }, {
         label: 'Search Issues',
         click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+          shell.openExternal('https://github.com/hardchor/timesheets/issues');
         },
       }],
     }];
@@ -177,7 +188,7 @@ export default function createWindow() {
         label: '&Close',
         accelerator: 'Ctrl+W',
         click() {
-          window.close();
+          browserWindow.close();
         },
       }],
     }, {
@@ -186,25 +197,25 @@ export default function createWindow() {
         label: '&Reload',
         accelerator: 'Ctrl+R',
         click() {
-          window.webContents.reload();
+          browserWindow.webContents.reload();
         },
       }, {
         label: 'Toggle &Full Screen',
         accelerator: 'F11',
         click() {
-          window.setFullScreen(!window.isFullScreen());
+          browserWindow.setFullScreen(!browserWindow.isFullScreen());
         },
       }, {
         label: 'Toggle &Developer Tools',
         accelerator: 'Alt+Ctrl+I',
         click() {
-          window.toggleDevTools();
+          browserWindow.toggleDevTools();
         },
       }] : [{
         label: 'Toggle &Full Screen',
         accelerator: 'F11',
         click() {
-          window.setFullScreen(!window.isFullScreen());
+          browserWindow.setFullScreen(!browserWindow.isFullScreen());
         },
       }],
     }, {
@@ -212,28 +223,23 @@ export default function createWindow() {
       submenu: [{
         label: 'Learn More',
         click() {
-          shell.openExternal('http://electron.atom.io');
+          shell.openExternal('http://burgiblog.com/timesheets/');
         },
       }, {
         label: 'Documentation',
         click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
-        },
-      }, {
-        label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
+          shell.openExternal('https://github.com/hardchor/timesheets#readme');
         },
       }, {
         label: 'Search Issues',
         click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+          shell.openExternal('https://github.com/hardchor/timesheets/issues');
         },
       }],
     }];
     menu = Menu.buildFromTemplate(template);
-    window.setMenu(menu);
+    browserWindow.setMenu(menu);
   }
 
-  return window;
+  return browserWindow;
 }

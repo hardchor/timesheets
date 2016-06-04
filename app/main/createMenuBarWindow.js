@@ -5,30 +5,57 @@ import Positioner from 'electron-positioner';
 
 const menuBarHtml = path.join(__dirname, '../renderer/assets/html/menubar.html');
 
-export default function createMenuBar(trayBounds) {
-  const window = new BrowserWindow({
+let browserWindow = null;
+let cachedTrayBounds;
+
+function positionWindow() {
+  let windowPosition = 'topRight';
+  if (cachedTrayBounds) {
+    windowPosition = (process.platform === 'win32') ? 'trayBottomCenter' : 'trayCenter';
+  }
+  const positioner = new Positioner(browserWindow);
+  const { x, y } = positioner.calculate(windowPosition, cachedTrayBounds);
+
+  browserWindow.setPosition(x, y);
+}
+
+function showWindow() {
+  browserWindow.show();
+  browserWindow.focus();
+}
+
+export default function createMenuBar({ trayBounds, uri = '/' } = {}) {
+  if (trayBounds) cachedTrayBounds = trayBounds;
+
+  if (browserWindow !== null) {
+    positionWindow();
+    if (!browserWindow.webContents.isLoading()) {
+      showWindow();
+    }
+    return browserWindow;
+  }
+
+  browserWindow = new BrowserWindow({
+    show: false,
     width: 338,
     height: 600,
     frame: false,
-    show: false,
   });
 
-  window.loadURL(`file://${menuBarHtml}`);
+  browserWindow.loadURL(`file://${menuBarHtml}#${uri}`);
 
-  window.webContents.on('did-finish-load', () => {
-    // Default the window to the right if `trayPos` bounds are undefined or null.
-    const windowPosition = (process.platform === 'win32') ? 'trayBottomCenter' : 'trayCenter';
-    const positioner = new Positioner(window);
-    const { x, y } = positioner.calculate(windowPosition, trayBounds);
-
-    window.setPosition(x, y);
-    window.show();
-    window.focus();
+  browserWindow.on('closed', () => {
+    browserWindow = null;
   });
 
-  window.on('blur', () => {
-    window.hide();
+  browserWindow.webContents.on('did-finish-load', () => {
+    positionWindow();
+    showWindow();
   });
 
-  return window;
+  browserWindow.on('blur', () => {
+    browserWindow.hide();
+  });
+
+  return browserWindow;
 }

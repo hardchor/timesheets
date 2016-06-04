@@ -3,6 +3,7 @@ export const UPDATE_AVAILABLE = 'UPDATE_AVAILABLE';
 export const UPDATE_DOWNLOADED = 'UPDATE_DOWNLOADED';
 export const UPDATE_ERROR = 'UPDATE_ERROR';
 export const UPDATE_NOT_AVAILABLE = 'UPDATE_NOT_AVAILABLE';
+export const SHOW_MENUBAR_WINDOW = 'SHOW_MENUBAR_WINDOW';
 
 
 export function checkingForUpdate() {
@@ -40,5 +41,12 @@ export function updateError(error) {
 export function updateNotAvailable() {
   return {
     type: UPDATE_NOT_AVAILABLE,
+  };
+}
+
+export function showMenubarWindow(path = '/') {
+  return {
+    type: SHOW_MENUBAR_WINDOW,
+    payload: path,
   };
 }

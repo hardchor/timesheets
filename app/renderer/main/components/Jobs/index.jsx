@@ -33,7 +33,7 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
   }
 
   function nameFormatter(name) {
-    const [projectCode, projectName] = name.split('#');
+    const [projectCode = 'Unassigned', projectName] = (name && name.split('#')) || [];
 
     return (
       <span>
@@ -60,14 +60,6 @@ function Jobs({ startJob, stopJob, removeJob, job }) {
     <Grid>
       <Cell col={12}>
         <h1>Jobs</h1>
-
-        <div className={styles.fab}>
-          <Tooltip label="Start recording" position="left">
-            <FABButton onClick={() => startJob()} colored ripple>
-              <Icon name="fiber_manual_record" />
-            </FABButton>
-          </Tooltip>
-        </div>
 
         <DataTable
           shadow={0}
