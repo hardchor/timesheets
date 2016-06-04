@@ -5,7 +5,7 @@ const mainHtml = path.join(__dirname, '../renderer/assets/html/main.html');
 
 let browserWindow = null;
 
-export default function createWindow() {
+export default function createWindow({ uri = '/' } = {}) {
   if (browserWindow !== null) {
     if (!browserWindow.webContents.isLoading()) {
       browserWindow.show();
@@ -32,7 +32,7 @@ export default function createWindow() {
 
   browserWindow.maximize();
 
-  browserWindow.loadURL(`file://${mainHtml}`);
+  browserWindow.loadURL(`file://${mainHtml}#${uri}`);
 
   browserWindow.on('closed', () => {
     browserWindow = null;

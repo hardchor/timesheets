@@ -7,7 +7,7 @@ const menuBarHtml = path.join(__dirname, '../renderer/assets/html/menubar.html')
 
 let browserWindow = null;
 
-export default function createMenuBar(trayBounds) {
+export default function createMenuBar({ trayBounds, uri = '/' } = {}) {
   if (browserWindow !== null) {
     if (!browserWindow.webContents.isLoading()) {
       browserWindow.show();
@@ -23,19 +23,21 @@ export default function createMenuBar(trayBounds) {
     frame: false,
   });
 
-  browserWindow.loadURL(`file://${menuBarHtml}`);
+  browserWindow.loadURL(`file://${menuBarHtml}#${uri}`);
 
   browserWindow.on('closed', () => {
     browserWindow = null;
   });
 
   browserWindow.webContents.on('did-finish-load', () => {
-    // Default the window to the right if `trayPos` bounds are undefined or null.
-    const windowPosition = (process.platform === 'win32') ? 'trayBottomCenter' : 'trayCenter';
-    const positioner = new Positioner(browserWindow);
-    const { x, y } = positioner.calculate(windowPosition, trayBounds);
+    if (trayBounds) {
+      const windowPosition = (process.platform === 'win32') ? 'trayBottomCenter' : 'trayCenter';
+      const positioner = new Positioner(browserWindow);
+      const { x, y } = positioner.calculate(windowPosition, trayBounds);
 
-    browserWindow.setPosition(x, y);
+      browserWindow.setPosition(x, y);
+    }
+
     browserWindow.show();
     browserWindow.focus();
   });

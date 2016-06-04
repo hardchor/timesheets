@@ -47,8 +47,8 @@ async function start() {
     createMainWindow();
   });
 
-  appIcon.on('click', (event, bounds) => {
-    createMenuBarWindow(bounds);
+  appIcon.on('click', (event, trayBounds) => {
+    createMenuBarWindow({ trayBounds });
   });
 
   // init
