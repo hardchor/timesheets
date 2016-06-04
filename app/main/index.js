@@ -15,31 +15,10 @@ global.state = {};
 const storage = pify(jsonStorage);
 const trayIcon = path.join(__dirname, '../renderer/assets/images/logo.png');
 
-let mainWindow = null;
-let menuBarWindow = null;
-
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
 }
 
-function doCreateMainWindow() {
-  mainWindow = createMainWindow();
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
-}
-
-function doCreateMenuBarWindow(bounds) {
-  menuBarWindow = createMenuBarWindow(bounds);
-
-  menuBarWindow.on('closed', () => {
-    menuBarWindow = null;
-  });
-
-  menuBarWindow.on('blur', () => {
-    menuBarWindow.close();
-  });
-}
 
 async function start() {
   // set-up menu bar
@@ -67,17 +46,15 @@ async function start() {
   app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (mainWindow === null) {
-      doCreateMainWindow();
-    }
+    createMainWindow();
   });
 
   appIcon.on('click', (event, bounds) => {
-    doCreateMenuBarWindow(bounds);
+    createMenuBarWindow(bounds);
   });
 
   // init
-  doCreateMainWindow();
+  createMainWindow();
 
   // auto-updating
   setTimeout(() => {
