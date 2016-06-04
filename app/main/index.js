@@ -1,11 +1,11 @@
-import path from 'path';
 import os from 'os';
-import { app, ipcMain, Tray, dialog } from 'electron';
+import { app, ipcMain, dialog } from 'electron';
 import pify from 'pify';
 import jsonStorage from 'electron-json-storage';
 import createMainWindow from './createMainWindow';
 import createMenuBarWindow from './createMenuBarWindow';
 import configureStore from '../shared/store/configureStore';
+import tray from './tray';
 import osxAutoUpdater from './tasks/osxAutoUpdater';
 import reminder from './tasks/reminder';
 
@@ -13,7 +13,6 @@ import reminder from './tasks/reminder';
 global.state = {};
 
 const storage = pify(jsonStorage);
-const trayIcon = path.join(__dirname, '../renderer/assets/images/logo.png');
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
@@ -22,8 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 
 async function start() {
   // set-up menu bar
-  const appIcon = new Tray(trayIcon);
-  appIcon.setToolTip('Timesheets');
+  const appIcon = tray();
 
   global.state = await storage.get('state');
   const store = configureStore(global.state, 'main');
