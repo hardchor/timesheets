@@ -1,5 +1,6 @@
 import path from 'path';
-import { app, ipcMain, Tray } from 'electron';
+import os from 'os';
+import { app, ipcMain, Tray, dialog } from 'electron';
 import pify from 'pify';
 import jsonStorage from 'electron-json-storage';
 import createMainWindow from './createMainWindow';
@@ -8,7 +9,7 @@ import configureStore from '../shared/store/configureStore';
 import osxAutoUpdater from './tasks/osxAutoUpdater';
 import reminder from './tasks/reminder';
 
-// we have to do this to allow remote-loading of the current state :()
+// we have to do this to ease remote-loading of the initial state :(
 global.state = {};
 
 const storage = pify(jsonStorage);
@@ -45,7 +46,7 @@ async function start() {
   const appIcon = new Tray(trayIcon);
   appIcon.setToolTip('Timesheets');
 
-  global.state = await storage.get('state').catch(err => console.log('Error getting state', err));
+  global.state = await storage.get('state');
   const store = configureStore(global.state, 'main');
 
   store.subscribe(async () => {
@@ -78,15 +79,21 @@ async function start() {
   // init
   doCreateMainWindow();
 
+  // auto-updating
   setTimeout(() => {
-    osxAutoUpdater(store);
+    if (process.env.NODE_ENV === 'production') {
+      if (os.platform() === 'darwin') {
+        osxAutoUpdater(store);
+      }
+    }
   }, 5000);
+
   reminder(store);
 }
 
 app.on('ready', () => {
   start()
   .catch((err) => {
-    console.log(err);
+    dialog.showErrorBox('There\'s been an error', err.message);
   });
 });
