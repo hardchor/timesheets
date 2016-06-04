@@ -5,11 +5,16 @@ const mainHtml = path.join(__dirname, '../renderer/assets/html/main.html');
 
 let browserWindow = null;
 
+function showWindow() {
+  browserWindow.maximize();
+  browserWindow.show();
+  browserWindow.focus();
+}
+
 export default function createWindow({ uri = '/' } = {}) {
   if (browserWindow !== null) {
     if (!browserWindow.webContents.isLoading()) {
-      browserWindow.show();
-      browserWindow.focus();
+      showWindow();
     }
     return browserWindow;
   }
@@ -30,8 +35,6 @@ export default function createWindow({ uri = '/' } = {}) {
     }
   }
 
-  browserWindow.maximize();
-
   browserWindow.loadURL(`file://${mainHtml}#${uri}`);
 
   browserWindow.on('closed', () => {
@@ -39,8 +42,7 @@ export default function createWindow({ uri = '/' } = {}) {
   });
 
   browserWindow.webContents.on('did-finish-load', () => {
-    browserWindow.show();
-    browserWindow.focus();
+    showWindow();
   });
   browserWindow.webContents.on('will-navigate', handleRedirect);
   browserWindow.webContents.on('new-window', handleRedirect);

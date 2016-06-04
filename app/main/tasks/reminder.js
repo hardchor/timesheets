@@ -15,8 +15,8 @@ function parseTime(time) {
 }
 
 export default function reminder(store) {
-  // every 5 seconds
-  scheduleJob('*/15 * * * * *', () => {
+  // every 15 minutes
+  scheduleJob('*/15 * * * *', () => {
     const {
       settings: {
         remindersEnabled,
@@ -45,7 +45,6 @@ export default function reminder(store) {
         !!remindersWeekdays[now.isoWeekday()]
       ) {
         createMenuBarWindow();
-        console.log('##### DO SOMETHING YOU LAZY BUM');
       }
     }
   });
