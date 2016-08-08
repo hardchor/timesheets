@@ -8,6 +8,8 @@
 
 Download the latest release from [here](https://github.com/hardchor/timesheets/releases).
 
+---
+
 ## Development
 
 ### Install

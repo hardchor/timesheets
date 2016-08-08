@@ -21,6 +21,9 @@ export function authenticateGithub(username, password, twofa) {
   return {
     type: AUTHENTICATE_GITHUB,
     payload: githubAuth(username, password, twofa),
+    meta: {
+      username,
+    },
   };
 }
 aliases[AUTHENTICATE_GITHUB] = authenticateGithub;

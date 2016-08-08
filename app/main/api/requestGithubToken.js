@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import config from '../../config';
-import { status, text, json } from '../../shared/helpers/fetch';
+import { status, json } from '../../shared/helpers/fetch';
 
 export default function requestGithubToken(username, password, twofactor) {
   const options = {
