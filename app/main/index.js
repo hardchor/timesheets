@@ -6,8 +6,7 @@ import createMainWindow from './createMainWindow';
 import createMenuBarWindow from './createMenuBarWindow';
 import configureStore from '../shared/store/configureStore';
 import tray from './tray';
-import osxAutoUpdater from './tasks/osxAutoUpdater';
-import reminder from './tasks/reminder';
+import tasks from './tasks';
 
 // we have to do this to ease remote-loading of the initial state :(
 global.state = {};
@@ -54,16 +53,7 @@ async function start() {
   // init
   createMainWindow();
 
-  // auto-updating
-  setTimeout(() => {
-    if (process.env.NODE_ENV === 'production') {
-      if (os.platform() === 'darwin') {
-        osxAutoUpdater(store);
-      }
-    }
-  }, 5000);
-
-  reminder(store);
+  tasks(store);
 }
 
 app.on('ready', () => {

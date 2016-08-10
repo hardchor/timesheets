@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { ADD_PROJECT, REMOVE_PROJECT } from '../actions/project';
-import { IMPORT_GITHUB_PROJECTS } from '../actions/github';
+import { IMPORT_GITHUB_PROJECTS, GET_GITHUB_ISSUES_ASSIGNED_TO_USER } from '../actions/github';
 import getProjectIdentifiers from '../helpers/getProjectIdentifiers';
 
 const initialState = {
@@ -27,6 +27,30 @@ function addProject(name, state, data = {}) {
     ],
   };
 }
+
+function updateProject(name, state, data = {}) {
+  const projects = state.projects.map(project => {
+    if (project.name === name) {
+      // only update lastActivity when more recent
+      if (data.lastActivityAt && data.lastActivityAt <= project.lastActivityAt) {
+        delete data.lastActivityAt;
+      }
+
+      return {
+        ...project,
+        name,
+        ...data,
+      };
+    }
+    return project;
+  });
+
+  return {
+    ...state,
+    projects,
+  };
+}
+
 
 export default function job(state = initialState, action) {
   switch (action.type) {
@@ -67,6 +91,26 @@ export default function job(state = initialState, action) {
         ];
         identifiers.forEach(identifier => {
           newState = addProject(identifier, newState);
+        });
+      });
+
+      return newState;
+    }
+
+    case GET_GITHUB_ISSUES_ASSIGNED_TO_USER: {
+      let newState = { ...state };
+
+      // extract projects, add updatedAt to project
+      action.payload.forEach(issue => {
+        const identifiers = [
+          // for issues
+          ...getProjectIdentifiers(issue.body),
+          // for milestones
+          ...getProjectIdentifiers(issue.milestone && issue.milestone.description),
+        ];
+
+        identifiers.forEach(identifier => {
+          newState = updateProject(identifier, newState, { lastActivityAt: issue.updated_at });
         });
       });
 
