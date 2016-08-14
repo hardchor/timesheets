@@ -29,9 +29,12 @@ function SelectJob({ project, startJob, settings, setRemindersEnabled }) {
   }
 
   const sortedProjects = project.projects.sort((a, b) => {
-    if (!b.lastActivityAt || a.lastActivityAt > b.lastActivityAt) {
+    const dateA = new Date(a.lastActivityAt);
+    const dateB = new Date(b.lastActivityAt);
+
+    if (!b.lastActivityAt || dateA > dateB) {
       return -1;
-    } else if (!a.lastActivityAt || a.lastActivityAt < b.lastActivityAt) {
+    } else if (!a.lastActivityAt || dateA < dateB) {
       return 1;
     }
     return 0;
