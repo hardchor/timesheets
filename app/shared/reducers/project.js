@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { ADD_PROJECT, REMOVE_PROJECT } from '../actions/project';
+import { START_JOB } from '../actions/job';
 import { IMPORT_GITHUB_PROJECTS, GET_GITHUB_ISSUES_ASSIGNED_TO_USER } from '../actions/github';
 import getProjectIdentifiers from '../helpers/getProjectIdentifiers';
 
@@ -116,6 +117,9 @@ export default function job(state = initialState, action) {
 
       return newState;
     }
+
+    case START_JOB:
+      return updateProject(action.payload.projectName, state, { lastActivityAt: new Date() });
 
     default:
       return state;
