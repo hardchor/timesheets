@@ -28,6 +28,18 @@ function SelectJob({ project, startJob, settings, setRemindersEnabled }) {
     );
   }
 
+  const sortedProjects = project.projects.sort((a, b) => {
+    const dateA = new Date(a.lastActivityAt);
+    const dateB = new Date(b.lastActivityAt);
+
+    if (!b.lastActivityAt || dateA > dateB) {
+      return -1;
+    } else if (!a.lastActivityAt || dateA < dateB) {
+      return 1;
+    }
+    return 0;
+  });
+
   return (
     <Cell col={12}>
       <Card className={style.card}>
@@ -41,7 +53,7 @@ function SelectJob({ project, startJob, settings, setRemindersEnabled }) {
         </CardActions>
       </Card>
       <List className={style.list}>
-        {project.projects.map(renderItem)}
+        {sortedProjects.map(renderItem)}
         {renderItem({ name: 'Unassigned' })}
       </List>
     </Cell>

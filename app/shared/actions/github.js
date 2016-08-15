@@ -2,6 +2,7 @@ import { ALIASED } from '.';
 import githubAuth from '../../main/api/requestGithubToken';
 import getRepos from '../../main/api/getRepos';
 import importProjects from '../../main/api/importProjects';
+import getIssuesForUser from '../../main/api/getIssuesForUser';
 
 export const aliases = {};
 
@@ -21,6 +22,9 @@ export function authenticateGithub(username, password, twofa) {
   return {
     type: AUTHENTICATE_GITHUB,
     payload: githubAuth(username, password, twofa),
+    meta: {
+      username,
+    },
   };
 }
 aliases[AUTHENTICATE_GITHUB] = authenticateGithub;
@@ -85,3 +89,14 @@ export function importGithubProjects(accessToken, repoFullName) {
   };
 }
 aliases[IMPORT_GITHUB_PROJECTS] = importGithubProjects;
+
+
+// Get recent issues assigned to user
+export const GET_GITHUB_ISSUES_ASSIGNED_TO_USER = 'GET_GITHUB_ISSUES_ASSIGNED_TO_USER';
+
+export function getGithubIssuesAssignedToUser(accessToken) {
+  return {
+    type: GET_GITHUB_ISSUES_ASSIGNED_TO_USER,
+    payload: getIssuesForUser(accessToken),
+  };
+}

@@ -18,7 +18,7 @@ function mapRepo({ id, full_name }) {
 }
 
 export default function github(state = initialState, action) {
-  const { type, payload, error } = action;
+  const { type, payload, error, meta } = action;
 
   switch (type) {
     case AUTHENTICATE_GITHUB:
@@ -40,6 +40,7 @@ export default function github(state = initialState, action) {
         tokenExists: false,
         accessToken: payload.token,
         scope: payload.scopes,
+        username: meta.username,
       };
 
     case GET_GITHUB_REPOS: {

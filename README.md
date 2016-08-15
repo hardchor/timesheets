@@ -8,6 +8,8 @@
 
 Download the latest release from [here](https://github.com/hardchor/timesheets/releases).
 
+---
+
 ## Development
 
 ### Install
@@ -27,20 +29,21 @@ $ cd timesheets && npm install
 
 ### Run
 
-Run this two commands __simultaneously__ in different console tabs.
+Run these two commands __simultaneously__ in different console tabs:
 
 ```bash
-$ npm run hot-server
-$ npm run start-hot
+npm run hot-server
+npm run start-hot
 ```
 
-or run two servers with one command
+or run both with one command:
 
 ```bash
-$ npm run dev
+npm run dev
 ```
 
 *Note: requires a node version >= 4 and an npm version >= 2.*
+
 
 ### Package and Release
 
