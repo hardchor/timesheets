@@ -78,12 +78,13 @@ export default function job(state = initialState, action) {
         };
       }
 
+      const issues = action.payload || [];
       let newState = {
         ...state,
         importError: false,
       };
       // go through each body, finding "Tracks #..."
-      action.payload.forEach(issue => {
+      issues.forEach(issue => {
         const identifiers = [
           // for issues
           ...getProjectIdentifiers(issue.body),
@@ -99,10 +100,18 @@ export default function job(state = initialState, action) {
     }
 
     case GET_GITHUB_ISSUES_ASSIGNED_TO_USER: {
+      if (action.error) {
+        return {
+          ...state,
+          importError: true,
+        };
+      }
+
+      const issues = action.payload || [];
       let newState = { ...state };
 
       // extract projects, add updatedAt to project
-      action.payload.forEach(issue => {
+      issues.forEach(issue => {
         const identifiers = [
           // for issues
           ...getProjectIdentifiers(issue.body),

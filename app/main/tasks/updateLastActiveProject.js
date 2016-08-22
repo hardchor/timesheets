@@ -10,7 +10,9 @@ export default function updateLastActiveProject(store) {
       },
     } = store.getState();
 
-    store.dispatch(getGithubIssuesAssignedToUser(accessToken));
+    if (accessToken) {
+      store.dispatch(getGithubIssuesAssignedToUser(accessToken));
+    }
   }
 
   // every 5 minutes
