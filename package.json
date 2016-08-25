@@ -43,7 +43,7 @@
   ],
   "homepage": "https://github.com/hardchor/timesheets#readme",
   "dependencies": {
-    "asar": "^0.12.1",
+    "asar": "^0.12.2",
     "babel-core": "^6.7.6",
     "babel-eslint": "^6.0.2",
     "babel-loader": "^6.2.5",
