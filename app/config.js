@@ -8,8 +8,8 @@ dotenv.config({
 
 const config = {
   github: {
-    clientId: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    authUrl: 'https://timesheets-app.herokuapp.com/github/auth',
+    tokenUrl: 'https://timesheets-app.herokuapp.com/github/token',
     // Scopes limit access for OAuth tokens.
     scopes: [
       'repo',

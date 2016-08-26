@@ -26,20 +26,14 @@ export default function github(state = initialState, action) {
         return {
           ...state,
           error: true,
-          twofa: !!payload.twofa,
-          twofaFailed: !!state.twofa,
-          tokenExists: !!payload.tokenExists,
         };
       }
 
       return {
         ...state,
-        error: false,
-        twofa: false,
-        twofaFailed: false,
-        tokenExists: false,
-        accessToken: payload.token,
-        scope: payload.scopes,
+        accessToken: payload.access_token,
+        tokenType: payload.token_type,
+        scope: payload.scope.split(','),
         username: meta.username,
       };
 

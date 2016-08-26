@@ -1,10 +1,9 @@
 /* eslint-disable max-len */
 import React, { PropTypes } from 'react';
-import { Grid, Cell } from 'react-mdl';
+import { Grid, Cell, Button } from 'react-mdl';
 import config from '../../../../config';
 import RepositoryList from './RepositoryList';
 import TrackedRepositoryList from './TrackedRepositoryList';
-import GithubAuth from './GithubAuth';
 
 // TODO: link to unlink account (remove token via API + delete from state)
 function Github({
@@ -29,13 +28,21 @@ function Github({
         <h1>Github</h1>
 
         {authRequired &&
-          <GithubAuth
-            onSubmit={({ username, password, twofa }) => requestAuthenticateGithub(username, password, twofa)}
-            github={github}
-          />
+          <div>
+            <p>Log in with Github</p>
+            <Button onClick={requestAuthenticateGithub} raised accent ripple>Connect</Button>
+          </div>
         }
 
-        {additionalScopesRequired && <div>Give me more permissions</div>}
+        {!authRequired && additionalScopesRequired &&
+          <div>
+            <p>
+              Additional permissions required:
+              <pre>{diff.join(', ')}</pre>
+            </p>
+            <Button onClick={requestAuthenticateGithub} raised accent ripple>Grant</Button>
+          </div>
+        }
 
         {!authRequired && !additionalScopesRequired &&
           <div>
