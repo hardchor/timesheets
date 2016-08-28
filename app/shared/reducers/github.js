@@ -21,7 +21,7 @@ export default function github(state = initialState, action) {
   const { type, payload, error, meta } = action;
 
   switch (type) {
-    case AUTHENTICATE_GITHUB:
+    case AUTHENTICATE_GITHUB: {
       if (error) {
         return {
           ...state,
@@ -29,13 +29,16 @@ export default function github(state = initialState, action) {
         };
       }
 
+      const { accessToken, tokenType, scope } = payload;
+
       return {
         ...state,
-        accessToken: payload.access_token,
-        tokenType: payload.token_type,
-        scope: payload.scope.split(','),
+        accessToken,
+        tokenType,
+        scope: scope.split(','),
         username: meta.username,
       };
+    }
 
     case GET_GITHUB_REPOS: {
       if (error) return state;

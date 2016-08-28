@@ -1,7 +1,10 @@
 import { BrowserWindow } from 'electron';
+import url from 'url';
 import config from '../config';
 
-const { scopes, authUrl, tokenUrl } = config.github;
+const { authUrl, tokenUrl, resultUrl } = config.github;
+const tokenUrlRegex = RegExp(`^${tokenUrl}`);
+const resultUrlRegex = RegExp(`^${resultUrl}`);
 
 let authWindow;
 
@@ -24,26 +27,21 @@ export default function createGithubAuthWindow() {
   // TODO: move below to own module
   return new Promise((resolve, reject) => {
     function handleCallback(newUrl) {
-      // const { query } = url.parse(newUrl, true);
-      // const { code, error } = query;
-      console.log('##### redirect', newUrl);
-      // TODO: parse body for {access_token, scope, token_type}
+      if (tokenUrlRegex.test(newUrl)) authWindow.hide();
+      if (!resultUrlRegex.test(newUrl)) return;
 
-      // if (code || error) {
-      //   // Close the browser if code found or error
-      //   authWindow.close();
-      // }
+      authWindow.close();
 
-      resolve('123code');
-      // if (code) {
-        // TODO: resolve with code
-      // } else if (error) {
-      //   reject('Oops! Something went wrong and we couldn\'t' +
-      //   'log you in using Github. Please try again.');
-      // }
+      const { query } = url.parse(newUrl, true);
+      const { access_token: accessToken, scope, token_type: tokenType, error } = query;
+
+      if (accessToken) {
+        resolve({ accessToken, scope, tokenType });
+      } else {
+        reject(error || 'No access token or error');
+      }
     }
 
-    // Handle the response from GitHub
 
     authWindow.webContents.on('will-navigate', (event, newUrl) => {
       setImmediate(() => handleCallback(newUrl));

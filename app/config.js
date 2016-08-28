@@ -10,6 +10,7 @@ const config = {
   github: {
     authUrl: 'https://timesheets-app.herokuapp.com/github/auth',
     tokenUrl: 'https://timesheets-app.herokuapp.com/github/token',
+    resultUrl: 'https://timesheets-app.herokuapp.com/github/result',
     // Scopes limit access for OAuth tokens.
     scopes: [
       'repo',
