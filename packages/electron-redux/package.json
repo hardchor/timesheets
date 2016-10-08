@@ -1,0 +1,15 @@
+{
+  "name": "electron-redux",
+  "version": "0.0.1",
+  "description": "Use redux in the main and browser process in electron",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "electron",
+    "redux"
+  ],
+  "author": "Burkhard Reffeling <burkhard.reffeling@gmail.com>",
+  "license": "MIT"
+}
