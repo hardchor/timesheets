@@ -1,12 +1,24 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
 import assert from 'assert';
-import { ALIASED } from '../../actions';
-import { aliases as githubAliases } from '../../actions/github';
+import { ALIASED } from '../actions';
 
-const aliases = {
-  ...githubAliases,
-};
+// TODO: move to alias registry
+const aliases = {};
+
+export function createAliasedAction(name, actionCreator) {
+  // register
+  aliases[name] = actionCreator;
+
+  // factory
+  return (...args) => ({
+    type: ALIASED,
+    payload: args,
+    meta: {
+      trigger: name,
+    },
+  });
+}
 
 const triggerAlias = store => next => action => {
   // TODO: store.dispatch() instead to not skip any middleware

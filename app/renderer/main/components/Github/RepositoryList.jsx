@@ -3,13 +3,13 @@ import VirtualizedSelect from 'react-virtualized-select';
 
 class RepositoryList extends Component {
   static propTypes = {
-    requestGetGithubRepos: PropTypes.func.isRequired,
+    getGithubRepos: PropTypes.func.isRequired,
     trackGithubRepo: PropTypes.func.isRequired,
     github: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
-    this.props.requestGetGithubRepos(this.props.github.accessToken);
+    this.props.getGithubRepos(this.props.github.accessToken);
   }
 
   render() {

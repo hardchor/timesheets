@@ -6,11 +6,14 @@ import createLogger from 'redux-logger';
 import { hashHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 import getRootReducer from '../reducers';
-import forwardToMain from './middleware/forwardToMain';
-import forwardToRenderer from './middleware/forwardToRenderer';
-import triggerAlias from './middleware/triggerAlias';
+import { forwardToMain, forwardToRenderer, triggerAlias } from '../../../packages/electron-redux';
 import DevTools from '../../renderer/main/components/DevTools';
 
+/**
+ * @param  {Object} initialState
+ * @param  {String} [scope='main|renderer']
+ * @return {Object} store
+ */
 export default function configureStore(initialState, scope = 'main') {
   const logger = createLogger({
     level: scope === 'main' ? undefined : 'info',
