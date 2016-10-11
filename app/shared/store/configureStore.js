@@ -6,7 +6,7 @@ import createLogger from 'redux-logger';
 import { hashHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 import getRootReducer from '../reducers';
-import { forwardToMain, forwardToRenderer, triggerAlias } from '../../../packages/electron-redux';
+import { forwardToMain, forwardToRenderer, triggerAlias } from 'electron-redux';
 import DevTools from '../../renderer/main/components/DevTools';
 
 /**

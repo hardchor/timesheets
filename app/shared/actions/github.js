@@ -2,7 +2,7 @@ import githubAuth from '../../main/api/requestGithubToken';
 import getRepos from '../../main/api/getRepos';
 import importProjects from '../../main/api/importProjects';
 import getIssuesForUser from '../../main/api/getIssuesForUser';
-import { createAliasedAction } from '../../../packages/electron-redux';
+import { createAliasedAction } from 'electron-redux';
 
 // Authenticate
 export const AUTHENTICATE_GITHUB = 'AUTHENTICATE_GITHUB';
