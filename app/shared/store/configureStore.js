@@ -6,7 +6,13 @@ import createLogger from 'redux-logger';
 import { hashHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 import getRootReducer from '../reducers';
-import { forwardToMain, forwardToRenderer, triggerAlias } from 'electron-redux';
+import {
+  forwardToMain,
+  forwardToRenderer,
+  triggerAlias,
+  replayActionMain,
+  replayActionRenderer,
+} from 'electron-redux';
 import DevTools from '../../renderer/main/components/DevTools';
 
 /**
@@ -67,6 +73,12 @@ export default function configureStore(initialState, scope = 'main') {
     module.hot.accept('../reducers', () => {
       store.replaceReducer(require('../reducers'));
     });
+  }
+
+  if (scope === 'main') {
+    replayActionMain(store);
+  } else {
+    replayActionRenderer(store);
   }
 
   return store;

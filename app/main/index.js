@@ -32,10 +32,6 @@ async function start() {
     await storage.set('state', global.state);
   });
 
-  ipcMain.on('redux-action', (event, payload) => {
-    store.dispatch(payload);
-  });
-
   app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
   });

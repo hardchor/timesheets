@@ -1,5 +1,5 @@
 import '../shared/init';
-import { ipcRenderer, remote } from 'electron';
+import { remote } from 'electron';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -12,10 +12,6 @@ const initialState = remote.getGlobal('state');
 
 const store = configureStore(initialState, 'renderer');
 const history = syncHistoryWithStore(hashHistory, store);
-
-ipcRenderer.on('redux-action', (event, payload) => {
-  store.dispatch(payload);
-});
 
 render(
   <Provider store={store}>
