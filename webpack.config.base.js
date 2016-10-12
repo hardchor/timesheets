@@ -19,6 +19,10 @@ export default {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main'],
+    fallback: [path.join(__dirname, 'node_modules')],
+  },
+  resolveLoader: {
+    fallback: [path.join(__dirname, 'node_modules')],
   },
   plugins: [
 
