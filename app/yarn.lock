@@ -317,9 +317,9 @@ electron-positioner@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/electron-positioner/-/electron-positioner-3.0.0.tgz#1a3b75c9cc1e29dd37c663b23fd876d4ffab9996"
 
-electron-redux@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/electron-redux/-/electron-redux-1.1.2.tgz#a030b704c3ff1ade21d34171d97a052a6564df73"
+electron-redux:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/electron-redux/-/electron-redux-1.2.0.tgz#76c46c8b86d812a4042f1179b572c48fac1caef8"
   dependencies:
     electron "^1.4.3"
     redux "^3.4.0"
