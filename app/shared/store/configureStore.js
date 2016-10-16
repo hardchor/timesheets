@@ -5,7 +5,6 @@ import promise from 'redux-promise';
 import createLogger from 'redux-logger';
 import { hashHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
-import getRootReducer from '../reducers';
 import {
   forwardToMain,
   forwardToRenderer,
@@ -13,6 +12,7 @@ import {
   replayActionMain,
   replayActionRenderer,
 } from 'electron-redux';
+import getRootReducer from '../reducers';
 import DevTools from '../../renderer/main/components/DevTools';
 
 /**

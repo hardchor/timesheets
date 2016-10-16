@@ -8,9 +8,6 @@ import configureStore from '../shared/store/configureStore';
 import tray from './tray';
 import tasks from './tasks';
 
-// we have to do this to ease remote-loading of the initial state :(
-global.state = {};
-
 const storage = pify(jsonStorage);
 
 if (process.env.NODE_ENV === 'development') {
@@ -22,14 +19,12 @@ async function start() {
   // set-up menu bar
   const appIcon = tray();
 
-  global.state = await storage.get('state');
   const store = configureStore(global.state, 'main');
 
   store.subscribe(async () => {
-    global.state = store.getState();
     // persist store changes
     // TODO: should this be blocking / wait? _.throttle?
-    await storage.set('state', global.state);
+    await storage.set('state', store.getState());
   });
 
   app.on('window-all-closed', () => {
