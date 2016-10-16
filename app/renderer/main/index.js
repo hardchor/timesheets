@@ -1,21 +1,18 @@
 import '../shared/init';
-import { ipcRenderer, remote } from 'electron';
+import { remote } from 'electron';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from '../../shared/store/configureStore';
+import { getInitialStateRenderer } from 'electron-redux';
 import routes from './routes';
 
-const initialState = remote.getGlobal('state');
+const initialState = getInitialStateRenderer();
 
 const store = configureStore(initialState, 'renderer');
 const history = syncHistoryWithStore(hashHistory, store);
-
-ipcRenderer.on('redux-action', (event, payload) => {
-  store.dispatch(payload);
-});
 
 render(
   <Provider store={store}>

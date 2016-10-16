@@ -4,7 +4,7 @@ import styles from './github.css';
 
 function TrackedRepositoryList({
   untrackGithubRepo,
-  requestImportGithubProjects,
+  importGithubProjects,
   github,
   project,
 }) {
@@ -16,7 +16,7 @@ function TrackedRepositoryList({
       <div>
         <Tooltip label="Import projects">
           <IconButton
-            onClick={() => requestImportGithubProjects(accessToken, fullName)}
+            onClick={() => importGithubProjects(accessToken, fullName)}
             name="sync"
             className={styles.actionButton}
             raised ripple accent
@@ -65,7 +65,7 @@ function TrackedRepositoryList({
 
 TrackedRepositoryList.propTypes = {
   untrackGithubRepo: PropTypes.func.isRequired,
-  requestImportGithubProjects: PropTypes.func.isRequired,
+  importGithubProjects: PropTypes.func.isRequired,
   github: PropTypes.object.isRequired,
   project: PropTypes.object.isRequired,
 };

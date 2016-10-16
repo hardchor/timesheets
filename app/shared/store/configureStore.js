@@ -5,12 +5,21 @@ import promise from 'redux-promise';
 import createLogger from 'redux-logger';
 import { hashHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
+import {
+  forwardToMain,
+  forwardToRenderer,
+  triggerAlias,
+  replayActionMain,
+  replayActionRenderer,
+} from 'electron-redux';
 import getRootReducer from '../reducers';
-import forwardToMain from './middleware/forwardToMain';
-import forwardToRenderer from './middleware/forwardToRenderer';
-import triggerAlias from './middleware/triggerAlias';
 import DevTools from '../../renderer/main/components/DevTools';
 
+/**
+ * @param  {Object} initialState
+ * @param  {String} [scope='main|renderer']
+ * @return {Object} store
+ */
 export default function configureStore(initialState, scope = 'main') {
   const logger = createLogger({
     level: scope === 'main' ? undefined : 'info',
@@ -64,6 +73,12 @@ export default function configureStore(initialState, scope = 'main') {
     module.hot.accept('../reducers', () => {
       store.replaceReducer(require('../reducers'));
     });
+  }
+
+  if (scope === 'main') {
+    replayActionMain(store);
+  } else {
+    replayActionRenderer(store);
   }
 
   return store;

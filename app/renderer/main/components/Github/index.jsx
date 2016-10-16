@@ -8,11 +8,11 @@ import GithubAuth from './GithubAuth';
 
 // TODO: link to unlink account (remove token via API + delete from state)
 function Github({
-  requestAuthenticateGithub,
-  requestGetGithubRepos,
+  authenticateGithub,
+  getGithubRepos,
   trackGithubRepo,
   untrackGithubRepo,
-  requestImportGithubProjects,
+  importGithubProjects,
   github,
   project,
 }) {
@@ -30,7 +30,7 @@ function Github({
 
         {authRequired &&
           <GithubAuth
-            onSubmit={({ username, password, twofa }) => requestAuthenticateGithub(username, password, twofa)}
+            onSubmit={({ username, password, twofa }) => authenticateGithub(username, password, twofa)}
             github={github}
           />
         }
@@ -40,13 +40,13 @@ function Github({
         {!authRequired && !additionalScopesRequired &&
           <div>
             <RepositoryList
-              requestGetGithubRepos={requestGetGithubRepos}
+              getGithubRepos={getGithubRepos}
               trackGithubRepo={trackGithubRepo}
               github={github}
             />
             <TrackedRepositoryList
               untrackGithubRepo={untrackGithubRepo}
-              requestImportGithubProjects={requestImportGithubProjects}
+              importGithubProjects={importGithubProjects}
               github={github}
               project={project}
             />
@@ -58,11 +58,11 @@ function Github({
 }
 
 Github.propTypes = {
-  requestAuthenticateGithub: PropTypes.func.isRequired,
-  requestGetGithubRepos: PropTypes.func.isRequired,
+  authenticateGithub: PropTypes.func.isRequired,
+  getGithubRepos: PropTypes.func.isRequired,
   trackGithubRepo: PropTypes.func.isRequired,
   untrackGithubRepo: PropTypes.func.isRequired,
-  requestImportGithubProjects: PropTypes.func.isRequired,
+  importGithubProjects: PropTypes.func.isRequired,
   github: PropTypes.object.isRequired,
   project: PropTypes.object.isRequired,
 };
