@@ -84,7 +84,7 @@
     "webfont-dl": "^0.1.2",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.10.0"
+    "webpack-hot-middleware": "^2.13.1"
   },
   "devDependencies": {
     "electron-builder": "^6.0.2",
