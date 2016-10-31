@@ -8,9 +8,10 @@ const initialState = {
 export default function counter(state = initialState, action) {
   switch (action.type) {
     case INCREMENT_COUNTER: {
+      const step = action.payload || 1;
       return {
         ...state,
-        count: state.count + 1,
+        count: state.count + step,
       };
     }
 

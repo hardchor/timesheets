@@ -317,7 +317,7 @@ electron-positioner@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/electron-positioner/-/electron-positioner-3.0.0.tgz#1a3b75c9cc1e29dd37c663b23fd876d4ffab9996"
 
-electron-redux@^1.2.1:
+electron-redux:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/electron-redux/-/electron-redux-1.2.1.tgz#9e1fde6b201a743909a836e977d42b075381260e"
   dependencies:
