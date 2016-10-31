@@ -17,6 +17,7 @@ function Home({ increment, incrementAsync, counter }) {
 
 Home.propTypes = {
   increment: PropTypes.func.isRequired,
+  incrementAsync: PropTypes.func.isRequired,
   counter: PropTypes.object.isRequired,
 };
 
