@@ -6,6 +6,7 @@ import job from './job';
 import project from './project';
 import github from './github';
 import settings from './settings';
+import counter from './counter';
 
 export default function getRootReducer(scope = 'main') {
   let reducers = {
@@ -14,6 +15,7 @@ export default function getRootReducer(scope = 'main') {
     project,
     github,
     settings,
+    counter,
   };
 
   if (scope === 'renderer') {
