@@ -46,3 +46,37 @@ export const incrementByAsyncMain = createAliasedAction(
   `${INCREMENT_COUNTER}_BY_ASYNC_MAIN`,
   incrementByAsync
 );
+
+export function incrementPromise() {
+  return {
+    type: INCREMENT_COUNTER,
+    payload: {
+      promise: new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      }),
+    },
+  };
+}
+
+export const incrementPromiseMain = createAliasedAction(
+  `${INCREMENT_COUNTER}_PROMISE_MAIN`,
+  incrementPromise
+);
+
+export function incrementPromiseLocal() {
+  return {
+    type: INCREMENT_COUNTER,
+    payload: {
+      promise: new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      }),
+    },
+    meta: {
+      scope: 'local',
+    },
+  };
+}

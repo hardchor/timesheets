@@ -1,7 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistState } from 'redux-devtools';
 import thunk from 'redux-thunk';
-import promise from 'redux-promise';
+// import promise from 'redux-promise';
+import promise from 'redux-promise-middleware';
 import createLogger from 'redux-logger';
 import { hashHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
@@ -29,7 +30,7 @@ export default function configureStore(initialState, scope = 'main') {
 
   let middleware = [
     thunk,
-    promise,
+    promise(),
   ];
 
   if (!process.env.NODE_ENV) {

@@ -46,6 +46,7 @@
     "redux-form": "^6.0.0-alpha.14",
     "redux-logger": "^2.6.1",
     "redux-promise": "^0.5.3",
+    "redux-promise-middleware": "^4.1.0",
     "redux-thunk": "^2.0.1"
   }
 }
