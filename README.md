@@ -50,8 +50,7 @@ yarn dev
 To package the app for local testing, run:
 
 ```bash
-yarn build
-yarn pack
+yarn dist
 ```
 
 ### Release
