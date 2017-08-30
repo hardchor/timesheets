@@ -23,7 +23,7 @@ git clone https://github.com/hardchor/timesheets.git
 And then install dependencies.
 
 ```bash
-$ cd timesheets && npm install
+$ cd timesheets && yarn
 ```
 
 
@@ -32,17 +32,17 @@ $ cd timesheets && npm install
 Run these two commands __simultaneously__ in different console tabs:
 
 ```bash
-npm run hot-server
-npm run start-hot
+yarn hot-server
+yarn start-hot
 ```
 
 or run both with one command:
 
 ```bash
-npm run dev
+yarn dev
 ```
 
-*Note: requires a node version >= 4 and an npm version >= 2.*
+*Note: requires a node version >= 8 and yarn*
 
 
 ### Package and Release
@@ -50,8 +50,8 @@ npm run dev
 To package the app for local testing, run:
 
 ```bash
-npm run build
-npm run pack
+yarn build
+yarn pack
 ```
 
 ### Release
@@ -59,7 +59,7 @@ npm run pack
 After you've bumped the version number in `app/package.json`, run:
 
 ```bash
-GH_TOKEN=... CSC_NAME=... npm run release
+GH_TOKEN=... CSC_NAME=... yarn release
 ```
 
 Then, head over to https://github.com/hardchor/timesheets/releases and publish.
